@@ -156,7 +156,7 @@
   <div>
     <p class="role">Product manager for data, search and AI products, based in Kraków</p>
     <h1>I build working products to understand product problems.</h1>
-    <p class="lead">Each project runs on a real API or platform. Each one documents the problem, the trade-offs, what I found, and how it changed version by version. The reasoning is the point.</p>
+    <p class="lead">Each project runs on a real API or platform. Each one documents the problem, the trade-offs, what I found, and how it changed version by version. I publish the reasoning along with the code.</p>
     <div class="actions">
       <a class="btn primary" href="#work">See the work</a>
       <a class="btn" href="https://linkedin.com/in/konstantinosxeras">Contact me on LinkedIn</a>
@@ -190,7 +190,7 @@
         </dl>
       </div>
     </div>
-    <p class="note">Same bed, same size, same six photos. The data was already in the catalogue; the merge was missing. Sandbox data from the Nuitee LiteAPI, 13 Nov 2026, hotel anonymised. <a href="https://github.com/costasxeras-stack/stays/blob/main/docs/case-study.md">Read the case study</a></p>
+    <p class="note">Same bed, same size, same six photos. The data was already in the catalogue, but the two records were never merged. Sandbox data from the Nuitee LiteAPI, 13 Nov 2026, hotel anonymised. <a href="https://github.com/costasxeras-stack/stays/blob/main/docs/case-study.md">Read the case study</a></p>
   </aside>
 </section>
 
@@ -201,7 +201,26 @@
   <div class="work">
 
     <article class="row">
-      <div class="state"><span class="ver">v0.1.0</span><span class="tag confirmed">Live demo</span></div>
+      <div class="state"><span class="ver">v0.1.0</span><span class="tag">Demo link soon</span></div>
+      <div class="what">
+        <h3>Search Relevance Lab</h3>
+        <p class="on">BM25, sentence embeddings, open WANDS dataset</p>
+        <p>Search teams argue about relevance from a handful of example queries. This app runs one query through keyword, semantic and re-ranked search on a catalogue of 42,994 products, and scores each method against labels that people made by hand.</p>
+        <div class="links">
+          <a href="https://github.com/costasxeras-stack/search-relevance-lab/blob/main/docs/case-study.md">Case study</a>
+          <a href="https://github.com/costasxeras-stack/search-relevance-lab/tree/main/docs/decisions">Decisions</a>
+          <a href="https://github.com/costasxeras-stack/search-relevance-lab">Repo</a>
+        </div>
+      </div>
+      <div class="showed">
+        <div class="item"><span class="tag confirmed">Confirmed on test queries</span><p>Letting any query word match lifted nDCG@10 from 0.406 to 0.704. The learned blend added 0.034 on top.</p></div>
+        <div class="item"><span class="tag hypothesis">Hypothesis</span><p>Semantic search is under-scored, because only 65% of its top results have a label.</p></div>
+        <p class="src">Open WANDS dataset, 192 held-out test queries, scored 16 Nov 2026. Furniture and home goods only.</p>
+      </div>
+    </article>
+
+    <article class="row">
+      <div class="state"><span class="ver">v0.1.1</span><span class="tag confirmed">Live demo</span></div>
       <div class="what">
         <h3>Review Radar</h3>
         <p class="on">Claude API, App Store and Google Play reviews</p>
@@ -220,7 +239,7 @@
     </article>
 
     <article class="row">
-      <div class="state"><span class="ver">v0.1.0</span><span class="tag">Tested, no pilot yet</span></div>
+      <div class="state"><span class="ver">v0.1.1</span><span class="tag">Tested, no pilot yet</span></div>
       <div class="what">
         <h3>Garage Quote Agent</h3>
         <p class="on">n8n, Claude, WhatsApp</p>
@@ -239,7 +258,7 @@
     </article>
 
     <article class="row">
-      <div class="state"><span class="ver">v1.4.0</span><span class="tag confirmed">Live demo</span></div>
+      <div class="state"><span class="ver">v1.4.1</span><span class="tag confirmed">Live demo</span></div>
       <div class="what">
         <h3>KostasTravel</h3>
         <p class="on">Nuitee LiteAPI, room mapping and content quality</p>
@@ -251,8 +270,8 @@
         </div>
       </div>
       <div class="showed">
-        <div class="item"><span class="tag confirmed">Confirmed in sandbox data</span><p>533 of 533 supplier rates resolved to a master room. Coverage was not the problem.</p></div>
-        <div class="item"><span class="tag confirmed">Confirmed in sandbox data</span><p>Precision and content were. Three hotels held two master rooms under an identical name.</p></div>
+        <div class="item"><span class="tag confirmed">Confirmed in sandbox data</span><p>533 of 533 supplier rates resolved to a master room, so coverage was fine.</p></div>
+        <div class="item"><span class="tag confirmed">Confirmed in sandbox data</span><p>The problems were precision and content. Three hotels held two master rooms under an identical name.</p></div>
         <p class="src">LiteAPI sandbox, Kraków, 40 hotels analysed in depth, 13 Nov 2026. Illustrative, not production figures. Free hosting can take a minute to wake up.</p>
       </div>
     </article>
