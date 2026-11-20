@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KostasTravel · Konstantinos Xeras</title>
+<meta name="description" content="A hotel booking site and room-mapping explorer on the Nuitee LiteAPI. Coverage was 100%, yet guests could still see the wrong room.">
+<meta property="og:title" content="KostasTravel, a project by Konstantinos Xeras">
+<meta property="og:description" content="A hotel booking site and room-mapping explorer on the Nuitee LiteAPI. Coverage was 100%, yet guests could still see the wrong room.">
+<meta property="og:type" content="article">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%238f9bff'/%3E%3Ctext x='16' y='22' font-family='Arial,sans-serif' font-weight='700' font-size='15' fill='%230b0d12' text-anchor='middle'%3EKX%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="../">Kostas Xeras<span>.</span></a>
+    <button class="menu-btn" aria-label="Menu" aria-expanded="false">☰</button>
+    <nav aria-label="Main">
+      <a href="../#about">About</a>
+      <a href="../#experience">Experience</a>
+      <a href="../#work">My work</a>
+      <a href="../#contact" class="btn primary small">Get in touch</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="p-hero">
+  <div class="wrap">
+    <a class="back" href="../#work">← All projects</a>
+    <div class="meta" style="display:flex;gap:10px;flex-wrap:wrap"><span class="tag ver">v1.4.2</span><span class="tag confirmed">Live demo</span></div>
+    <h1>KostasTravel</h1>
+    <p class="lead">A hotel room reaches a booking site through several suppliers, each with its own name for it. A mapping layer decides which master room every supplier rate belongs to, and the guest sees that room's photos, beds and amenities. I wanted to find where this goes wrong, and how a guest would notice.</p>
+    <div class="p-links"><a class="btn primary" href="https://kostastravel.onrender.com">Open the live demo <span class="arrow">→</span></a><a class="btn" href="https://github.com/costasxeras-stack/stays/blob/main/docs/case-study.md">Full case study</a><a class="btn" href="https://github.com/costasxeras-stack/stays">Repo</a></div>
+    <dl class="p-meta"><div><dt>API</dt><dd>Nuitee LiteAPI (sandbox)</dd></div><div><dt>Market</dt><dd>Kraków, 40 hotels in depth</dd></div><div><dt>Data date</dt><dd>13 Nov 2026</dd></div><div><dt>Status</dt><dd>v1.4.2, live demo</dd></div></dl>
+  </div>
+</section>
+
+<div class="wrap p-body">
+  <nav class="toc" aria-label="On this page"><a href="#approach">Approach</a><a href="#numbers">Headline numbers</a><a href="#findings">Findings</a><a href="#learned">What I learned as a PM</a><a href="#next">What I would do next</a></nav>
+  <article class="prose">
+    <section id="approach">
+      <h2>Approach</h2>
+      <ol>
+        <li>Built the guest view first: a complete booking site, from search to payment and cancellation.</li>
+        <li>Built an explorer for the machinery. For each hotel it puts the content catalogue (every master room) next to the rates (every supplier rate and the room it was mapped to).</li>
+        <li>Scanned a real market: Kraków, 12–14 December 2026, 2 adults. I looked in depth at the 40 hotels with the most offers.</li>
+        <li>Checked every candidate by hand before calling it a finding: room names, prices, bed lists and the photo files.</li>
+      </ol>
+    </section>
+    <section id="numbers">
+      <h2>Headline numbers</h2>
+      <div class="table-wrap two"><table><thead><tr><th>Measure</th><th>Result</th></tr></thead><tbody><tr><td>Hotels with rates in Kraków</td><td class="n">92</td></tr><tr><td>Hotels analysed in depth</td><td class="n">40</td></tr><tr><td>Supplier rates resolved to a master room</td><td class="n">533 of 533</td></tr><tr><td>Master rooms in the catalogue / with a live rate</td><td class="n">354 / 181</td></tr><tr><td>Hotels with two master rooms under an identical name</td><td class="n">3</td></tr><tr><td>Hotels with a confirmed tier swap</td><td class="n">1</td></tr><tr><td>Bookable rooms with a one-line description</td><td class="n">12 of 181</td></tr></tbody></table></div>
+      <p class="src">LiteAPI sandbox data, 13 Nov 2026. Illustrative, not production figures. Hotel names are anonymised.</p>
+    </section>
+    <section id="findings">
+      <h2>Findings</h2>
+      <div class="finding"><span class="tag confirmed">Confirmed in sandbox data</span><h3>The same room stored twice, with prices on the empty copy</h3><p>Hotel A holds two master rooms called "Classic Plus Queen": same bed, same 19 sqm, same six photos. All 4 live rates link to the record with 0 amenities and a one-line description. The record with 41 amenities and a full description never gets a price, so no guest sees it. The data exists. The merge is missing.</p></div>
+      <div class="finding"><span class="tag confirmed">Confirmed in sandbox data</span><h3>Two room tiers mapped the wrong way round</h3><p>At Hotel B, the supplier's "Deluxe" rate (about €423) is mapped to the Grand Deluxe room, and the "Grand Deluxe" rate (about €475) to the Deluxe room. A guest paying for one is shown the other. The two rooms share three photos, so a reviewer looking at pictures would not catch it.</p></div>
+      <div class="finding"><span class="tag confirmed">Confirmed in sandbox data</span><h3>Different price tiers, the same pictures</h3><p>At Hotel C, the Standard twin (16 m²) and the Deluxe twin (25 m²) share 8 of 9 photos. The Deluxe costs about €120 more for two nights, and the content gives a guest no way to see why.</p></div>
+      <div class="finding"><span class="tag hypothesis">Hypothesis</span><h3>Duplicates come from a second content source</h3><p>The record IDs suggest the richer content was added as a new room instead of being merged into the existing one.</p></div>
+    </section>
+    <section id="learned">
+      <h2>What I learned as a PM</h2>
+      <ul>
+        <li>Coverage can look perfect while quality fails. 100% of rates were mapped, and guests could still see the wrong room or an empty one.</li>
+        <li>Look at the product the way the guest does, then go one layer down.</li>
+        <li>My own keyword rules flagged false positives ("Classic" mapped to "Standard" is a synonym, not an error). Anything rule-based needs a human review step before it counts.</li>
+      </ul>
+    </section>
+    <section id="next">
+      <h2>What I would do next</h2>
+      <ol>
+        <li>Detect duplicate master rooms automatically, by bed type, size, shared photos and name similarity, with a human review band.</li>
+        <li>Define survivorship rules that keep the best source field by field.</li>
+        <li>Flag tier swaps with a price signal.</li>
+        <li>Prioritise fixes by booking value, not by count.</li>
+      </ol>
+      <p class="src">Limits: sandbox data, one market, one date range, 40 hotels. The counts show each pattern exists, not how common it is. Free hosting can take a minute to wake up.</p>
+    </section>
+    <div class="next"><a class="plink" href="garage-quote-agent.html"><small>← Previous</small><b>Garage Quote Agent</b></a><a class="plink right" href="../#contact"><small>Next <span class="arrow">→</span></small><b>Get in touch</b></a></div>
+  </article>
+</div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span>© <span data-year>2026</span> Konstantinos Xeras</span>
+    <span class="fl"><a href="../#about">About</a><a href="../#work">My work</a><a href="../#contact">Contact</a><a href="https://github.com/costasxeras-stack">GitHub</a></span>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>

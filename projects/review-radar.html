@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Review Radar · Konstantinos Xeras</title>
+<meta name="description" content="Turns app reviews from every store, country and language into ranked themes, with the original reviews behind every rank.">
+<meta property="og:title" content="Review Radar, a project by Konstantinos Xeras">
+<meta property="og:description" content="Turns app reviews from every store, country and language into ranked themes, with the original reviews behind every rank.">
+<meta property="og:type" content="article">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%238f9bff'/%3E%3Ctext x='16' y='22' font-family='Arial,sans-serif' font-weight='700' font-size='15' fill='%230b0d12' text-anchor='middle'%3EKX%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="../">Kostas Xeras<span>.</span></a>
+    <button class="menu-btn" aria-label="Menu" aria-expanded="false">☰</button>
+    <nav aria-label="Main">
+      <a href="../#about">About</a>
+      <a href="../#experience">Experience</a>
+      <a href="../#work">My work</a>
+      <a href="../#contact" class="btn primary small">Get in touch</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="p-hero">
+  <div class="wrap">
+    <a class="back" href="../#work">← All projects</a>
+    <div class="meta" style="display:flex;gap:10px;flex-wrap:wrap"><span class="tag ver">v0.1.1</span><span class="tag confirmed">Live demo</span></div>
+    <h1>Review Radar</h1>
+    <p class="lead">Product teams sit on thousands of app reviews spread across stores, countries and languages, and nobody reads them all. Review Radar collects them, has Claude group them into themes with a severity score, and ranks what to fix first, with the original reviews behind every rank.</p>
+    <div class="p-links"><a class="btn primary" href="https://reviews.kostasxeras.com">Open the live demo <span class="arrow">→</span></a><a class="btn" href="https://github.com/costasxeras-stack/Review-radar/tree/main/docs/decisions">Decisions</a><a class="btn" href="https://github.com/costasxeras-stack/Review-radar">Repo</a></div>
+    <dl class="p-meta"><div><dt>Sources</dt><dd>App Store and Google Play</dd></div><div><dt>AI</dt><dd>Claude API</dd></div><div><dt>Data so far</dt><dd>Synthetic only</dd></div><div><dt>Status</dt><dd>v0.1.1, live demo</dd></div></dl>
+  </div>
+</section>
+
+<div class="wrap p-body">
+  <nav class="toc" aria-label="On this page"><a href="#question">The question</a><a href="#approach">How it works</a><a href="#decisions">Product calls</a><a href="#status">Where it stands</a></nav>
+  <article class="prose">
+    <section id="question">
+      <h2>The question</h2>
+      <p>Can every public review of a product, across all markets and languages, be turned into a ranked and explainable fix list? And how far can the AI part be trusted?</p>
+    </section>
+    <section id="approach">
+      <h2>How it works</h2>
+      <ol>
+        <li>Collect reviews from the App Store (all storefronts) and Google Play (all major languages).</li>
+        <li>Claude proposes a list of themes from a balanced sample of reviews.</li>
+        <li>Claude then tags every review against that fixed list, with a severity score.</li>
+        <li>A weighted score ranks the themes by frequency, severity, rating impact and recency.</li>
+      </ol>
+    </section>
+    <section id="decisions">
+      <h2>Product calls</h2>
+      <div class="finding"><span class="tag">Product call</span><h3>One theme list, then tagging against it</h3><p>The AI proposes the themes once and then tags every review against the same list. If it invented new themes for each batch, counts would not compare across markets.</p></div>
+      <div class="finding"><span class="tag">Product call</span><h3>The AI does not choose the order</h3><p>The ranking is a simple weighted score with adjustable weights (35/25/25/15 by default). A product manager can see why a theme is first and change the weights.</p></div>
+      <div class="finding"><span class="tag">Product call</span><h3>Every rank links to the original reviews</h3><p>Each theme shows the reviews behind it, word for word. The AI output is treated as a hypothesis until someone checks it.</p></div>
+    </section>
+    <section id="status">
+      <h2>Where it stands</h2>
+      <p>Version 0.1.1 has been tested end to end with synthetic data only. The first case study on live reviews is in progress, so there are no findings on this page yet. When it is done, it will include how often the AI's themes and severity scores agree with labels I make by hand.</p>
+      <p class="src">Limits: Apple's public feed returns only the 500 most recent reviews per country, Google Play data comes from an unofficial library, and people who write reviews skew to the extremes. Free hosting can take a minute to wake up.</p>
+    </section>
+    <div class="next"><a class="plink" href="search-relevance-lab.html"><small>← Previous</small><b>Search Relevance Lab</b></a><a class="plink right" href="garage-quote-agent.html"><small>Next project <span class="arrow">→</span></small><b>Garage Quote Agent</b></a></div>
+  </article>
+</div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span>© <span data-year>2026</span> Konstantinos Xeras</span>
+    <span class="fl"><a href="../#about">About</a><a href="../#work">My work</a><a href="../#contact">Contact</a><a href="https://github.com/costasxeras-stack">GitHub</a></span>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>
