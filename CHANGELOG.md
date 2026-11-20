@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.8.0 (20 November 2026)
+
+### Added
+- Two new projects with their own pages, cards and screenshots: Recommendation Lab and Duplicate Product Finder.
+
+### Changed
+- Stats strip: 11 working products on GitHub.
+
 ## 2.7.0 (20 November 2026)
 
 ### Added
