@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Experiment Readout · Konstantinos Xeras</title>
+<meta name="description" content="Check an A/B test before you trust it, then get a ship, don&#x27;t ship, run longer or fix-the-data call with the reasons.">
+<meta property="og:title" content="Experiment Readout, a project by Konstantinos Xeras">
+<meta property="og:description" content="Check an A/B test before you trust it, then get a ship, don&#x27;t ship, run longer or fix-the-data call with the reasons.">
+<meta property="og:type" content="article">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%238f9bff'/%3E%3Ctext x='16' y='22' font-family='Arial,sans-serif' font-weight='700' font-size='15' fill='%230b0d12' text-anchor='middle'%3EKX%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="../">Kostas Xeras<span>.</span></a>
+    <button class="menu-btn" aria-label="Menu" aria-expanded="false">☰</button>
+    <nav aria-label="Main">
+      <a href="../#about">About</a>
+      <a href="../#experience">Experience</a>
+      <a href="../#work">My work</a>
+      <a href="../#contact" class="btn primary small">Get in touch</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="p-hero">
+  <div class="wrap">
+    <a class="back" href="../#work">← All projects</a>
+    <div class="meta" style="display:flex;gap:10px;flex-wrap:wrap"><span class="tag ver">v0.1.0</span><span class="tag confirmed">Live demo</span></div>
+    <h1>Experiment Readout</h1>
+    <p class="lead">A/B test readouts often jump to the headline lift. The checks that decide whether it can be trusted come later, or not at all. This app runs those checks first, makes the decision rules visible inputs, and gives one of four calls with the reason that decided it.</p>
+    <div class="p-links"><a class="btn primary" href="https://kostasxeras.com/experiment-readout/">Open the live demo <span class="arrow">→</span></a><a class="btn" href="https://github.com/costasxeras-stack/experiment-readout/blob/main/docs/case-study.md">Full case study</a><a class="btn" href="https://github.com/costasxeras-stack/experiment-readout">Repo</a></div>
+    <dl class="p-meta"><div><dt>Data</dt><dd>Two public A/B tests</dd></div><div><dt>Rows</dt><dd>294,478 and 90,189</dd></div><div><dt>Checked</dt><dd>Against SciPy, 6 of 6</dd></div><div><dt>Status</dt><dd>v0.1.0, live demo</dd></div></dl>
+  </div>
+</section>
+
+<div class="wrap p-body">
+  <nav class="toc" aria-label="On this page"><a href="#question">The question</a><a href="#approach">Approach</a><a href="#findings">Findings</a><a href="#learned">What I learned as a PM</a><a href="#next">What I would do next</a></nav>
+  <article class="prose">
+    <section id="question">
+      <h2>The question</h2>
+      <p>Can a readout stop a team from shipping, or killing, a change on numbers it should not trust? And can the rules behind the call be written down instead of living in someone's head?</p>
+      <figure><img src="../assets/img/er-desktop.webp" alt="Experiment Readout showing a fix-the-data-first call for the mobile game test" loading="lazy" width="1280" height="1440"><figcaption>The game test is blocked by the split check before any metric is read.</figcaption></figure>
+    </section>
+    <section id="approach">
+      <h2>Approach</h2>
+      <ul>
+        <li>Checks before metrics: the split between groups against the plan, users who saw the wrong version, users who appear more than once, sample size, and outliers.</li>
+        <li>Rules as inputs: the smallest lift worth shipping, the guardrail tolerance, the significance level and the planned split. The call updates as they change.</li>
+        <li>Four calls: fix the data first, don't ship, ship, run longer. When the answer is "run longer", the app says how many more users are needed.</li>
+        <li>Load an example, your own CSV (read in the browser, never uploaded), or four typed-in counts.</li>
+      </ul>
+    </section>
+    <section id="findings">
+      <h2>Findings</h2>
+      <div class="finding"><span class="tag confirmed">Confirmed</span><h3>The game test should not be read yet</h3><p>In the Cookie Cats test (90,189 players), the groups are 44,700 and 45,489. With a planned 50/50 split, a gap this large happens by chance with p = 0.0086, so the call is "fix the data first". Ignoring that check, 7-day retention fell from 19.02% to 18.20% (p = 0.0016). That drop is real only if the split problem has a harmless cause.</p></div>
+      <div class="finding"><span class="tag confirmed">Confirmed</span><h3>The landing page test is a clear "don't ship"</h3><p>3,893 rows showed the wrong page and 3,894 users appeared more than once. After removing them, conversion was 12.02% for the old page and 11.87% for the new one (p = 0.23). The 95% interval, −3.18% to +0.77%, rules out the 1% lift the rules ask for.</p></div>
+      <div class="finding"><span class="tag confirmed">Confirmed</span><h3>The call depends on the rules, and the app shows how</h3><p>If a 0.5% lift were worth shipping, the landing page call becomes "run longer", and the test would need about 32 times as many users. Whether that is worth it is a business decision, not a statistical one.</p></div>
+      <div class="finding"><span class="tag hypothesis">Hypothesis</span><h3>Why the game test split is uneven</h3><p>Possible causes include how players were assigned and which players were kept in the export. The dataset alone cannot say which one is true.</p></div>
+    </section>
+    <section id="learned">
+      <h2>What I learned as a PM</h2>
+      <ul>
+        <li>A split check that only warns gets ignored. If it fails, the call should be blocked.</li>
+        <li>"Not significant" is not an answer. Say whether the test could have found the lift that matters.</li>
+        <li>Writing the decision rules down is most of the value. The statistics are standard.</li>
+      </ul>
+    </section>
+    <section id="next">
+      <h2>What I would do next</h2>
+      <ol>
+        <li>A planner that turns a baseline and a needed lift into users and days before the test starts.</li>
+        <li>Several treatment groups, with a correction for multiple comparisons.</li>
+        <li>Lock the rules before the data is loaded, so they cannot be tuned after seeing the result.</li>
+      </ol>
+      <p class="src">Limits: one comparison per test, no sequential testing, normal approximations. The thresholds (1% lift, 1% tolerance, 5% wrong-version limit) are my demo choices, not standards. Both datasets are public teaching data.</p>
+    </section>
+    <div class="next"><a class="plink" href="../#work"><small>← Back</small><b>All projects</b></a><a class="plink right" href="zero-results-fixer.html"><small>Next project <span class="arrow">→</span></small><b>Zero Results Fixer</b></a></div>
+  </article>
+</div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span>© <span data-year>2026</span> Konstantinos Xeras</span>
+    <span class="fl"><a href="../#about">About</a><a href="../#work">My work</a><a href="../#contact">Contact</a><a href="https://github.com/costasxeras-stack">GitHub</a></span>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>
