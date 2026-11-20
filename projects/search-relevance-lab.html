@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Search Relevance Lab · Konstantinos Xeras</title>
-<meta name="description" content="How much does each step up in product search buy? Keyword, semantic and re-ranked search scored on the open WANDS dataset.">
+<meta name="description" content="How much does each step up in product search buy? Keyword, semantic and reranked search scored on the open WANDS dataset.">
 <meta property="og:title" content="Search Relevance Lab, a project by Konstantinos Xeras">
-<meta property="og:description" content="How much does each step up in product search buy? Keyword, semantic and re-ranked search scored on the open WANDS dataset.">
+<meta property="og:description" content="How much does each step up in product search buy? Keyword, semantic and reranked search scored on the open WANDS dataset.">
 <meta property="og:type" content="article">
 <meta name="theme-color" content="#0b0d12">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%238f9bff'/%3E%3Ctext x='16' y='22' font-family='Arial,sans-serif' font-weight='700' font-size='15' fill='%230b0d12' text-anchor='middle'%3EKX%3C/text%3E%3C/svg%3E">
@@ -62,18 +62,18 @@
     <section id="numbers">
       <h2>Headline numbers</h2>
       <div class="table-wrap"><table><thead><tr><th>Method</th><th>nDCG@10</th><th>Queries with no results</th><th>Top-10 results with a label</th></tr></thead><tbody><tr><td>Keyword, every word must match</td><td class="n">0.406</td><td class="n">60 of 192</td><td class="n">86%</td></tr><tr><td>Keyword, any word may match</td><td class="n">0.704</td><td class="n">1 of 192</td><td class="n">87%</td></tr><tr><td>Semantic</td><td class="n">0.497</td><td class="n">0 of 192</td><td class="n">65%</td></tr><tr class="best"><td>Re-ranked blend</td><td class="n">0.738</td><td class="n">0 of 192</td><td class="n">91%</td></tr></tbody></table></div>
-      <p class="src">WANDS dataset, 192 held-out test queries, scored 16 Nov 2026.</p>
+      <p class="src">WANDS dataset, 192 test queries kept apart from training, scored 16 Nov 2026.</p>
     </section>
     <section id="findings">
       <h2>Findings</h2>
       <div class="finding"><span class="tag confirmed">Confirmed</span><h3>Strict matching was the largest single problem</h3><p>Strict keyword search returned nothing for 60 of 192 test queries (31%). Many contain a brand or collection name that is not in the catalogue text. It was fixed by a match rule, with no model involved.</p></div>
       <div class="finding"><span class="tag confirmed">Numbers confirmed, reason is a hypothesis</span><h3>Relaxing the match rule helped even when strict search had results</h3><p>On the 132 queries where strict search returned something, it scored 0.590. Any-word search scored 0.749 on the same queries. My reading is that strict search often returns fewer than ten products, so good partial matches never appear.</p></div>
-      <div class="finding"><span class="tag confirmed">Confirmed</span><h3>The learned blend added a small step</h3><p>The blend scored 0.738 against 0.704 for any-word keyword search. It won on 80 test queries, lost on 40 and tied on 72. That is about a tenth of the gain from the match rule.</p></div>
-      <div class="finding"><span class="tag hypothesis">Hypothesis</span><h3>Semantic search was scored unfairly</h3><p>Only 65% of semantic search's top-10 results had a label, and unlabelled results count as zero. Semantic search finds products with different wording, which are the least likely to have been labelled. Its real quality is above 0.497, by an amount I can't measure yet.</p></div>
+      <div class="finding"><span class="tag confirmed">Confirmed</span><h3>The learned blend added a small step</h3><p>The blend scored 0.738 against 0.704 for keyword search where any word may match. It won on 80 test queries, lost on 40 and tied on 72. That is about a tenth of the gain from the match rule.</p></div>
+      <div class="finding"><span class="tag hypothesis">Hypothesis</span><h3>Semantic search was scored unfairly</h3><p>Only 65% of semantic search's top 10 results had a label, and unlabelled results count as zero. Semantic search finds products with different wording, which are the least likely to have been labelled. Its real quality is above 0.497, by an amount I can't measure yet.</p></div>
     </section>
     <section id="wrong">
       <h2>What my own approach got wrong</h2>
-      <p>My first scorecard compared strict keyword search, semantic search and the blend. It showed the blend at 0.738 against 0.406, which looked like a big win for re-ranking. But the blend draws its candidates from any-word search, so the comparison mixed two changes. Adding the any-word baseline moved most of the gain to the simpler change.</p>
+      <p>My first scorecard compared strict keyword search, semantic search and the blend. It showed the blend at 0.738 against 0.406, which looked like a big win for reranking. But the blend draws its candidates from any word search, so the comparison mixed two changes. Adding the any word baseline moved most of the gain to the simpler change.</p>
       <figure><img src="../assets/img/srl-scorecard-desktop.webp" alt="Scorecard table with nDCG@10 per method" loading="lazy" width="1280" height="900"><figcaption>The scorecard, with label coverage shown next to every score.</figcaption></figure>
     </section>
     <section id="learned">
@@ -88,9 +88,9 @@
       <h2>What I would do next</h2>
       <ol>
         <li>Add a metric that skips unlabelled results, to put a number on the semantic search gap.</li>
-        <li>Label a sample of the unlabelled semantic results by hand and re-score.</li>
-        <li>Try a current embedding model and a small gradient-boosted ranker.</li>
-        <li>Add spelling correction and measure it on the 60 empty-result queries.</li>
+        <li>Label a sample of the unlabelled semantic results by hand and rescore.</li>
+        <li>Try a current embedding model and a small gradient boosted ranker.</li>
+        <li>Add spelling correction and measure it on the 60 empty result queries.</li>
       </ol>
       <p class="src">Limits: one dataset, one product domain, English queries, an older embedding model, and no click or sales data. Free hosting can take a minute to wake up.</p>
     </section>

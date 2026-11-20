@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Garage Quote Agent · Konstantinos Xeras</title>
-<meta name="description" content="An n8n automation that answers car-repair price requests from WhatsApp, with the garage owner in control of anything unclear.">
+<meta name="description" content="An n8n automation that answers car repair price requests from WhatsApp, with the garage owner in control of anything unclear.">
 <meta property="og:title" content="Garage Quote Agent, a project by Konstantinos Xeras">
-<meta property="og:description" content="An n8n automation that answers car-repair price requests from WhatsApp, with the garage owner in control of anything unclear.">
+<meta property="og:description" content="An n8n automation that answers car repair price requests from WhatsApp, with the garage owner in control of anything unclear.">
 <meta property="og:type" content="article">
 <meta name="theme-color" content="#0b0d12">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%238f9bff'/%3E%3Ctext x='16' y='22' font-family='Arial,sans-serif' font-weight='700' font-size='15' fill='%230b0d12' text-anchor='middle'%3EKX%3C/text%3E%3C/svg%3E">
@@ -36,7 +36,7 @@
     <a class="back" href="../#work">← All projects</a>
     <div class="meta" style="display:flex;gap:10px;flex-wrap:wrap"><span class="tag ver">v0.1.1</span><span class="tag">Tested, no pilot yet</span></div>
     <h1>Garage Quote Agent</h1>
-    <p class="lead">Small car-repair garages lose customers because nobody answers "how much?" while the mechanics are under a car. This n8n automation answers price requests from WhatsApp, a web form or a webhook. AI reads the message, the garage's own price book sets the price, and the owner approves anything unclear from their own WhatsApp.</p>
+    <p class="lead">Small car repair garages lose customers because nobody answers "how much?" while the mechanics are under a car. This n8n automation answers price requests from WhatsApp, a web form or a webhook. AI reads the message, the garage's own price book sets the price, and the owner approves anything unclear from their own WhatsApp.</p>
     <div class="p-links"><a class="btn primary" href="https://github.com/costasxeras-stack/Garage-quote-agent/blob/main/docs/case-study.md">Read the case study <span class="arrow">→</span></a><a class="btn" href="https://github.com/costasxeras-stack/Garage-quote-agent/tree/main/docs/decisions">Decisions</a><a class="btn" href="https://github.com/costasxeras-stack/Garage-quote-agent">Repo and workflows</a></div>
     <dl class="p-meta"><div><dt>Built in</dt><dd>n8n</dd></div><div><dt>AI</dt><dd>Claude</dd></div><div><dt>Channels</dt><dd>WhatsApp, web form, webhook</dd></div><div><dt>Status</dt><dd>Tested with sample data</dd></div></dl>
   </div>
@@ -52,7 +52,7 @@
     <section id="approach">
       <h2>Approach</h2>
       <ul>
-        <li>Split the problem in two. Understanding a free-text message is a job for AI. Pricing it is a job for rules the owner controls.</li>
+        <li>Split the problem in two. Understanding a message in free text is a job for AI. Pricing it is a job for rules the owner controls.</li>
         <li>Put a confidence gate between them. The agent answers on its own only when every check passes. Otherwise it asks the owner, with the reasons.</li>
         <li>Start with WhatsApp, because that is where customers already message garages.</li>
         <li>Record every lead, routing decision and owner decision, so the garage can see where leads are lost.</li>
@@ -60,11 +60,11 @@
     </section>
     <section id="findings">
       <h2>Findings so far</h2>
-      <div class="finding"><span class="tag confirmed">Confirmed in testing</span><h3>Uncertain requests go to the owner instead of a guess</h3><p>Vague messages ("strange noise when I turn"), possible safety issues (smoke) and owner-only jobs (timing belt) all went to the owner with the reasons listed. Routine jobs with a known car were answered automatically.</p></div>
-      <div class="finding"><span class="tag confirmed">Confirmed by design</span><h3>Messaging rules shape the product</h3><p>WhatsApp allows free-form replies only within 24 hours of the customer's last message. So the follow-up is scheduled inside that window, and owner alerts depend on the owner keeping their own window open.</p></div>
+      <div class="finding"><span class="tag confirmed">Confirmed in testing</span><h3>Uncertain requests go to the owner instead of a guess</h3><p>Vague messages ("strange noise when I turn"), possible safety issues (smoke) and jobs only the owner can price (timing belt) all went to the owner with the reasons listed. Routine jobs with a known car were answered automatically.</p></div>
+      <div class="finding"><span class="tag confirmed">Confirmed by design</span><h3>Messaging rules shape the product</h3><p>WhatsApp allows free replies only within 24 hours of the customer's last message. So the follow up is scheduled inside that window, and owner alerts depend on the owner keeping their own window open.</p></div>
       <div class="finding"><span class="tag hypothesis">Hypothesis</span><h3>"Not in the price book" is a demand signal</h3><p>The weekly report lists requests that matched no job. I expect these to show which services to price next.</p></div>
       <div class="finding"><span class="tag hypothesis">Hypothesis</span><h3>Most requests are routine enough to answer automatically</h3><p>To be measured in a pilot with a real garage.</p></div>
-      <p class="src">23 of 23 test scenarios passed in n8n with sample data and stand-in services. No real garage has used it yet.</p>
+      <p class="src">23 of 23 test scenarios passed in n8n with sample data and test versions of the services. No real garage has used it yet.</p>
     </section>
     <section id="next">
       <h2>What I would do next</h2>

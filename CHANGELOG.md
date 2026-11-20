@@ -1,5 +1,16 @@
 # Changelog
 
+## 2.7.0 (20 November 2026)
+
+### Added
+- Course section for "Digital Transformation with Alteryx" on Udemy, with a link to the course.
+- Company logos next to each role in Experience, loaded from each company's website icon.
+
+### Changed
+- The page now leads with Kostas: About comes right after the intro, and projects sit at the bottom before Contact.
+- New headline and intro. Experience is now stated as 12 years of professional experience, 8 of them in product management.
+- Plainer wording across the site: fewer dashes, hyphenated phrases and dot separators.
+
 ## 2.6.0 (20 November 2026)
 
 ### Added
