@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Confidence Gate Lab · Konstantinos Xeras</title>
+<meta name="description" content="When should an AI answer on its own, and when should a person check? A threshold explorer on 3,080 real, labelled bank customer questions.">
+<meta property="og:title" content="Confidence Gate Lab, a project by Konstantinos Xeras">
+<meta property="og:description" content="When should an AI answer on its own, and when should a person check? A threshold explorer on 3,080 real, labelled bank customer questions.">
+<meta property="og:type" content="article">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%238f9bff'/%3E%3Ctext x='16' y='22' font-family='Arial,sans-serif' font-weight='700' font-size='15' fill='%230b0d12' text-anchor='middle'%3EKX%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="../">Kostas Xeras<span>.</span></a>
+    <button class="menu-btn" aria-label="Menu" aria-expanded="false">☰</button>
+    <nav aria-label="Main">
+      <a href="../#about">About</a>
+      <a href="../#experience">Experience</a>
+      <a href="../#work">My work</a>
+      <a href="../#contact" class="btn primary small">Get in touch</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="p-hero">
+  <div class="wrap">
+    <a class="back" href="../#work">← All projects</a>
+    <div class="meta" style="display:flex;gap:10px;flex-wrap:wrap"><span class="tag ver">v0.1.0</span><span class="tag confirmed">Live demo</span></div>
+    <h1>Confidence Gate Lab</h1>
+    <p class="lead">Every AI feature that answers customers needs a rule for when it may answer alone. This lab makes that rule visible: two classifiers, 3,080 labelled bank customer questions, and one threshold you can move to see automation, errors and human workload change together.</p>
+    <div class="p-links"><a class="btn primary" href="https://kostasxeras.com/confidence-gate-lab/">Open the live demo <span class="arrow">→</span></a><a class="btn" href="https://github.com/costasxeras-stack/confidence-gate-lab/blob/main/docs/case-study.md">Full case study</a><a class="btn" href="https://github.com/costasxeras-stack/confidence-gate-lab">Repo</a></div>
+    <dl class="p-meta"><div><dt>Data</dt><dd>Banking77, 13,083 labelled questions</dd></div><div><dt>Models</dt><dd>Keyword baseline, AI classifier</dd></div><div><dt>Test set</dt><dd>3,080 questions, 77 intents</dd></div><div><dt>Status</dt><dd>v0.1.0, live demo</dd></div></dl>
+  </div>
+</section>
+
+<div class="wrap p-body">
+  <nav class="toc" aria-label="On this page"><a href="#question">The question</a><a href="#approach">Approach</a><a href="#numbers">Headline numbers</a><a href="#findings">Findings</a><a href="#learned">What I learned as a PM</a><a href="#next">What I would do next</a></nav>
+  <article class="prose">
+    <section id="question">
+      <h2>The question</h2>
+      <p>An AI classifier picks an intent for a customer question and gives a confidence score. The product team has to choose the confidence above which the answer goes straight to the customer, and below which a person checks it. I wanted to see how much automation each choice buys, and whether a threshold chosen for one model holds for another.</p>
+      <figure><img src="../assets/img/cgl-desktop.webp" alt="Confidence Gate Lab with the threshold slider, results and trade-off chart" loading="lazy" width="1280" height="1240"><figcaption>Move the threshold, or let the app find it from an error target or your own costs.</figcaption></figure>
+    </section>
+    <section id="approach">
+      <h2>Approach</h2>
+      <ul>
+        <li>Data: Banking77 by PolyAI, bank customer questions labelled by people with one of 77 intents. 10,003 to train, 3,080 to test.</li>
+        <li>Two models trained once, offline: a keyword baseline (naive Bayes on word counts) and an AI classifier (sentence embeddings with logistic regression).</li>
+        <li>For every threshold, count the questions answered automatically, how many of those are wrong, and how many go to a person.</li>
+        <li>Two ways to pick: the most automation under an error rate you choose, or the lowest total cost for your own cost of a wrong answer and of a human check.</li>
+      </ul>
+    </section>
+    <section id="numbers">
+      <h2>Headline numbers</h2>
+      <div class="table-wrap"><table><thead><tr><th>Measure</th><th>Keyword</th><th>AI classifier</th></tr></thead><tbody><tr><td>Accuracy if everything is automated</td><td class="n">84.4%</td><td class="n">87.8%</td></tr><tr><td>Automated with at most 1% wrong</td><td class="n">41.8%</td><td class="n">49.8%</td></tr><tr class="best"><td>Automated with at most 2% wrong</td><td class="n">55.1%</td><td class="n">67.0%</td></tr><tr><td>Automated with at most 5% wrong</td><td class="n">73.3%</td><td class="n">83.8%</td></tr><tr><td>Threshold for at most 2% wrong</td><td class="n">0.96</td><td class="n">0.72</td></tr></tbody></table></div>
+      <p class="src">Banking77 test set, 3,080 questions, scored 20 Nov 2026.</p>
+    </section>
+    <section id="findings">
+      <h2>Findings</h2>
+      <div class="finding"><span class="tag confirmed">Confirmed</span><h3>The better model buys automation, not just accuracy</h3><p>The accuracy gap looks small: 84.4% against 87.8%. At a fixed 2% error rate the gap is much larger. The AI classifier answers 67.0% of questions automatically, the keyword model 55.1%. For a team that pays per human check, that difference is the business case.</p></div>
+      <div class="finding"><span class="tag confirmed">Confirmed</span><h3>A threshold does not carry over between models</h3><p>The keyword model needs 0.96 to stay within 2% wrong. At the AI classifier's 0.72 it would be wrong 6.4% of the time. The keyword model is overconfident (average confidence 0.87, accuracy 0.84), the AI classifier underconfident (0.76 against 0.88). The threshold belongs to a model version and must be checked again with every model change.</p></div>
+      <div class="finding"><span class="tag confirmed">Confirmed</span><h3>One threshold for all intents hides weak spots</h3><p>At 0.72 the AI classifier answers 25% of "card acceptance" questions automatically and 98% of "lost or stolen phone" questions. The hardest intents are close relatives, such as "top up failed" and "top up reverted".</p></div>
+      <div class="finding"><span class="tag hypothesis">Hypothesis</span><h3>Some confident mistakes are taxonomy problems</h3><p>Several of the AI classifier's mistakes with confidence 0.9 or more look like questions that fit two intents, such as "How long does a card delivery take?" labelled "card arrival" and answered as "card delivery estimate". Merging or redefining some intents might help more than a better model.</p></div>
+    </section>
+    <section id="learned">
+      <h2>What I learned as a PM</h2>
+      <ul>
+        <li>Ask "how much can we automate at the error rate we accept?", not "how accurate is the model?".</li>
+        <li>The threshold is part of the release. A model update without a new threshold check is a silent change in risk.</li>
+        <li>The cost of a wrong answer differs by intent. A wrong answer about fees is not the same as one about a compromised card.</li>
+      </ul>
+    </section>
+    <section id="next">
+      <h2>What I would do next</h2>
+      <ol>
+        <li>Choose thresholds on a validation split and report on the test split only.</li>
+        <li>Add per-intent thresholds and measure the gain.</li>
+        <li>Review the confident mistakes by hand to test the taxonomy hypothesis.</li>
+        <li>Add a large language model as a third classifier and compare its confidence with how often it is right.</li>
+      </ol>
+      <p class="src">Limits: one public dataset in English, clean single questions, and thresholds found on the same test set they are reported on.</p>
+    </section>
+    <div class="next"><a class="plink" href="zero-results-fixer.html"><small>← Previous</small><b>Zero Results Fixer</b></a><a class="plink right" href="search-relevance-lab.html"><small>Next project <span class="arrow">→</span></small><b>Search Relevance Lab</b></a></div>
+  </article>
+</div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span>© <span data-year>2026</span> Konstantinos Xeras</span>
+    <span class="fl"><a href="../#about">About</a><a href="../#work">My work</a><a href="../#contact">Contact</a><a href="https://github.com/costasxeras-stack">GitHub</a></span>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>

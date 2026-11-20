@@ -1,5 +1,17 @@
 # Changelog
 
+## 2.2.0 (20 November 2026)
+
+### Added
+- Two new projects with their own pages: Zero Results Fixer (n8n) and Confidence Gate Lab.
+- A step-by-step workflow diagram on the Zero Results Fixer page, plus screenshots of the workflow in n8n and of the review form.
+
+### Changed
+- Stats strip: 6 working products and 4 live demos.
+
+### Fixed
+- Screenshots on project pages were stretched, because images kept their fixed height when the page scaled them down.
+
 ## 2.1.0 (20 November 2026)
 
 ### Added

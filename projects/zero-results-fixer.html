@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zero Results Fixer · Konstantinos Xeras</title>
+<meta name="description" content="An n8n workflow that finds shop searches with no results, has Claude propose a tested fix, and lets a person approve it.">
+<meta property="og:title" content="Zero Results Fixer, a project by Konstantinos Xeras">
+<meta property="og:description" content="An n8n workflow that finds shop searches with no results, has Claude propose a tested fix, and lets a person approve it.">
+<meta property="og:type" content="article">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%238f9bff'/%3E%3Ctext x='16' y='22' font-family='Arial,sans-serif' font-weight='700' font-size='15' fill='%230b0d12' text-anchor='middle'%3EKX%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="../">Kostas Xeras<span>.</span></a>
+    <button class="menu-btn" aria-label="Menu" aria-expanded="false">☰</button>
+    <nav aria-label="Main">
+      <a href="../#about">About</a>
+      <a href="../#experience">Experience</a>
+      <a href="../#work">My work</a>
+      <a href="../#contact" class="btn primary small">Get in touch</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="p-hero">
+  <div class="wrap">
+    <a class="back" href="../#work">← All projects</a>
+    <div class="meta" style="display:flex;gap:10px;flex-wrap:wrap"><span class="tag ver">v0.1.0</span><span class="tag">n8n</span><span class="tag">Tested, not run live yet</span></div>
+    <h1>Zero Results Fixer</h1>
+    <p class="lead">"No results found" usually means a lost sale, and most of those searches are not for products the shop lacks. They are misspellings, brand names, model numbers or unusual wording. This n8n workflow finds them every week, has Claude explain each one and propose a fix, tests the fix, and lets a person approve it before anything changes.</p>
+    <div class="p-links"><a class="btn primary" href="https://github.com/costasxeras-stack/zero-results-fixer">Workflows on GitHub <span class="arrow">→</span></a><a class="btn" href="https://github.com/costasxeras-stack/zero-results-fixer/blob/main/docs/case-study.md">Case study</a><a class="btn" href="https://github.com/costasxeras-stack/zero-results-fixer/blob/main/docs/testing.md">Test results</a></div>
+    <dl class="p-meta"><div><dt>Built in</dt><dd>n8n</dd></div><div><dt>AI</dt><dd>Claude</dd></div><div><dt>Demo data</dt><dd>60 empty searches, WANDS</dd></div><div><dt>Status</dt><dd>19 of 19 tests passed</dd></div></dl>
+  </div>
+</section>
+
+<div class="wrap p-body">
+  <nav class="toc" aria-label="On this page"><a href="#how">How it works</a><a href="#data">The starting point</a><a href="#guardrails">Product calls</a><a href="#status">Where it stands</a></nav>
+  <article class="prose">
+    <section id="how">
+      <h2>How it works</h2>
+      <ol class="flow" aria-label="How the workflow runs">
+        <li><span class="when">Every Monday</span><b>Find</b><span>Run last week's searches and keep the ones with no results</span></li>
+        <li class="ai"><span class="when">Claude</span><b>Explain</b><span>Cause (spelling, wording, brand, too specific, not sold) and one rewrite</span></li>
+        <li><span class="when">Automatic</span><b>Test</b><span>Run the rewrite. Drop it if it still finds nothing</span></li>
+        <li><span class="when">Email</span><b>Ask</b><span>Tested fixes, products found, one review link each</span></li>
+        <li class="human"><span class="when">Person</span><b>Decide</b><span>Approve, edit or reject. One decision per link</span></li>
+        <li><span class="when">API</span><b>Publish</b><span>Approved rules served as JSON for the shop's search</span></li>
+      </ol>
+      <p>Nothing changes in the shop until a person approves it. Claude's confidence only sets the order of the list.</p>
+      <figure><img src="../assets/img/zrf-weekly-scan.webp" alt="The weekly scan workflow in the n8n editor" loading="lazy" width="1600" height="809"><figcaption>The weekly scan in n8n. Claude is the model attached to the "why no results?" step.</figcaption></figure>
+    </section>
+    <section id="data">
+      <h2>The starting point</h2>
+      <p>The demo runs on my Search Relevance Lab, which uses the open WANDS dataset of 42,994 furniture products. With strict keyword search, 60 of its 192 test searches (31%) return no products. Examples are a collection name with a number ("gurney slade 56"), a misspelling ("bunk beds cool desins"), a coupon question ("promo codes or discounts") and a single unknown name.</p>
+    </section>
+    <section id="guardrails">
+      <h2>Product calls</h2>
+      <div class="finding"><span class="tag">Product call</span><h3>The AI suggests, a person approves</h3><p>A wrong rewrite would change what every shopper sees for that search. So every fix waits for a person. The approval rate then measures how good the suggestions are.</p></div>
+      <div class="finding"><span class="tag">Product call</span><h3>Test before asking</h3><p>Each rewrite is run against the same search before the owner sees it. Fixes that still return nothing never reach the review list, so the owner's time goes only to fixes that work.</p></div>
+      <div class="finding"><span class="tag">Product call</span><h3>One decision per link</h3><p>Review links carry a one-off token, and a proposal can be decided only once. Testing two simultaneous clicks on one link found a real bug in the first build, where both decisions were saved. The save now checks the status itself.</p></div>
+      <div class="finding"><span class="tag">Product call</span><h3>Rules as an API</h3><p>Approved rules are published as JSON for the search to read. The workflow never needs write access to the search engine, and switching it off is one setting.</p></div>
+      <figure style="max-width:300px"><img src="../assets/img/zrf-review-form.webp" alt="The review form on a phone" loading="lazy" width="600" height="862"><figcaption>The review form the owner opens from the weekly email.</figcaption></figure>
+    </section>
+    <section id="status">
+      <h2>Where it stands</h2>
+      <p>All 19 test scenarios passed in a local n8n with real searches, and with stand-ins for Claude and email. That covers the workflow itself: retries when Claude fails, error alerts, wrong or reused links, and runs with nothing new. It does not show how good Claude's answers are. The first live run with Claude will measure how many of the 60 searches get a working fix, and how many of those I would approve.</p>
+      <p class="src">Limits: rules match a search exactly, the demo checks that a fix returns products but not that they are the right products, and the review form cannot show which search it belongs to (the email does).</p>
+    </section>
+    <div class="next"><a class="plink" href="../#work"><small>← Back</small><b>All projects</b></a><a class="plink right" href="confidence-gate-lab.html"><small>Next project <span class="arrow">→</span></small><b>Confidence Gate Lab</b></a></div>
+  </article>
+</div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span>© <span data-year>2026</span> Konstantinos Xeras</span>
+    <span class="fl"><a href="../#about">About</a><a href="../#work">My work</a><a href="../#contact">Contact</a><a href="https://github.com/costasxeras-stack">GitHub</a></span>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>
