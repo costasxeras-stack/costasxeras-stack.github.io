@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.9.0 (20 November 2026)
+
+### Added
+- New project with its own page, card and screenshot: Help Center Search Check.
+
+### Changed
+- Stats strip: 12 working products on GitHub.
+
 ## 2.8.0 (20 November 2026)
 
 ### Added
