@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Churn Early Warning · Konstantinos Xeras</title>
+<meta name="description" content="A retention team can contact some customers. Who should be on the list? A rule, a points checklist and two models on IBM&#x27;s churn sample.">
+<meta property="og:title" content="Churn Early Warning, a project by Konstantinos Xeras">
+<meta property="og:description" content="A retention team can contact some customers. Who should be on the list? A rule, a points checklist and two models on IBM&#x27;s churn sample.">
+<meta property="og:type" content="article">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%238f9bff'/%3E%3Ctext x='16' y='22' font-family='Arial,sans-serif' font-weight='700' font-size='15' fill='%230b0d12' text-anchor='middle'%3EKX%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css?v=2.10.0">
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="../">Kostas Xeras<span>.</span></a>
+    <button class="menu-btn" aria-label="Menu" aria-expanded="false">☰</button>
+    <nav aria-label="Main">
+      <a href="../#about">About</a>
+      <a href="../#experience">Experience</a>
+      <a href="../#work">My work</a>
+      <a href="../#contact" class="btn primary small">Get in touch</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="p-hero">
+  <div class="wrap">
+    <a class="back" href="../#work">← All projects</a>
+    <div class="meta" style="display:flex;gap:10px;flex-wrap:wrap"><span class="tag ver">v0.1.0</span><span class="tag confirmed">Live results</span></div>
+    <h1>Churn Early Warning</h1>
+    <p class="lead">Many churn projects stop at a model score. A retention team needs a list of a fixed size and numbers it can plan with. I compared a contract rule, a 5 flag checklist and two models on 7,043 sample customers, and turned each ranking into contact lists.</p>
+    <div class="p-links"><a class="btn primary" href="https://kostasxeras.com/churn-early-warning/">See the results <span class="arrow">→</span></a><a class="btn" href="https://github.com/costasxeras-stack/churn-early-warning/blob/main/docs/case-study.md">Full case study</a><a class="btn" href="https://github.com/costasxeras-stack/churn-early-warning">Code and results</a></div>
+    <dl class="p-meta"><div><dt>Data</dt><dd>IBM Telco sample, 7,043 customers</dd></div><div><dt>Test</dt><dd>5-fold cross validation</dd></div><div><dt>Methods</dt><dd>Rule, checklist, 2 models</dd></div><div><dt>Status</dt><dd>v0.1.0, results live</dd></div></dl>
+  </div>
+</section>
+
+<div class="wrap p-body">
+  <nav class="toc" aria-label="On this page"><a href="#question">The question</a><a href="#numbers">Headline numbers</a><a href="#findings">Findings</a><a href="#next">What I would do next</a></nav>
+  <article class="prose">
+    <section id="question">
+      <h2>The question</h2>
+      <p>Who should be on a retention list of a fixed size, and how much does a churn model add over a rule or a checklist the team could write itself?</p>
+      <figure><img src="../assets/img/churn-desktop.webp" alt="Churn Early Warning results page with the list size slider" loading="lazy" width="1280" height="1440"><figcaption>Set the list size and compare the methods. Sample data.</figcaption></figure>
+    </section>
+    <section id="numbers">
+      <h2>Headline numbers</h2>
+      <div class="table-wrap"><table><thead><tr><th>Contact 20% of customers</th><th>Leavers reached</th><th>List who left</th></tr></thead><tbody><tr><td>Rule: month-to-month, newest first</td><td class="n">42%</td><td class="n">55%</td></tr><tr><td>Points checklist (5 flags)</td><td class="n">49%</td><td class="n">65%</td></tr><tr><td>Gradient boosting</td><td class="n">50%</td><td class="n">67%</td></tr><tr class="best"><td>Logistic regression</td><td class="n">51%</td><td class="n">68%</td></tr></tbody></table></div>
+      <p class="src">IBM Telco churn sample, 1,869 of 7,043 customers left. Each customer scored by a model that never saw them.</p>
+    </section>
+    <section id="findings">
+      <h2>Findings</h2>
+      <div class="finding"><span class="tag confirmed">Confirmed</span><h3>List size matters more than the method</h3><p>Going from 10% to 20% of customers lifts the model from 29% to 51% of leavers. Going from the checklist to the model adds 2 points.</p></div>
+      <div class="finding"><span class="tag confirmed">Confirmed</span><h3>Personal fields add nothing</h3><p>Without gender, the senior citizen flag and family fields, the model ranks the same. So they can be left out.</p></div>
+      <div class="finding"><span class="tag confirmed">Confirmed</span><h3>The model's numbers can be used to plan</h3><p>It expected 1,871 leavers. 1,869 left.</p></div>
+      <div class="finding"><span class="tag hypothesis">Hypothesis</span><h3>The list misses longer-term customers</h3><p>Leavers it misses have a median of 22 months as customers, against 5 for those it reaches. Usage or complaint signals might find them. This data has none.</p></div>
+    </section>
+    <section id="next">
+      <h2>What I would do next</h2>
+      <ol>
+        <li>Repeat on data with history over time: score one month, check who leaves in the next.</li>
+        <li>Add usage and support signals for longer-term customers.</li>
+        <li>Run a holdout test to measure how many contacted customers are actually saved.</li>
+      </ol>
+      <p class="src">Sample data from IBM (Apache 2.0), one snapshot. Not a real company's results.</p>
+    </section>
+    <div class="next"><a class="plink" href="../#work"><small>← Back</small><b>All projects</b></a><a class="plink right" href="help-center-search-check.html"><small>Next project <span class="arrow">→</span></small><b>Help Center Search Check</b></a></div>
+  </article>
+</div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span>© <span data-year>2026</span> Konstantinos Xeras</span>
+    <span class="fl"><a href="../#about">About</a><a href="../#work">My work</a><a href="../#contact">Contact</a><a href="https://github.com/costasxeras-stack">GitHub</a></span>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>

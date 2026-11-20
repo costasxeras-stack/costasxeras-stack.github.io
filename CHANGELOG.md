@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.10.0 (20 November 2026)
+
+### Added
+- New project with its own page, card and screenshot: Churn Early Warning.
+
+### Changed
+- Stats strip: 13 working products on GitHub.
+
 ## 2.9.0 (20 November 2026)
 
 ### Added
