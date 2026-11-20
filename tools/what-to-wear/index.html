@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What to wear · Kostas Xeras</title>
+<meta name="description" content="Today's forecast turned into layers for the morning, midday and evening, with the rules shown.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232f5d50'/%3E%3Cpath d='M11 8l-5 4 3 4 2-1v10h10V15l2 1 3-4-5-4c-1 2-3 3-5 3s-4-1-5-3z' fill='white'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,600;7..72,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../tools.css?v=1">
+<style>
+.place{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.place input{flex:1;min-width:180px}
+.matches{display:grid;gap:6px;margin-top:10px}
+.matches button{text-align:left}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.seg button{border:0;background:#fff;padding:8px 14px;font:600 14px var(--body);color:var(--muted);cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--accent);color:#fff}
+.where{font:600 15px var(--body);color:var(--muted);margin-top:14px}
+.headline{font:700 clamp(22px,4vw,30px)/1.25 var(--display);margin-top:6px}
+.wins{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+.w{border:1px solid var(--line);border-radius:14px;padding:14px}
+.w h3{font:600 13px var(--body);letter-spacing:.05em;text-transform:uppercase;color:var(--faint)}
+.w .temp{font:700 30px var(--display);margin-top:6px}
+.w .feel{font-size:13.5px;color:var(--muted)}
+.w ul{margin:10px 0 0;padding-left:18px;display:grid;gap:3px;font-size:14.5px}
+.w .extra{color:var(--warn);font-weight:600}
+.w.past{opacity:.55}
+.rules{font-size:14px;color:var(--muted)}
+.rules table{width:100%;border-collapse:collapse;margin-top:8px}
+.rules td{padding:6px 4px;border-bottom:1px solid var(--line)}
+.err{color:var(--warn);font-size:14.5px;margin-top:10px}
+@media (max-width:640px){.wins{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="brand" href="./">What to wear</a><nav><a href="../">All tools</a><a href="https://kostasxeras.com/">Portfolio</a></nav></div></header>
+<main class="wrap">
+  <section class="intro">
+    <h1>One look before you leave the house.</h1>
+    <p>The forecast for the morning, midday and evening, turned into layers. The rules are listed below, so you can see why it says what it says.</p>
+  </section>
+
+  <section class="card" aria-labelledby="p-h">
+    <h2 id="p-h">Where</h2>
+    <form class="place" id="pf" autocomplete="off">
+      <input type="search" id="city" placeholder="City" aria-label="City">
+      <button class="btn" type="submit">Find</button>
+      <button class="btn" type="button" id="here">Use my location</button>
+    </form>
+    <div class="matches" id="matches"></div>
+    <p class="err" id="err" role="alert" hidden></p>
+  </section>
+
+  <section class="card" aria-live="polite">
+    <div class="seg" role="group" aria-label="Day"><button type="button" data-d="0" aria-pressed="true">Today</button><button type="button" data-d="1" aria-pressed="false">Tomorrow</button></div>
+    <p class="where" id="where">Loading the forecast…</p>
+    <p class="headline" id="headline"></p>
+    <div class="wins" id="wins"></div>
+    <p class="note" id="upd"></p>
+  </section>
+
+  <section class="card rules" aria-labelledby="r-h">
+    <h2 id="r-h" style="color:var(--ink)">The rules</h2>
+    <p class="sub">Based on the "feels like" temperature, which includes wind and humidity. Each window uses its coldest hour, so you are not caught out.</p>
+    <table>
+      <tr><td>24°C or more</td><td>T-shirt</td></tr>
+      <tr><td>18 to 24°C</td><td>T-shirt, with a light layer to carry</td></tr>
+      <tr><td>12 to 18°C</td><td>Long sleeves and a light jacket</td></tr>
+      <tr><td>6 to 12°C</td><td>Sweater and a jacket</td></tr>
+      <tr><td>0 to 6°C</td><td>Sweater and a warm coat</td></tr>
+      <tr><td>Below 0°C</td><td>Winter coat, hat, gloves and scarf</td></tr>
+      <tr><td>Rain chance 50% or more</td><td>Umbrella or rain jacket</td></tr>
+      <tr><td>Rain chance 30 to 50%</td><td>Pack an umbrella just in case</td></tr>
+      <tr><td>Wind 30 km/h or more</td><td>Windproof outer layer</td></tr>
+      <tr><td>8°C or more between windows</td><td>Layers you can take off</td></tr>
+    </table>
+  </section>
+</main>
+<footer><div class="wrap"><span>A small tool by <a href="https://kostasxeras.com/">Konstantinos Xeras</a>, built with Claude (Anthropic).</span><span><a href="https://open-meteo.com/">Weather data by Open-Meteo.com</a> (CC BY 4.0). Your location is only sent to Open-Meteo to get the forecast. Idea from a "clothing layers helper" in Ziplines' list of vibe coding examples.</span></div></footer>
+
+<script>
+(function () {
+  var KEY = 'kx-wear-v1', $ = function (id) { return document.getElementById(id); };
+  var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+  var WINDOWS = [{ name: 'Morning', from: 7, to: 9 }, { name: 'Midday', from: 12, to: 14 }, { name: 'Evening', from: 17, to: 20 }];
+  var place = { name: 'Kraków, Poland', lat: 50.0614, lon: 19.9366 }, day = 0, data = null;
+  try { var s = JSON.parse(localStorage.getItem(KEY) || 'null'); if (s && typeof s.lat === 'number' && typeof s.lon === 'number') place = s; } catch (e) {}
+  if (new Date().getHours() >= 20) day = 1;
+  function setDay(d) { day = d; Array.prototype.forEach.call(document.querySelectorAll('.seg button'), function (b) { b.setAttribute('aria-pressed', +b.getAttribute('data-d') === d ? 'true' : 'false'); }); render(); }
+  Array.prototype.forEach.call(document.querySelectorAll('.seg button'), function (b) { b.addEventListener('click', function () { setDay(+b.getAttribute('data-d')); }); });
+  function err(t) { $('err').textContent = t || ''; $('err').hidden = !t; }
+
+  function layers(feel) {
+    if (feel >= 24) return ['T-shirt'];
+    if (feel >= 18) return ['T-shirt', 'Light layer to carry'];
+    if (feel >= 12) return ['Long sleeves', 'Light jacket'];
+    if (feel >= 6) return ['Sweater', 'Jacket'];
+    if (feel >= 0) return ['Sweater', 'Warm coat'];
+    return ['Winter coat', 'Hat, gloves and scarf'];
+  }
+  function fetchForecast() {
+    $('where').textContent = 'Loading the forecast for ' + place.name + '…'; $('headline').textContent = ''; $('wins').innerHTML = '';
+    var u = 'https://api.open-meteo.com/v1/forecast?latitude=' + place.lat + '&longitude=' + place.lon + '&hourly=temperature_2m,apparent_temperature,precipitation_probability,wind_speed_10m&timezone=auto&forecast_days=2';
+    fetch(u).then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(function (d) { data = d; err(''); render(); })
+      .catch(function () { $('where').textContent = place.name; err('The forecast could not load. Check your connection and try again.'); });
+  }
+  function render() {
+    if (!data || !data.hourly) return;
+    var h = data.hourly, dates = [], seen = {};
+    h.time.forEach(function (t) { var d = t.slice(0, 10); if (!seen[d]) { seen[d] = 1; dates.push(d); } });
+    var date = dates[day]; if (!date) return;
+    var nowLocal = new Date(Date.now() + (data.utc_offset_seconds || 0) * 1000).toISOString().slice(0, 13);
+    var out = WINDOWS.map(function (w) {
+      var idx = []; h.time.forEach(function (t, i) { var hr = +t.slice(11, 13); if (t.slice(0, 10) === date && hr >= w.from && hr <= w.to) idx.push(i); });
+      if (!idx.length) return null;
+      var pick = function (k) { return idx.map(function (i) { return h[k][i]; }).filter(function (v) { return v != null; }); };
+      var temp = pick('temperature_2m'), feel = pick('apparent_temperature'), rain = pick('precipitation_probability'), wind = pick('wind_speed_10m');
+      var minFeel = Math.min.apply(null, feel), maxRain = rain.length ? Math.max.apply(null, rain) : 0, maxWind = wind.length ? Math.max.apply(null, wind) : 0;
+      var extra = [];
+      if (maxRain >= 50) extra.push('Umbrella or rain jacket'); else if (maxRain >= 30) extra.push('Pack an umbrella just in case');
+      if (maxWind >= 30) extra.push('Windproof outer layer');
+      var lastHour = date + 'T' + ('0' + w.to).slice(-2);
+      return { w: w, temp: Math.round(Math.max.apply(null, temp)), tmin: Math.round(Math.min.apply(null, temp)), feel: Math.round(minFeel), rain: maxRain, wind: Math.round(maxWind), wear: layers(minFeel), extra: extra, past: day === 0 && lastHour < nowLocal };
+    }).filter(Boolean);
+    $('where').textContent = place.name + ', ' + new Date(date + 'T12:00:00').toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' });
+    var ahead = out.filter(function (o) { return !o.past; });
+    if (!ahead.length) { $('headline').textContent = 'The day is almost over. See tomorrow.'; }
+    var use = ahead.length ? ahead : out;
+    var feels = use.map(function (o) { return o.feel; }), spread = Math.max.apply(null, feels) - Math.min.apply(null, feels);
+    var coldest = use.reduce(function (a, b) { return b.feel < a.feel ? b : a; });
+    var anyRain = use.some(function (o) { return o.rain >= 50; });
+    var head = (ahead.length && ahead.length < out.length ? 'For the rest of the day, dress for ' : 'Dress for ') + coldest.feel + '°C: ' + coldest.wear.join(' and ').toLowerCase() + '.';
+    if (spread >= 8) head += ' It changes by ' + spread + '°C during the day, so wear layers you can take off.';
+    if (anyRain) head += ' Take an umbrella.';
+    if (ahead.length) $('headline').textContent = head;
+    $('wins').innerHTML = out.map(function (o) {
+      return '<div class="w' + (o.past ? ' past' : '') + '"><h3>' + o.w.name + ' ' + o.w.from + ':00 to ' + o.w.to + ':00' + (o.past ? ' · past' : '') + '</h3><div class="temp">' + (o.tmin === o.temp ? o.temp : o.tmin + ' to ' + o.temp) + '°C</div>' +
+        '<div class="feel">Feels like ' + o.feel + '°C · rain ' + o.rain + '% · wind ' + o.wind + ' km/h</div><ul>' +
+        o.wear.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + o.extra.map(function (x) { return '<li class="extra">' + esc(x) + '</li>'; }).join('') + '</ul></div>';
+    }).join('');
+    $('upd').textContent = 'Forecast loaded ' + new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }) + '. Times are local to ' + place.name.split(',')[0] + '.';
+  }
+  function choose(p) { place = p; try { localStorage.setItem(KEY, JSON.stringify(p)); } catch (e) {} $('matches').innerHTML = ''; fetchForecast(); }
+  $('pf').addEventListener('submit', function (e) {
+    e.preventDefault(); var q = $('city').value.trim(); if (q.length < 2) return; err('');
+    fetch('https://geocoding-api.open-meteo.com/v1/search?count=5&language=en&format=json&name=' + encodeURIComponent(q)).then(function (r) { return r.json(); }).then(function (d) {
+      var res = (d && d.results) || []; if (!res.length) { $('matches').innerHTML = ''; err('No place found with that name.'); return; }
+      var opts = res.map(function (x) { return { name: x.name + (x.admin1 && x.admin1 !== x.name ? ', ' + x.admin1 : '') + (x.country ? ', ' + x.country : ''), lat: x.latitude, lon: x.longitude }; });
+      if (opts.length === 1) { choose(opts[0]); return; }
+      $('matches').innerHTML = opts.map(function (o, i) { return '<button class="btn" type="button" data-i="' + i + '">' + esc(o.name) + '</button>'; }).join('');
+      $('matches').onclick = function (ev) { var b = ev.target.closest('button'); if (b) choose(opts[+b.getAttribute('data-i')]); };
+    }).catch(function () { err('The place search could not load. Try again.'); });
+  });
+  $('here').addEventListener('click', function () {
+    if (!navigator.geolocation) { err('This browser cannot share its location. Search for a city instead.'); return; }
+    navigator.geolocation.getCurrentPosition(function (p) { choose({ name: 'Your location', lat: +p.coords.latitude.toFixed(3), lon: +p.coords.longitude.toFixed(3) }); },
+      function () { err('Location was not shared. Search for a city instead.'); }, { timeout: 10000, maximumAge: 600000 });
+  });
+  setDay(day); fetchForecast();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Standup order · Kostas Xeras</title>
+<meta name="description" content="Shuffle who speaks at standup, time each person, and park side topics for later.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232f5d50'/%3E%3Ccircle cx='16' cy='17' r='8' fill='none' stroke='white' stroke-width='2.6'/%3E%3Cpath d='M16 13v4l3 2M13 6h6' stroke='white' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,600;7..72,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../tools.css?v=1">
+<style>
+.now{text-align:center;padding:8px 0 4px}
+.now .who{font:700 clamp(30px,7vw,46px)/1.1 var(--display)}
+.now .clock{font:600 clamp(44px,12vw,72px)/1 var(--body);font-variant-numeric:tabular-nums;margin-top:10px}
+.now .clock.over{color:var(--warn)}
+.bar{height:8px;border-radius:4px;background:#eceae5;margin:14px auto 0;max-width:420px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent);width:0}
+.bar.over i{background:var(--warn)}
+.now .meta{color:var(--muted);font-size:14px;margin-top:10px}
+.ctl{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px}
+ol.order{margin:10px 0 0;padding:0;list-style:none;display:grid;gap:6px;counter-reset:n}
+ol.order li{display:flex;align-items:center;gap:10px;padding:9px 12px;border:1px solid var(--line);border-radius:10px;font-size:15px;counter-increment:n}
+ol.order li::before{content:counter(n);font:600 13px var(--body);color:var(--faint);width:18px}
+ol.order li.cur{border-color:var(--accent);background:var(--soft);font-weight:600}
+ol.order li.done{color:var(--faint)}
+ol.order li.away{color:var(--faint);text-decoration:line-through}
+ol.order li .t{margin-left:auto;font-variant-numeric:tabular-nums;font-size:14px}
+ol.order li.overrun .t{color:var(--warn);font-weight:600}
+.park{display:flex;gap:8px;margin-top:10px}
+.park input{flex:1}
+ul.pk{margin:10px 0 0;padding-left:20px;display:grid;gap:4px}
+pre{white-space:pre-wrap;background:#faf9f6;border:1px solid var(--line);border-radius:10px;padding:12px;font:13.5px/1.5 ui-monospace,Menlo,monospace}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="brand" href="./">Standup order</a><nav><a href="../">All tools</a><a href="https://kostasxeras.com/">Portfolio</a></nav></div></header>
+<main class="wrap">
+  <section class="intro">
+    <h1>Shuffle the order, keep it short, park the rest.</h1>
+    <p>The same person always going first, and updates that turn into discussions, are the two ways standups drift. A random order and a visible timer fix most of it.</p>
+  </section>
+
+  <section class="card" id="setup" aria-labelledby="team-h">
+    <h2 id="team-h">Your team</h2>
+    <label for="names">Names, one per line</label>
+    <textarea id="names" placeholder="Ana&#10;Ben&#10;Chris"></textarea>
+    <div class="grid2">
+      <div><label for="mins">Time per person (minutes)</label><input type="number" id="mins" min="0.5" max="10" step="0.5" value="2"></div>
+      <div><label for="hold">Who goes last (optional)</label><select id="hold"><option value="">Nobody fixed</option></select></div>
+    </div>
+    <div class="row"><button class="btn primary" id="go" type="button">Shuffle and start</button></div>
+    <p class="note">Names are saved in this browser for next time. Nothing is sent anywhere.</p>
+  </section>
+
+  <section class="card" id="run" hidden aria-live="polite">
+    <div class="now">
+      <div class="who" id="who"></div>
+      <div class="clock" id="clock">0:00</div>
+      <div class="bar" id="bar"><i></i></div>
+      <div class="meta" id="meta"></div>
+    </div>
+    <div class="ctl">
+      <button class="btn" id="pause" type="button">Pause</button>
+      <button class="btn" id="away" type="button">Not here</button>
+      <button class="btn primary" id="next" type="button">Next person</button>
+    </div>
+    <ol class="order" id="order"></ol>
+    <div class="row"><button class="btn small" id="reshuffle" type="button">Shuffle again</button><button class="btn small" id="stop" type="button">Back to team</button></div>
+  </section>
+
+  <section class="card" aria-labelledby="park-h">
+    <h2 id="park-h">Parking lot</h2>
+    <p class="sub">Topics for after the standup, with only the people who need them.</p>
+    <form class="park" id="parkf" autocomplete="off"><input type="text" id="topic" maxlength="140" placeholder="Topic and who needs to be there" aria-label="Parking lot topic"><button class="btn" type="submit">Add</button></form>
+    <ul class="pk" id="pk"></ul>
+  </section>
+
+  <section class="card" id="sumc" hidden aria-labelledby="sum-h">
+    <h2 id="sum-h">Summary</h2>
+    <pre id="sum"></pre>
+    <div class="row"><button class="btn primary" id="copy" type="button">Copy summary</button></div>
+  </section>
+</main>
+<footer><div class="wrap"><span>A small tool by <a href="https://kostasxeras.com/">Konstantinos Xeras</a>, built with Claude (Anthropic).</span><span>Idea from a standup order randomiser in Ziplines' list of vibe coding examples.</span></div></footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  var KEY = 'kx-standup-v1', $ = function (id) { return document.getElementById(id); };
+  var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+  var S = { people: [], i: 0, limit: 120, startedAt: 0, paused: false, pausedAt: 0, parked: [], began: 0, ended: 0 }, tick = null;
+  try { var saved = JSON.parse(localStorage.getItem(KEY) || '{}'); if (saved.names) $('names').value = saved.names; if (saved.mins) $('mins').value = saved.mins; if (saved.hold) S.hold = saved.hold; } catch (e) {}
+  function save() { try { localStorage.setItem(KEY, JSON.stringify({ names: $('names').value, mins: $('mins').value, hold: $('hold').value })); } catch (e) {} }
+  function names() { var seen = {}; return $('names').value.split('\n').map(function (s) { return s.trim(); }).filter(function (s) { if (!s || seen[s.toLowerCase()]) return false; seen[s.toLowerCase()] = 1; return true; }).slice(0, 40); }
+  function fillHold() { var cur = $('hold').value || S.hold || ''; $('hold').innerHTML = '<option value="">Nobody fixed</option>' + names().map(function (n) { return '<option' + (n === cur ? ' selected' : '') + '>' + esc(n) + '</option>'; }).join(''); }
+  $('names').addEventListener('input', function () { fillHold(); save(); }); $('mins').addEventListener('change', save); $('hold').addEventListener('change', save); fillHold();
+  function toast(t) { var el = $('toast'); el.textContent = t; el.classList.add('on'); clearTimeout(toast.t); toast.t = setTimeout(function () { el.classList.remove('on'); }, 1800); }
+  function shuffle(a) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  function fmt(s) { s = Math.max(0, Math.round(s)); return Math.floor(s / 60) + ':' + ('0' + s % 60).slice(-2); }
+  function now() { return Date.now(); }
+  function elapsed() { return S.startedAt ? ((S.paused ? S.pausedAt : now()) - S.startedAt) / 1000 : 0; }
+
+  function start(reshuffle) {
+    var list = names(); if (list.length < 1) { toast('Add at least one name'); $('names').focus(); return; }
+    var hold = $('hold').value, rest = shuffle(list.filter(function (n) { return n !== hold; }));
+    if (hold && list.indexOf(hold) > -1) rest.push(hold);
+    S.people = rest.map(function (n) { return { name: n, secs: 0, away: false }; });
+    S.limit = Math.max(30, Math.round((+$('mins').value || 2) * 60)); S.i = 0; S.began = now(); S.ended = 0; S.paused = false; S.startedAt = now();
+    $('setup').hidden = true; $('run').hidden = false; $('sumc').hidden = true; $('pause').textContent = 'Pause';
+    clearInterval(tick); tick = setInterval(draw, 250); draw(); save();
+    if (!reshuffle) window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  function close(markAway) {
+    var p = S.people[S.i]; if (!p) return;
+    if (markAway) { p.away = true; p.secs = 0; } else p.secs = elapsed();
+    S.i++; S.paused = false; S.startedAt = now(); $('pause').textContent = 'Pause';
+    if (S.i >= S.people.length) finish(); else draw();
+  }
+  function finish() { clearInterval(tick); S.ended = now(); S.startedAt = 0; draw(); summary(); }
+  $('go').addEventListener('click', function () { start(false); });
+  $('reshuffle').addEventListener('click', function () { start(true); toast('New order'); });
+  $('next').addEventListener('click', function () { close(false); });
+  $('away').addEventListener('click', function () { close(true); });
+  $('pause').addEventListener('click', function () {
+    if (!S.startedAt) return;
+    if (S.paused) { S.startedAt += now() - S.pausedAt; S.paused = false; this.textContent = 'Pause'; } else { S.pausedAt = now(); S.paused = true; this.textContent = 'Resume'; }
+    draw();
+  });
+  $('stop').addEventListener('click', function () { clearInterval(tick); S.startedAt = 0; $('run').hidden = true; $('setup').hidden = false; });
+
+  function draw() {
+    var done = S.i >= S.people.length, p = S.people[S.i], e = done ? 0 : elapsed(), over = e > S.limit;
+    $('who').textContent = done ? 'Done' : p.name;
+    $('clock').textContent = done ? fmt(totalTalk()) : fmt(e);
+    $('clock').classList.toggle('over', over);
+    $('bar').classList.toggle('over', over); $('bar').firstChild.style.width = (done ? 100 : Math.min(100, e / S.limit * 100)) + '%';
+    $('meta').textContent = done ? 'Total speaking time, ' + S.people.filter(function (x) { return !x.away; }).length + ' people' : (over ? fmt(e - S.limit) + ' over. Park it?' : fmt(S.limit - e) + ' left') + (S.paused ? ' · paused' : '') + ' · ' + (S.i + 1) + ' of ' + S.people.length;
+    ['pause', 'away', 'next'].forEach(function (id) { $(id).disabled = done; });
+    $('order').innerHTML = S.people.map(function (x, k) {
+      var cls = k === S.i && !done ? 'cur' : (x.away ? 'away' : (k < S.i ? 'done' : ''));
+      if (k < S.i && !x.away && x.secs > S.limit) cls += ' overrun';
+      return '<li class="' + cls + '">' + esc(x.name) + '<span class="t">' + (x.away ? 'not here' : (k < S.i ? fmt(x.secs) : '')) + '</span></li>';
+    }).join('');
+  }
+  function totalTalk() { return S.people.reduce(function (s, x) { return s + (x.away ? 0 : x.secs); }, 0); }
+
+  $('parkf').addEventListener('submit', function (e) { e.preventDefault(); var t = $('topic').value.trim(); if (!t) return; S.parked.push(t); $('topic').value = ''; drawPark(); if (S.ended) summary(); });
+  $('pk').addEventListener('click', function (e) { var b = e.target.closest('button'); if (!b) return; S.parked.splice(+b.getAttribute('data-i'), 1); drawPark(); if (S.ended) summary(); });
+  function drawPark() { $('pk').innerHTML = S.parked.length ? S.parked.map(function (t, i) { return '<li>' + esc(t) + ' <button class="btn small" data-i="' + i + '" aria-label="Remove topic">Remove</button></li>'; }).join('') : '<li class="empty" style="list-style:none;margin-left:-20px">Nothing parked.</li>'; }
+  function summary() {
+    var d = new Date(S.began), lines = ['Standup ' + d.toLocaleDateString('en-GB') + ', ' + fmt((S.ended - S.began) / 1000) + ' in total', ''];
+    S.people.forEach(function (x, k) { lines.push((k + 1) + '. ' + x.name + (x.away ? ' (not here)' : ' ' + fmt(x.secs) + (x.secs > S.limit ? ' (over)' : ''))); });
+    if (S.parked.length) { lines.push('', 'Parked:'); S.parked.forEach(function (t) { lines.push('- ' + t); }); }
+    $('sum').textContent = lines.join('\n'); $('sumc').hidden = false;
+  }
+  $('copy').addEventListener('click', function () { (navigator.clipboard ? navigator.clipboard.writeText($('sum').textContent) : Promise.reject()).then(function () { toast('Copied'); }, function () { toast('Select the text and copy it'); }); });
+  document.addEventListener('keydown', function (e) { if ($('run').hidden || e.target.matches('input,textarea,select')) return; if (e.key === ' ' || e.key === 'ArrowRight') { e.preventDefault(); if (!$('next').disabled) close(false); } });
+  drawPark();
+})();
+</script>
+</body>
+</html>
