@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Duplicate Product Finder · Konstantinos Xeras</title>
+<meta name="description" content="Which duplicate products can a catalogue merge without a person? Four matching methods scored on public product matching benchmarks.">
+<meta property="og:title" content="Duplicate Product Finder, a project by Konstantinos Xeras">
+<meta property="og:description" content="Which duplicate products can a catalogue merge without a person? Four matching methods scored on public product matching benchmarks.">
+<meta property="og:type" content="article">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%238f9bff'/%3E%3Ctext x='16' y='22' font-family='Arial,sans-serif' font-weight='700' font-size='15' fill='%230b0d12' text-anchor='middle'%3EKX%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css?v=2.8.0">
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="../">Kostas Xeras<span>.</span></a>
+    <button class="menu-btn" aria-label="Menu" aria-expanded="false">☰</button>
+    <nav aria-label="Main">
+      <a href="../#about">About</a>
+      <a href="../#experience">Experience</a>
+      <a href="../#work">My work</a>
+      <a href="../#contact" class="btn primary small">Get in touch</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="p-hero">
+  <div class="wrap">
+    <a class="back" href="../#work">← All projects</a>
+    <div class="meta" style="display:flex;gap:10px;flex-wrap:wrap"><span class="tag ver">v0.1.0</span><span class="tag confirmed">Live results</span></div>
+    <h1>Duplicate Product Finder</h1>
+    <p class="lead">When two catalogues are combined, the same product often appears twice under different titles. Merging two different products is worse than keeping a duplicate. I scored four ways to find duplicates, from the classic model number rule to a local AI model, and turned the best one into a merge, check or keep apart rule.</p>
+    <div class="p-links"><a class="btn primary" href="https://kostasxeras.com/duplicate-product-finder/">See the results <span class="arrow">→</span></a><a class="btn" href="https://github.com/costasxeras-stack/duplicate-product-finder/blob/main/docs/case-study.md">Full case study</a><a class="btn" href="https://github.com/costasxeras-stack/duplicate-product-finder">Code and data</a></div>
+    <dl class="p-meta"><div><dt>Data</dt><dd>Walmart-Amazon, Abt-Buy</dd></div><div><dt>Test pairs</dt><dd>2,049 and 1,916</dd></div><div><dt>AI</dt><dd>Local model, no paid calls</dd></div><div><dt>Status</dt><dd>v0.1.0, results live</dd></div></dl>
+  </div>
+</section>
+
+<div class="wrap p-body">
+  <nav class="toc" aria-label="On this page"><a href="#question">The question</a><a href="#numbers">Headline numbers</a><a href="#findings">Findings</a><a href="#next">What I would do next</a></nav>
+  <article class="prose">
+    <section id="question">
+      <h2>The question</h2>
+      <p>Master data teams usually match products with a rule (same brand and model number) and send the rest to people. How much of that checking can a model remove, at what risk, and does a general AI model help?</p>
+      <figure><img src="../assets/img/dpf-desktop.webp" alt="Duplicate Product Finder results page with the merge rule sliders" loading="lazy" width="1280" height="1440"><figcaption>Set the merge and keep apart lines and see wrong merges, missed duplicates and checking time.</figcaption></figure>
+    </section>
+    <section id="numbers">
+      <h2>Headline numbers</h2>
+      <div class="table-wrap"><table><thead><tr><th>Method</th><th>Right</th><th>Found</th></tr></thead><tbody><tr><td>Model number rule</td><td class="n">58%</td><td class="n">73%</td></tr><tr><td>Title similarity</td><td class="n">45%</td><td class="n">50%</td></tr><tr><td>Local AI model</td><td class="n">30%</td><td class="n">26%</td></tr><tr class="best"><td>Combined model</td><td class="n">68%</td><td class="n">78%</td></tr></tbody></table></div>
+      <p class="src">Walmart-Amazon test pairs. Right: share of its matches that are real. Found: share of real duplicates it catches.</p>
+    </section>
+    <section id="findings">
+      <h2>Findings</h2>
+      <div class="finding"><span class="tag confirmed">Confirmed</span><h3>The value is in closing pairs, not merging them</h3><p>With lines set on validation pairs, 77% of Walmart-Amazon pairs (80% for Abt-Buy) close without a person, almost all by keeping them apart. Only 15% of duplicates are safe to merge automatically.</p></div>
+      <div class="finding"><span class="tag confirmed">Confirmed</span><h3>A general AI model knows similar, not same</h3><p>On its own it was the weakest method, and removing it from the combined model barely changes the result. Two adapters of different lengths score 0.97 on its similarity.</p></div>
+      <div class="finding"><span class="tag confirmed">Confirmed</span><h3>Every signal has a cost</h3><p>A partial model number match found duplicates like "p-fdu4" and "p-fdu4gbsv-ef", and caused the only wrong merge: a 6 ft and a 10 ft adapter.</p></div>
+      <div class="finding"><span class="tag hypothesis">Hypothesis</span><h3>Missing model numbers create the work</h3><p>On Abt-Buy, 61% of the pairs sent to a person lack a model number, against 12% of all pairs. On Walmart-Amazon there is no such gap, so this holds for one benchmark only.</p></div>
+    </section>
+    <section id="next">
+      <h2>What I would do next</h2>
+      <ol>
+        <li>Train a model on duplicate pairs and see how far it moves the merge line.</li>
+        <li>Add the step that finds candidate pairs in a full catalogue.</li>
+        <li>Have a catalogue specialist check and time 100 pairs from the review band.</li>
+      </ol>
+      <p class="src">Limits: two electronics benchmarks with pre-filtered candidate pairs. Licence of the underlying product data not stated.</p>
+    </section>
+    <div class="next"><a class="plink" href="recommendation-lab.html"><small>← Previous</small><b>Recommendation Lab</b></a><a class="plink right" href="voice-of-the-customer-analyzer.html"><small>Next project <span class="arrow">→</span></small><b>Voice of the Customer Analyzer</b></a></div>
+  </article>
+</div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span>© <span data-year>2026</span> Konstantinos Xeras</span>
+    <span class="fl"><a href="../#about">About</a><a href="../#work">My work</a><a href="../#contact">Contact</a><a href="https://github.com/costasxeras-stack">GitHub</a></span>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>

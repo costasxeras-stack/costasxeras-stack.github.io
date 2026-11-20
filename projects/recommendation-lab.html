@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Recommendation Lab · Konstantinos Xeras</title>
+<meta name="description" content="What makes &#x27;readers also liked&#x27; work? Three methods tested on 6 million book ratings. The starting books mattered more than the method.">
+<meta property="og:title" content="Recommendation Lab, a project by Konstantinos Xeras">
+<meta property="og:description" content="What makes &#x27;readers also liked&#x27; work? Three methods tested on 6 million book ratings. The starting books mattered more than the method.">
+<meta property="og:type" content="article">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%238f9bff'/%3E%3Ctext x='16' y='22' font-family='Arial,sans-serif' font-weight='700' font-size='15' fill='%230b0d12' text-anchor='middle'%3EKX%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css?v=2.8.0">
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="../">Kostas Xeras<span>.</span></a>
+    <button class="menu-btn" aria-label="Menu" aria-expanded="false">☰</button>
+    <nav aria-label="Main">
+      <a href="../#about">About</a>
+      <a href="../#experience">Experience</a>
+      <a href="../#work">My work</a>
+      <a href="../#contact" class="btn primary small">Get in touch</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="p-hero">
+  <div class="wrap">
+    <a class="back" href="../#work">← All projects</a>
+    <div class="meta" style="display:flex;gap:10px;flex-wrap:wrap"><span class="tag ver">v0.1.0</span><span class="tag confirmed">Live results</span></div>
+    <h1>Recommendation Lab</h1>
+    <p class="lead">Teams argue about recommendation algorithms. I tested a bestseller list, "readers also liked" and a taste profile model on 10,000 readers, hiding the last book each one liked. One choice around the method mattered more than the method itself: which of the reader's books to start from.</p>
+    <div class="p-links"><a class="btn primary" href="https://kostasxeras.com/recommendation-lab/">See the results <span class="arrow">→</span></a><a class="btn" href="https://github.com/costasxeras-stack/recommendation-lab/blob/main/docs/case-study.md">Full case study</a><a class="btn" href="https://github.com/costasxeras-stack/recommendation-lab">Code and results</a></div>
+    <dl class="p-meta"><div><dt>Data</dt><dd>goodbooks-10k, 6M ratings</dd></div><div><dt>Test</dt><dd>10,000 readers</dd></div><div><dt>Methods</dt><dd>3, plus a series rule</dd></div><div><dt>Status</dt><dd>v0.1.0, results live</dd></div></dl>
+  </div>
+</section>
+
+<div class="wrap p-body">
+  <nav class="toc" aria-label="On this page"><a href="#question">The question</a><a href="#numbers">Headline numbers</a><a href="#findings">Findings</a><a href="#next">What I would do next</a></nav>
+  <article class="prose">
+    <section id="question">
+      <h2>The question</h2>
+      <p>Does a personalised "readers also liked" beat a bestseller list, and what makes it work: the method, or the choices around it?</p>
+      <figure><img src="../assets/img/rec-desktop.webp" alt="Recommendation Lab results page with the history chart" loading="lazy" width="1280" height="1440"><figcaption>Hit rate by how much of the reader's history each method used.</figcaption></figure>
+    </section>
+    <section id="numbers">
+      <h2>Headline numbers</h2>
+      <div class="table-wrap"><table><thead><tr><th>Method</th><th>Hit in top 10</th><th>Books shown</th></tr></thead><tbody><tr><td>Bestseller list</td><td class="n">1.9%</td><td class="n">58</td></tr><tr><td>Also liked, whole history</td><td class="n">5.0%</td><td class="n">2,448</td></tr><tr><td>Taste profile, whole history</td><td class="n">5.9%</td><td class="n">1,202</td></tr><tr class="best"><td>Also liked, last 3 books</td><td class="n">20.6%</td><td class="n">7,731</td></tr></tbody></table></div>
+      <p class="src">10,000 readers, the most recent book each rated 4 or 5 stars hidden. Books shown: different books recommended across all readers.</p>
+    </section>
+    <section id="findings">
+      <h2>Findings</h2>
+      <div class="finding"><span class="tag confirmed">Confirmed</span><h3>Start from the last books a reader liked</h3><p>The same method finds the next book 4 times as often from the last 3 liked books as from the whole history, and recommends 3 times as many different books.</p></div>
+      <div class="finding"><span class="tag confirmed">Confirmed</span><h3>Series explain part of it, not all</h3><p>9% of the hidden books continue a series. Outside series, the last 3 books still give 12.8% against 3.9%. A next in series rule is right 31% of the time when it applies, but adds nothing on top.</p></div>
+      <div class="finding"><span class="tag hypothesis">Hypothesis</span><h3>Part of the effect may come from how ratings were entered</h3><p>The dataset says ratings are in time order, but not whether that is reading order. Readers who rate many books at once may enter them by series or author. Real reading dates would settle it.</p></div>
+    </section>
+    <section id="next">
+      <h2>What I would do next</h2>
+      <ol>
+        <li>Repeat on a dataset with real reading dates.</li>
+        <li>Blend recent and long term taste and find the best mix.</li>
+        <li>Test new readers with 0 to 2 liked books.</li>
+      </ol>
+      <p class="src">Data: goodbooks-10k by Zygmunt Zając, CC BY-SA 4.0.</p>
+    </section>
+    <div class="next"><a class="plink" href="../#work"><small>← Back</small><b>All projects</b></a><a class="plink right" href="duplicate-product-finder.html"><small>Next project <span class="arrow">→</span></small><b>Duplicate Product Finder</b></a></div>
+  </article>
+</div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span>© <span data-year>2026</span> Konstantinos Xeras</span>
+    <span class="fl"><a href="../#about">About</a><a href="../#work">My work</a><a href="../#contact">Contact</a><a href="https://github.com/costasxeras-stack">GitHub</a></span>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>
