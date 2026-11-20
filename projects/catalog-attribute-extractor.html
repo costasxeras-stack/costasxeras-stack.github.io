@@ -48,7 +48,7 @@
     <section id="question">
       <h2>The question</h2>
       <p>In the WANDS furniture catalogue, 42% of products have a usable style value, 28% a color, 23% a material and 18% a shape. A product without a value never appears when a shopper filters by it. Can AI fill these gaps, and which of its values can go live without a person checking them?</p>
-      <figure><img src="../assets/img/cae-desktop.webp" alt="Catalog Attribute Extractor results page with the scorecard and the auto-fill rule" loading="lazy" width="1280" height="1500"><figcaption>The results page: headline numbers, scorecard by attribute, and an auto-fill rule you can switch.</figcaption></figure>
+      <figure><img src="../assets/img/cae-desktop.webp" alt="Catalog Attribute Extractor results page with the scorecard and the automatic fill rule" loading="lazy" width="1280" height="1500"><figcaption>The results page: headline numbers, scorecard by attribute, and a rule for filling automatically you can switch.</figcaption></figure>
     </section>
     <section id="approach">
       <h2>Approach</h2>
@@ -66,15 +66,15 @@
     </section>
     <section id="findings">
       <h2>Findings</h2>
-      <div class="finding"><span class="tag confirmed">Confirmed</span><h3>When two methods agree, the value can go live</h3><p>When Claude and the keyword matcher give the same value, they are right 88% of the time (115 of 131). Auto-filling only those fills 35% of the gaps with 16 wrong values. Auto-filling every Claude answer fills 44% with 34 wrong values. When they disagree, Claude is right only 39% of the time, so a person decides.</p></div>
+      <div class="finding"><span class="tag confirmed">Confirmed</span><h3>When two methods agree, the value can go live</h3><p>When Claude and the keyword matcher give the same value, they are right 88% of the time (115 of 131). Filling automatically only those fills 35% of the gaps with 16 wrong values. Filling automatically every Claude answer fills 44% with 34 wrong values. When they disagree, Claude is right only 39% of the time, so a person decides.</p></div>
       <div class="finding"><span class="tag confirmed">Confirmed</span><h3>Decide per attribute</h3><p>Shape and material were reliable. Color was right only 12 of 21 times, often because the text describes several parts or a different variant.</p></div>
       <div class="finding"><span class="tag hypothesis">Hypothesis</span><h3>Some errors are catalogue errors</h3><p>In 16 of Claude's 21 wrong style values, the quoted text names Claude's style directly, for example "a traditional chandelier design" on a product labelled farmhouse. The label or the text is wrong, and the dataset cannot say which.</p></div>
-      <div class="finding"><span class="tag confirmed">Confirmed</span><h3>The format, not the model, broke first</h3><p>n8n's structured-output step rejected 7 of 10 batches, losing ten products each time. Switching to one plain line per product, checked line by line in code, fixed it. 41 products still came back empty or cut off, which looks like an AI credit limit. They are listed, and both methods are scored on the same 259 products.</p></div>
+      <div class="finding"><span class="tag confirmed">Confirmed</span><h3>The format, not the model, broke first</h3><p>n8n's structured output step rejected 7 of 10 batches, losing ten products each time. Switching to one plain line per product, checked line by line in code, fixed it. 41 products still came back empty or cut off, which looks like an AI credit limit. They are listed, and both methods are scored on the same 259 products.</p></div>
     </section>
     <section id="learned">
       <h2>What I learned as a PM</h2>
       <ul>
-        <li>Compare an AI feature with the cheapest non-AI method first. Here the keyword matcher was 9 points behind on accuracy and slightly ahead on coverage.</li>
+        <li>Compare an AI feature with the cheapest method without AI first. Here the keyword matcher was 9 points behind on accuracy and slightly ahead on coverage.</li>
         <li>Two cheap signals that agree can be the release rule. It is easy to explain to a catalogue team.</li>
         <li>Labels are not ground truth. Disagreements also point at bad catalogue data.</li>
       </ul>
