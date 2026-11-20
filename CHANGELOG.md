@@ -1,5 +1,16 @@
 # Changelog
 
+## 2.1.0 (20 November 2026)
+
+### Added
+- Full experience from my CV: titles, dates and results at Genuine Parts Company (NAPA), Stibo Systems, Kimberly-Clark, Cisco and Bidroom, plus earlier roles.
+- Email in the contact section, with an "Email me" button.
+- Certificates and languages in the About section.
+
+### Changed
+- Stats strip: "4 Fortune 200/500 companies" replaced by "7+ years shipping AI, ML and data products". Stibo Systems is not a Fortune 500 company, so the old line was not accurate.
+- About text, capabilities and the tools list updated to match the CV (Learning to Rank, A/B testing, AI evaluation, agentic workflows, Elasticsearch).
+
 ## 2.0.0 (20 November 2026)
 
 ### Added
