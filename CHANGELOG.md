@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.11.0 (20 November 2026)
+
+### Added
+- Small tools at /tools/, each a single page that keeps its data in the browser:
+  - Wins log: record work wins with impact, export by quarter, back up and restore.
+  - Standup order: shuffled order, a timer per person, a parking lot and a summary to copy.
+  - Time split: one tap task timers, today, this week and last week, CSV download.
+  - What to wear: Open-Meteo forecast turned into layers for the morning, midday and evening, with the rules shown.
+- Small tools section on the homepage, and a Tools link in the footer.
+
 ## 2.10.0 (20 November 2026)
 
 ### Added

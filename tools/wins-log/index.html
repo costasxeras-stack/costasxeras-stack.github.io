@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wins log · Kostas Xeras</title>
+<meta name="description" content="Write down work wins as they happen, with the impact, and export them for your next review or CV.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232f5d50'/%3E%3Cpath d='M10 17l4 4 8-10' fill='none' stroke='white' stroke-width='2.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,600;7..72,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../tools.css?v=1">
+<style>
+.win{border-top:1px solid var(--line);padding:12px 0;display:grid;gap:4px}
+.win:first-child{border-top:0}
+.win h3{font:600 16px var(--body)}
+.win .meta{font-size:13px;color:var(--faint);display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.win p{margin:0;color:var(--muted);font-size:14.5px}
+.win .acts{display:flex;gap:8px;margin-top:4px}
+.month{font:600 13px var(--body);letter-spacing:.05em;text-transform:uppercase;color:var(--faint);margin:16px 0 0}
+.filters{display:grid;grid-template-columns:1fr 180px;gap:10px;margin-top:12px}
+.count{font-size:14px;color:var(--muted)}
+pre{white-space:pre-wrap;background:#faf9f6;border:1px solid var(--line);border-radius:10px;padding:12px;font:13.5px/1.5 ui-monospace,Menlo,monospace;max-height:320px;overflow:auto}
+@media (max-width:600px){.filters{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="brand" href="./">Wins log</a><nav><a href="../">All tools</a><a href="https://kostasxeras.com/">Portfolio</a></nav></div></header>
+<main class="wrap">
+  <section class="intro">
+    <h1>Write down wins while you still remember them.</h1>
+    <p>Review season comes and nobody remembers March. Add a line when something good happens, with what changed. At review time, export them by quarter.</p>
+  </section>
+
+  <section class="card" aria-labelledby="add-h">
+    <h2 id="add-h">Add a win</h2>
+    <form id="form" autocomplete="off">
+      <div class="grid2">
+        <div><label for="date">Date</label><input type="date" id="date" required></div>
+        <div><label for="tag">Type</label><select id="tag">
+          <option>Delivery</option><option>Customer</option><option>Revenue or cost</option><option>Team</option><option>Learning</option><option>Recognition</option>
+        </select></div>
+      </div>
+      <label for="title">What you did</label>
+      <input type="text" id="title" required maxlength="160" placeholder="One line, starting with a verb">
+      <label for="impact">What changed because of it</label>
+      <textarea id="impact" maxlength="600" placeholder="Who benefited and how. Add a number if you have one."></textarea>
+      <div class="grid2">
+        <div><label for="metric">Number (optional)</label><input type="text" id="metric" maxlength="80"></div>
+        <div><label for="link">Link to proof (optional)</label><input type="url" id="link" maxlength="300" placeholder="https://"></div>
+      </div>
+      <div class="row"><button class="btn primary" type="submit" id="save">Save win</button><button class="btn" type="button" id="cancel" hidden>Cancel edit</button></div>
+    </form>
+  </section>
+
+  <section class="card" aria-labelledby="list-h">
+    <h2 id="list-h">Your wins</h2>
+    <div class="filters">
+      <input type="search" id="q" placeholder="Search" aria-label="Search wins">
+      <select id="ftag" aria-label="Filter by type"><option value="">All types</option></select>
+    </div>
+    <p class="count" id="count"></p>
+    <div id="list"></div>
+  </section>
+
+  <section class="card" aria-labelledby="exp-h">
+    <h2 id="exp-h">Export for a review</h2>
+    <p class="sub">Grouped by quarter, newest first. Paste it into your self review, a brag document or your CV notes.</p>
+    <div class="row">
+      <select id="range" aria-label="Period" style="max-width:220px">
+        <option value="3">Last 3 months</option><option value="6">Last 6 months</option><option value="12" selected>Last 12 months</option><option value="0">Everything</option>
+      </select>
+      <button class="btn primary" id="copy" type="button">Copy as text</button>
+      <button class="btn" id="dl" type="button">Download .md</button>
+    </div>
+    <pre id="preview" aria-label="Export preview"></pre>
+    <div class="row">
+      <button class="btn small" id="backup" type="button">Back up (JSON)</button>
+      <label class="btn small" style="margin:0;font-weight:600">Restore backup<input type="file" id="restore" accept="application/json" hidden></label>
+    </div>
+    <p class="note">Your wins stay in this browser only. Nothing is sent anywhere. Clearing browser data deletes them, so download a backup now and then.</p>
+  </section>
+</main>
+<footer><div class="wrap"><span>A small tool by <a href="https://kostasxeras.com/">Konstantinos Xeras</a>, built with Claude (Anthropic).</span><span>Idea from a "workplace wins tracker" in Ziplines' list of vibe coding examples.</span></div></footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  var KEY = 'kx-wins-v1', $ = function (id) { return document.getElementById(id); };
+  var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+  var wins = load(), editing = null;
+  var TAGS = Array.prototype.map.call($('tag').options, function (o) { return o.value; });
+  TAGS.forEach(function (t) { var o = document.createElement('option'); o.value = t; o.textContent = t; $('ftag').appendChild(o); });
+  $('date').value = today();
+
+  function load() { try { var v = JSON.parse(localStorage.getItem(KEY) || '[]'); return Array.isArray(v) ? v : []; } catch (e) { return []; } }
+  function store() { try { localStorage.setItem(KEY, JSON.stringify(wins)); return true; } catch (e) { toast('Could not save in this browser'); return false; } }
+  function today() { var d = new Date(); return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  function toast(t) { var el = $('toast'); el.textContent = t; el.classList.add('on'); clearTimeout(toast.t); toast.t = setTimeout(function () { el.classList.remove('on'); }, 1800); }
+  function safeLink(u) { return /^https?:\/\//i.test(u || '') ? u : ''; }
+  function monthName(d) { return new Date(d + 'T12:00:00').toLocaleDateString('en-GB', { month: 'long', year: 'numeric' }); }
+  function quarter(d) { var m = +d.slice(5, 7); return d.slice(0, 4) + ' Q' + Math.ceil(m / 3); }
+  function sorted(a) { return a.slice().sort(function (x, y) { return x.date < y.date ? 1 : x.date > y.date ? -1 : y.created - x.created; }); }
+
+  $('form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var w = { date: $('date').value || today(), tag: $('tag').value, title: $('title').value.trim(), impact: $('impact').value.trim(), metric: $('metric').value.trim(), link: safeLink($('link').value.trim()) };
+    if (!w.title) return;
+    if (editing) { var i = wins.findIndex(function (x) { return x.id === editing; }); w.id = editing; w.created = wins[i].created; wins[i] = w; }
+    else { w.id = Date.now().toString(36) + Math.random().toString(36).slice(2, 6); w.created = Date.now(); wins.push(w); }
+    if (store()) toast(editing ? 'Win updated' : 'Win saved');
+    reset(); render();
+  });
+  $('cancel').addEventListener('click', reset);
+  function reset() { editing = null; $('form').reset(); $('date').value = today(); $('save').textContent = 'Save win'; $('cancel').hidden = true; }
+  $('q').addEventListener('input', render); $('ftag').addEventListener('change', render); $('range').addEventListener('change', preview);
+
+  $('list').addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    var id = b.getAttribute('data-id'), w = wins.filter(function (x) { return x.id === id; })[0]; if (!w) return;
+    if (b.getAttribute('data-a') === 'edit') {
+      editing = id; $('date').value = w.date; $('tag').value = w.tag; $('title').value = w.title; $('impact').value = w.impact; $('metric').value = w.metric; $('link').value = w.link;
+      $('save').textContent = 'Save changes'; $('cancel').hidden = false; $('title').focus(); window.scrollTo({ top: $('form').getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
+    } else if (b.getAttribute('data-a') === 'del') {
+      if (b.getAttribute('data-sure') !== '1') { b.setAttribute('data-sure', '1'); b.textContent = 'Tap again to delete'; return; }
+      wins = wins.filter(function (x) { return x.id !== id; }); store(); render(); toast('Win deleted');
+    }
+  });
+
+  function render() {
+    var q = $('q').value.trim().toLowerCase(), t = $('ftag').value;
+    var shown = sorted(wins).filter(function (w) { return (!t || w.tag === t) && (!q || (w.title + ' ' + w.impact + ' ' + w.metric).toLowerCase().indexOf(q) > -1); });
+    $('count').textContent = wins.length ? (shown.length === wins.length ? wins.length + (wins.length === 1 ? ' win' : ' wins') : shown.length + ' of ' + wins.length + ' wins') : '';
+    if (!wins.length) { $('list').innerHTML = '<p class="empty">No wins yet. Add the last good thing that happened at work, even a small one.</p>'; preview(); return; }
+    var html = '', last = '';
+    shown.forEach(function (w) {
+      var m = monthName(w.date); if (m !== last) { html += '<p class="month">' + esc(m) + '</p>'; last = m; }
+      html += '<div class="win"><h3>' + esc(w.title) + '</h3><div class="meta"><span class="pill">' + esc(w.tag) + '</span><span>' + esc(w.date) + '</span>' + (w.metric ? '<span>' + esc(w.metric) + '</span>' : '') + (w.link ? '<a href="' + esc(w.link) + '" target="_blank" rel="noopener">Proof</a>' : '') + '</div>' +
+        (w.impact ? '<p>' + esc(w.impact) + '</p>' : '') + '<div class="acts"><button class="btn small" data-a="edit" data-id="' + w.id + '">Edit</button><button class="btn small danger" data-a="del" data-id="' + w.id + '">Delete</button></div></div>';
+    });
+    $('list').innerHTML = html || '<p class="empty">No wins match.</p>';
+    preview();
+  }
+  function exportText() {
+    var months = +$('range').value, from = '';
+    if (months) { var d = new Date(); d.setMonth(d.getMonth() - months); from = d.toISOString().slice(0, 10); }
+    var list = sorted(wins).filter(function (w) { return !from || w.date >= from; });
+    if (!list.length) return '';
+    var out = '# Wins\n', q = '';
+    list.forEach(function (w) {
+      var k = quarter(w.date); if (k !== q) { out += '\n## ' + k + '\n'; q = k; }
+      out += '- **' + w.title + '** (' + w.date + ', ' + w.tag + ')';
+      if (w.impact) out += ': ' + w.impact;
+      if (w.metric) out += ' [' + w.metric + ']';
+      if (w.link) out += ' ' + w.link;
+      out += '\n';
+    });
+    return out;
+  }
+  function preview() { $('preview').textContent = exportText() || 'Nothing to export for this period yet.'; }
+  $('copy').addEventListener('click', function () {
+    var t = exportText(); if (!t) { toast('Nothing to export yet'); return; }
+    (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(function () { toast('Copied'); }, function () { toast('Select the text below and copy it'); });
+  });
+  function download(name, text, type) { var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([text], { type: type })); a.download = name; document.body.appendChild(a); a.click(); setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 500); }
+  $('dl').addEventListener('click', function () { var t = exportText(); if (!t) { toast('Nothing to export yet'); return; } download('wins-' + today() + '.md', t, 'text/markdown'); });
+  $('backup').addEventListener('click', function () { download('wins-backup-' + today() + '.json', JSON.stringify(wins, null, 1), 'application/json'); });
+  $('restore').addEventListener('change', function () {
+    var f = this.files[0]; if (!f) return; var r = new FileReader();
+    r.onload = function () {
+      try {
+        var v = JSON.parse(r.result); if (!Array.isArray(v)) throw 0;
+        var have = {}; wins.forEach(function (w) { have[w.id] = 1; }); var added = 0;
+        v.forEach(function (w) { if (w && w.id && w.title && w.date && !have[w.id]) { wins.push({ id: String(w.id), created: +w.created || Date.now(), date: String(w.date).slice(0, 10), tag: TAGS.indexOf(w.tag) > -1 ? w.tag : TAGS[0], title: String(w.title).slice(0, 160), impact: String(w.impact || '').slice(0, 600), metric: String(w.metric || '').slice(0, 80), link: safeLink(w.link) }); added++; } });
+        store(); render(); toast(added + ' wins restored');
+      } catch (e) { toast('That file is not a wins backup'); }
+    };
+    r.readAsText(f); this.value = '';
+  });
+  render();
+})();
+</script>
+</body>
+</html>

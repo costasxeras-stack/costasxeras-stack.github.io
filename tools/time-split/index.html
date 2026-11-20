@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Time split · Kostas Xeras</title>
+<meta name="description" content="One tap to start a task timer. See where your day and week actually went.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232f5d50'/%3E%3Cpath d='M16 6a10 10 0 1 0 10 10H16z' fill='white'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,600;7..72,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../tools.css?v=1">
+<style>
+.tasks{display:grid;gap:8px;margin-top:12px}
+.task{display:grid;grid-template-columns:14px minmax(0,1fr) auto auto;gap:10px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.task.on{border-color:var(--accent);background:var(--soft)}
+.task .dot{width:12px;height:12px;border-radius:50%}
+.task .name{font-weight:600;min-width:0;overflow-wrap:anywhere}
+.task .t{font-variant-numeric:tabular-nums;font-size:15px;color:var(--muted);white-space:nowrap}
+.task.on .t{color:var(--accent);font-weight:600}
+.task .go{min-width:76px}
+.addf{display:flex;gap:8px;margin-top:12px}
+.addf input{flex:1}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-top:12px}
+.seg button{border:0;background:#fff;padding:8px 14px;font:600 14px var(--body);color:var(--muted);cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--accent);color:#fff}
+.stack{display:flex;height:22px;border-radius:8px;overflow:hidden;background:#eceae5;margin-top:14px}
+.stack i{display:block;height:100%}
+table{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:12px}
+th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line)}
+th{font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--faint);font-weight:600}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+td .sw{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:8px;vertical-align:0}
+.total{font:700 30px var(--display);margin-top:10px}
+.manual{display:grid;grid-template-columns:1fr 110px auto;gap:8px;margin-top:10px;align-items:end}
+.manual label{margin:0 0 5px}
+@media (max-width:600px){.task{grid-template-columns:14px minmax(0,1fr) auto;row-gap:2px}.task .t{grid-column:2;grid-row:2;font-size:14px}.task>span:last-child{grid-column:3;grid-row:1/span 2}.task .dot{grid-row:1/span 2}.manual{grid-template-columns:1fr 90px}.manual .btn{grid-column:1/-1}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="brand" href="./">Time split</a><nav><a href="../">All tools</a><a href="https://kostasxeras.com/">Portfolio</a></nav></div></header>
+<main class="wrap">
+  <section class="intro">
+    <h1>Where did the day go?</h1>
+    <p>Tap a task when you start it. Tapping another one stops the first. At the end of the week, see how your time actually split, not how it felt.</p>
+  </section>
+
+  <section class="card" aria-labelledby="t-h">
+    <h2 id="t-h">Tasks</h2>
+    <div class="tasks" id="tasks"></div>
+    <form class="addf" id="addf" autocomplete="off"><input type="text" id="tname" maxlength="40" placeholder="New task, for example Discovery" aria-label="New task name"><button class="btn" type="submit">Add</button></form>
+    <details style="margin-top:12px"><summary style="cursor:pointer;font-size:14px;color:var(--muted)">Forgot to start a timer? Add time by hand</summary>
+      <div class="manual">
+        <div><label for="mtask">Task</label><select id="mtask"></select></div>
+        <div><label for="mmin">Minutes</label><input type="number" id="mmin" min="1" max="600" step="1" value="30"></div>
+        <button class="btn" id="madd" type="button">Add time today</button>
+      </div>
+    </details>
+  </section>
+
+  <section class="card" aria-labelledby="s-h">
+    <h2 id="s-h">How it split</h2>
+    <div class="seg" role="group" aria-label="Period"><button type="button" data-p="today" aria-pressed="true">Today</button><button type="button" data-p="week" aria-pressed="false">This week</button><button type="button" data-p="last" aria-pressed="false">Last week</button></div>
+    <div class="total" id="total"></div>
+    <div class="stack" id="stack" aria-hidden="true"></div>
+    <table><thead><tr><th>Task</th><th class="n">Time</th><th class="n">Share</th></tr></thead><tbody id="rows"></tbody></table>
+    <div class="row"><button class="btn small" id="csv" type="button">Download all time (CSV)</button><button class="btn small danger" id="clear" type="button">Delete all data</button></div>
+    <p class="note">Weeks start on Monday. Everything stays in this browser. Nothing is sent anywhere. A timer keeps running if you close the page.</p>
+  </section>
+</main>
+<footer><div class="wrap"><span>A small tool by <a href="https://kostasxeras.com/">Konstantinos Xeras</a>, built with Claude (Anthropic).</span><span>Idea from a "cross-task time tracker" in Ziplines' list of vibe coding examples.</span></div></footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  var KEY = 'kx-timesplit-v1', $ = function (id) { return document.getElementById(id); };
+  var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+  var COLORS = ['#2f5d50', '#b4441c', '#4f46e5', '#9a6b1f', '#0e7490', '#a21caf', '#4d7c0f', '#be123c', '#475569', '#c2410c'];
+  var D = load(), period = 'today';
+  function load() {
+    try { var v = JSON.parse(localStorage.getItem(KEY) || 'null'); if (v && Array.isArray(v.tasks) && Array.isArray(v.log)) return v; } catch (e) {}
+    return { tasks: [{ id: 't1', name: 'Meetings' }, { id: 't2', name: 'Deep work' }, { id: 't3', name: 'Email and chat' }], log: [], running: null };
+  }
+  function store() { try { localStorage.setItem(KEY, JSON.stringify(D)); } catch (e) { toast('Could not save in this browser'); } }
+  function toast(t) { var el = $('toast'); el.textContent = t; el.classList.add('on'); clearTimeout(toast.t); toast.t = setTimeout(function () { el.classList.remove('on'); }, 1800); }
+  function color(id) { var i = D.tasks.findIndex(function (t) { return t.id === id; }); return COLORS[(i < 0 ? 0 : i) % COLORS.length]; }
+  function hm(ms) { if (ms > 0 && ms < 60000) return 'under 1 min'; var m = Math.round(ms / 60000); return m < 60 ? m + ' min' : Math.floor(m / 60) + ' h ' + ('0' + m % 60).slice(-2) + ' min'; }
+  function clock(ms) { var s = Math.floor(ms / 1000); return Math.floor(s / 3600) + ':' + ('0' + Math.floor(s / 60) % 60).slice(-2) + ':' + ('0' + s % 60).slice(-2); }
+  function dayStart(d) { var x = new Date(d); x.setHours(0, 0, 0, 0); return x.getTime(); }
+  function weekStart(d) { var x = new Date(dayStart(d)); var wd = (x.getDay() + 6) % 7; x.setDate(x.getDate() - wd); return x.getTime(); }
+  function range(p) {
+    var n = Date.now();
+    if (p === 'today') return [dayStart(n), n + 1];
+    if (p === 'week') return [weekStart(n), n + 1];
+    var w = weekStart(n); var prev = new Date(w); prev.setDate(prev.getDate() - 7); return [prev.getTime(), w];
+  }
+  function spans() { var s = D.log.slice(); if (D.running) s.push({ task: D.running.task, start: D.running.start, end: Date.now() }); return s; }
+  function totals(p) {
+    var r = range(p), out = {};
+    spans().forEach(function (x) { var a = Math.max(x.start, r[0]), b = Math.min(x.end, r[1]); if (b > a) out[x.task] = (out[x.task] || 0) + (b - a); });
+    return out;
+  }
+  function stop() { if (!D.running) return; var e = Date.now(); if (e - D.running.start >= 1000) D.log.push({ task: D.running.task, start: D.running.start, end: e }); D.running = null; }
+  function toggle(id) { var was = D.running && D.running.task; stop(); if (was !== id) D.running = { task: id, start: Date.now() }; store(); draw(); }
+
+  $('tasks').addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return; var id = b.getAttribute('data-id');
+    if (b.getAttribute('data-a') === 'go') toggle(id);
+    if (b.getAttribute('data-a') === 'del') {
+      if (b.getAttribute('data-sure') !== '1') { b.setAttribute('data-sure', '1'); b.textContent = 'Sure?'; return; }
+      if (D.running && D.running.task === id) stop();
+      D.tasks = D.tasks.filter(function (t) { return t.id !== id; }); D.log = D.log.filter(function (x) { return x.task !== id; }); store(); draw(); toast('Task and its time deleted');
+    }
+  });
+  $('addf').addEventListener('submit', function (e) {
+    e.preventDefault(); var n = $('tname').value.trim(); if (!n) return;
+    if (D.tasks.some(function (t) { return t.name.toLowerCase() === n.toLowerCase(); })) { toast('That task already exists'); return; }
+    if (D.tasks.length >= 10) { toast('Up to 10 tasks keeps the split readable'); return; }
+    D.tasks.push({ id: 't' + Date.now().toString(36), name: n }); $('tname').value = ''; store(); draw();
+  });
+  $('madd').addEventListener('click', function () {
+    var id = $('mtask').value, m = Math.round(+$('mmin').value); if (!id || !(m > 0) || m > 600) { toast('Enter 1 to 600 minutes'); return; }
+    var end = Math.min(Date.now(), dayStart(Date.now()) + 86399000), start = Math.max(dayStart(Date.now()), end - m * 60000);
+    D.log.push({ task: id, start: start, end: end, manual: true }); store(); draw(); toast(hm(end - start) + ' added');
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('.seg button'), function (b) {
+    b.addEventListener('click', function () { period = b.getAttribute('data-p'); Array.prototype.forEach.call(document.querySelectorAll('.seg button'), function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); }); drawSplit(); });
+  });
+  $('csv').addEventListener('click', function () {
+    var name = {}; D.tasks.forEach(function (t) { name[t.id] = t.name; });
+    var rows = [['task', 'start', 'end', 'minutes', 'added_by_hand']].concat(spans().map(function (x) { return [name[x.task] || 'Deleted task', new Date(x.start).toISOString(), new Date(x.end).toISOString(), ((x.end - x.start) / 60000).toFixed(1), x.manual ? 'yes' : 'no']; }));
+    var text = rows.map(function (r) { return r.map(function (c) { return '"' + String(c).replace(/"/g, '""') + '"'; }).join(','); }).join('\n');
+    var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([text], { type: 'text/csv' })); a.download = 'time-split.csv'; document.body.appendChild(a); a.click(); setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+  });
+  $('clear').addEventListener('click', function () {
+    if (this.getAttribute('data-sure') !== '1') { this.setAttribute('data-sure', '1'); this.textContent = 'Tap again to delete everything'; return; }
+    D = { tasks: D.tasks, log: [], running: null }; store(); this.removeAttribute('data-sure'); this.textContent = 'Delete all data'; draw(); toast('All time deleted. Tasks kept.');
+  });
+
+  function draw() {
+    var today = totals('today');
+    $('tasks').innerHTML = D.tasks.map(function (t) {
+      var on = D.running && D.running.task === t.id;
+      return '<div class="task' + (on ? ' on' : '') + '"><span class="dot" style="background:' + color(t.id) + '"></span><span class="name">' + esc(t.name) + '</span>' +
+        '<span class="t" data-t="' + t.id + '">' + (on ? clock(Date.now() - D.running.start) : hm(today[t.id] || 0) + ' today') + '</span>' +
+        '<span style="display:flex;gap:6px"><button class="btn small go' + (on ? ' primary' : '') + '" data-a="go" data-id="' + t.id + '" aria-pressed="' + on + '">' + (on ? 'Stop' : 'Start') + '</button><button class="btn small danger" data-a="del" data-id="' + t.id + '" aria-label="Delete ' + esc(t.name) + '">×</button></span></div>';
+    }).join('') || '<p class="empty">Add your first task below.</p>';
+    $('mtask').innerHTML = D.tasks.map(function (t) { return '<option value="' + t.id + '">' + esc(t.name) + '</option>'; }).join('');
+    drawSplit();
+  }
+  function drawSplit() {
+    var tot = totals(period), sum = 0, name = {}; D.tasks.forEach(function (t) { name[t.id] = t.name; });
+    Object.keys(tot).forEach(function (k) { sum += tot[k]; });
+    var keys = Object.keys(tot).sort(function (a, b) { return tot[b] - tot[a]; });
+    $('total').textContent = sum ? hm(sum) : 'No time yet';
+    $('stack').innerHTML = keys.map(function (k) { return '<i style="width:' + (tot[k] / sum * 100) + '%;background:' + color(k) + '" title="' + esc(name[k] || '') + '"></i>'; }).join('');
+    $('rows').innerHTML = keys.length ? keys.map(function (k) { return '<tr><td><span class="sw" style="background:' + color(k) + '"></span>' + esc(name[k] || 'Deleted task') + '</td><td class="n">' + hm(tot[k]) + '</td><td class="n">' + Math.round(tot[k] / sum * 100) + '%</td></tr>'; }).join('') : '<tr><td colspan="3" class="empty">Start a timer to see the split.</td></tr>';
+  }
+  setInterval(function () {
+    if (!D.running) return;
+    var el = document.querySelector('[data-t="' + D.running.task + '"]'); if (el) el.textContent = clock(Date.now() - D.running.start);
+    if (Math.floor(Date.now() / 1000) % 15 === 0) drawSplit();
+  }, 1000);
+  window.addEventListener('storage', function (e) { if (e.key === KEY) { D = load(); draw(); } });
+  draw();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Small tools · Kostas Xeras</title>
+<meta name="description" content="Small single-page tools for everyday work: a wins log, a standup order, a time tracker and a weather helper.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232f5d50'/%3E%3Cpath d='M9 9h6v6H9zM17 9h6v6h-6zM9 17h6v6H9zM17 17h6v6h-6z' fill='white'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,600;7..72,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tools.css?v=1">
+<style>
+.list{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+.tool{display:block;background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px;text-decoration:none;color:var(--ink)}
+.tool:hover{border-color:var(--accent)}
+.tool h2{font-size:21px}
+.tool p{color:var(--muted);font-size:14.5px;margin:6px 0 0}
+.tool .go{color:var(--accent);font-weight:600;font-size:14.5px;display:inline-block;margin-top:10px}
+@media (max-width:600px){.list{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="brand" href="./">Small tools</a><nav><a href="https://kostasxeras.com/">Portfolio</a></nav></div></header>
+<main class="wrap">
+  <section class="intro">
+    <h1>Small tools for everyday work.</h1>
+    <p>Each one is a single page that solves one small problem. They run in your browser, keep your data in your browser, and need no account.</p>
+  </section>
+  <section class="list">
+    <a class="tool" href="wins-log/"><h2>Wins log</h2><p>Write down work wins with what changed, then export them by quarter for your review or CV.</p><span class="go">Open →</span></a>
+    <a class="tool" href="standup-order/"><h2>Standup order</h2><p>Shuffle who speaks, time each person, and park side topics for after the meeting.</p><span class="go">Open →</span></a>
+    <a class="tool" href="time-split/"><h2>Time split</h2><p>One tap to start a task timer. See how your day and week actually split.</p><span class="go">Open →</span></a>
+    <a class="tool" href="what-to-wear/"><h2>What to wear</h2><p>The forecast for the morning, midday and evening, turned into layers, with the rules shown.</p><span class="go">Open →</span></a>
+  </section>
+  <p class="note">Ideas picked from <a href="https://www.ziplines.com/blog/vibe-coding-examples">Ziplines' list of vibe coding examples</a> because they were the quickest to build well. Built with Claude (Anthropic).</p>
+</main>
+<footer><div class="wrap"><span>By <a href="https://kostasxeras.com/">Konstantinos Xeras</a>. Source on <a href="https://github.com/costasxeras-stack/costasxeras-stack.github.io/tree/main/tools">GitHub</a>.</span></div></footer>
+</body>
+</html>
