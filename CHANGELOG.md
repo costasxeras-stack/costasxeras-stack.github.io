@@ -1,5 +1,16 @@
 # Changelog
 
+## 2.6.0 (20 November 2026)
+
+### Added
+- New project: Voice of the Customer Analyzer, with its own page, card and screenshot.
+
+### Changed
+- Stats strip: 9 working products and 7 live demos.
+
+### Fixed
+- Tables on project pages no longer run off the screen on phones.
+
 ## 2.5.0 (20 November 2026)
 
 ### Added

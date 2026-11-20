@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Voice of the Customer Analyzer · Konstantinos Xeras</title>
+<meta name="description" content="Why do shoppers say they would not recommend a product? 8,201 real clothing reviews, with complaints found and grouped by a local AI model.">
+<meta property="og:title" content="Voice of the Customer Analyzer, a project by Konstantinos Xeras">
+<meta property="og:description" content="Why do shoppers say they would not recommend a product? 8,201 real clothing reviews, with complaints found and grouped by a local AI model.">
+<meta property="og:type" content="article">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%238f9bff'/%3E%3Ctext x='16' y='22' font-family='Arial,sans-serif' font-weight='700' font-size='15' fill='%230b0d12' text-anchor='middle'%3EKX%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="../">Kostas Xeras<span>.</span></a>
+    <button class="menu-btn" aria-label="Menu" aria-expanded="false">☰</button>
+    <nav aria-label="Main">
+      <a href="../#about">About</a>
+      <a href="../#experience">Experience</a>
+      <a href="../#work">My work</a>
+      <a href="../#contact" class="btn primary small">Get in touch</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="p-hero">
+  <div class="wrap">
+    <a class="back" href="../#work">← All projects</a>
+    <div class="meta" style="display:flex;gap:10px;flex-wrap:wrap"><span class="tag ver">v0.1.0</span><span class="tag confirmed">Live results</span></div>
+    <h1>Voice of the Customer Analyzer</h1>
+    <p class="lead">Teams read reviews to decide what to fix, but with thousands of reviews they count keywords or read a handful. Using real reviews where every shopper also said whether they would recommend the item, I found the complaint sentences with a small local AI model, grouped them, and ranked each theme by how much more often it appears when shoppers would not recommend.</p>
+    <div class="p-links"><a class="btn primary" href="https://kostasxeras.com/Voice-of-the-customer-analyzer/">See the results <span class="arrow">→</span></a><a class="btn" href="https://github.com/costasxeras-stack/Voice-of-the-customer-analyzer/blob/main/docs/case-study.md">Full case study</a><a class="btn" href="https://github.com/costasxeras-stack/Voice-of-the-customer-analyzer">Code and data</a></div>
+    <dl class="p-meta"><div><dt>Data</dt><dd>23,486 clothing reviews</dd></div><div><dt>Analysed</dt><dd>8,201 reviews, 38,066 sentences</dd></div><div><dt>AI</dt><dd>Local model, no paid calls</dd></div><div><dt>Status</dt><dd>v0.1.0, results live</dd></div></dl>
+  </div>
+</section>
+
+<div class="wrap p-body">
+  <nav class="toc" aria-label="On this page"><a href="#question">The question</a><a href="#approach">Approach</a><a href="#numbers">Headline numbers</a><a href="#findings">Findings</a><a href="#learned">What I learned as a PM</a><a href="#next">What I would do next</a></nav>
+  <article class="prose">
+    <section id="question">
+      <h2>The question</h2>
+      <p>Shoppers who would not recommend a clothing item: what are they complaining about, and what should the team fix first? And would counting keywords, the usual first step, give the same answer?</p>
+      <figure><img src="../assets/img/voc-desktop.webp" alt="Voice of the Customer Analyzer results page with the ranked fix list" loading="lazy" width="1280" height="1440"><figcaption>The ranked fix list, by department, with the share in happy reviews next to it.</figcaption></figure>
+    </section>
+    <section id="approach">
+      <h2>Approach</h2>
+      <ul>
+        <li>Wrote the keyword list a PM would expect before running any AI, and did not change it.</li>
+        <li>Took all 4,101 "would not recommend" reviews and the same number of random happy ones, split into 38,066 sentences.</li>
+        <li>A small text model running locally turned each sentence into numbers. A simple model, trained on other reviews, flagged sentences that sound like a "would not recommend" review.</li>
+        <li>Grouped the 9,274 flagged sentences into themes and ranked them by how often they appear in unhappy reviews compared with happy ones.</li>
+      </ul>
+    </section>
+    <section id="numbers">
+      <h2>Headline numbers</h2>
+      <div class="table-wrap"><table><thead><tr><th>Theme</th><th>Unhappy</th><th>Happy</th></tr></thead><tbody><tr class="best"><td>Fit</td><td class="n">31.5%</td><td class="n">9.2%</td></tr><tr><td>Fabric and quality</td><td class="n">21.5%</td><td class="n">4.2%</td></tr><tr><td>No shape, or not like the photo</td><td class="n">14.9%</td><td class="n">3.9%</td></tr><tr><td>Value and ordering</td><td class="n">12.6%</td><td class="n">4.3%</td></tr><tr><td>Color</td><td class="n">10.2%</td><td class="n">2.1%</td></tr></tbody></table></div>
+      <p class="src">Share of reviews with at least one complaint sentence in the theme. Unhappy: 4,101 reviews that would not recommend the item. Happy: 4,100 random reviews that would.</p>
+    </section>
+    <section id="findings">
+      <h2>Findings</h2>
+      <div class="finding"><span class="tag confirmed">Confirmed</span><h3>Fit is the biggest cause, in every department</h3><p>Fit complaints appear in 31.5% of unhappy reviews and 9.2% of happy ones, and lead in every department, from 28% for jackets to 33% for dresses.</p></div>
+      <div class="finding"><span class="tag confirmed">Confirmed</span><h3>Keyword counting hides it</h3><p>Fit words appear in 47.2% of unhappy reviews and 51.1% of happy ones, because happy shoppers write "fits perfectly". Ranked by keywords, fit comes seventh of nine. Finding the complaint sentences first is what separates praise from problems.</p></div>
+      <div class="finding"><span class="tag confirmed">Confirmed</span><h3>Separate causes from outcomes</h3><p>"I had to return it" is the sentence most specific to unhappy reviews (9.4 times more common) and the least useful for deciding what to fix. The page hides outcomes by default.</p></div>
+      <div class="finding"><span class="tag hypothesis">Hypothesis</span><h3>Fit, shape and ordering may share one fix</h3><p>Fit, "not like the photo" and ordering the wrong size all point at the gap between what the shopper expected and what arrived. Better size guidance and photos on more body types might reduce all three. That needs a test.</p></div>
+    </section>
+    <section id="learned">
+      <h2>What I learned as a PM</h2>
+      <ul>
+        <li>Pick an outcome first. "Would not recommend" turns a pile of text into a question with an answer.</li>
+        <li>Count complaints, not words.</li>
+        <li>A small local model was enough. The analysis can be rerun on new reviews for free.</li>
+      </ul>
+    </section>
+    <section id="next">
+      <h2>What I would do next</h2>
+      <ol>
+        <li>Have a person label 50 sentences per theme to measure how clean the groups are.</li>
+        <li>Rank products by fit complaints and test better size guidance on the top ones.</li>
+        <li>Repeat on a second review source.</li>
+      </ol>
+      <p class="src">Limits: one shop, one category, English, no dates. Theme names were written by Claude from each group's top words and examples, and no person has checked the groups yet.</p>
+    </section>
+    <div class="next"><a class="plink" href="../#work"><small>← Back</small><b>All projects</b></a><a class="plink right" href="catalog-attribute-extractor.html"><small>Next project <span class="arrow">→</span></small><b>Catalog Attribute Extractor</b></a></div>
+  </article>
+</div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span>© <span data-year>2026</span> Konstantinos Xeras</span>
+    <span class="fl"><a href="../#about">About</a><a href="../#work">My work</a><a href="../#contact">Contact</a><a href="https://github.com/costasxeras-stack">GitHub</a></span>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>
