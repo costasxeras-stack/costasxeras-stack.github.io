@@ -34,16 +34,16 @@
 <section class="p-hero">
   <div class="wrap">
     <a class="back" href="../#work">← All projects</a>
-    <div class="meta" style="display:flex;gap:10px;flex-wrap:wrap"><span class="tag ver">v0.1.0</span><span class="tag">n8n</span><span class="tag">Tested, not run live yet</span></div>
+    <div class="meta" style="display:flex;gap:10px;flex-wrap:wrap"><span class="tag ver">v0.1.1</span><span class="tag">n8n</span><span class="tag confirmed">Run live with Claude</span></div>
     <h1>Zero Results Fixer</h1>
     <p class="lead">"No results found" usually means a lost sale, and most of those searches are not for products the shop lacks. They are misspellings, brand names, model numbers or unusual wording. This n8n workflow finds them every week, has Claude explain each one and propose a fix, tests the fix, and lets a person approve it before anything changes.</p>
     <div class="p-links"><a class="btn primary" href="https://github.com/costasxeras-stack/zero-results-fixer">Workflows on GitHub <span class="arrow">→</span></a><a class="btn" href="https://github.com/costasxeras-stack/zero-results-fixer/blob/main/docs/case-study.md">Case study</a><a class="btn" href="https://github.com/costasxeras-stack/zero-results-fixer/blob/main/docs/testing.md">Test results</a></div>
-    <dl class="p-meta"><div><dt>Built in</dt><dd>n8n</dd></div><div><dt>AI</dt><dd>Claude</dd></div><div><dt>Demo data</dt><dd>60 empty searches, WANDS</dd></div><div><dt>Status</dt><dd>19 of 19 tests passed</dd></div></dl>
+    <dl class="p-meta"><div><dt>Built in</dt><dd>n8n Cloud</dd></div><div><dt>AI</dt><dd>Claude</dd></div><div><dt>Live run</dt><dd>60 real empty searches</dd></div><div><dt>Tests</dt><dd>19 of 19 passed</dd></div></dl>
   </div>
 </section>
 
 <div class="wrap p-body">
-  <nav class="toc" aria-label="On this page"><a href="#how">How it works</a><a href="#data">The starting point</a><a href="#guardrails">Product calls</a><a href="#status">Where it stands</a></nav>
+  <nav class="toc" aria-label="On this page"><a href="#how">How it works</a><a href="#data">The starting point</a><a href="#guardrails">Product calls</a><a href="#live">First live run</a></nav>
   <article class="prose">
     <section id="how">
       <h2>How it works</h2>
@@ -70,10 +70,17 @@
       <div class="finding"><span class="tag">Product call</span><h3>Rules as an API</h3><p>Approved rules are published as JSON for the search to read. The workflow never needs write access to the search engine, and switching it off is one setting.</p></div>
       <figure style="max-width:300px"><img src="../assets/img/zrf-review-form.webp" alt="The review form on a phone" loading="lazy" width="600" height="862"><figcaption>The review form the owner opens from the weekly email.</figcaption></figure>
     </section>
-    <section id="status">
-      <h2>Where it stands</h2>
-      <p>All 19 test scenarios passed in a local n8n with real searches, and with stand-ins for Claude and email. That covers the workflow itself: retries when Claude fails, error alerts, wrong or reused links, and runs with nothing new. It does not show how good Claude's answers are. The first live run with Claude will measure how many of the 60 searches get a working fix, and how many of those I would approve.</p>
-      <p class="src">Limits: rules match a search exactly, the demo checks that a fix returns products but not that they are the right products, and the review form cannot show which search it belongs to (the email does).</p>
+    <section id="live">
+      <h2>First live run</h2>
+      <p>On 20 November 2026 the workflow ran on n8n Cloud with the real Claude over all 60 empty searches.</p>
+      <div class="table-wrap two"><table><thead><tr><th>Result</th><th>Searches</th></tr></thead><tbody><tr><td>Fix proposed, tested, returns products</td><td class="n">46</td></tr><tr><td>Fix still returned nothing (not sent for approval)</td><td class="n">2</td></tr><tr><td>Not sold or not a product search</td><td class="n">7</td></tr><tr><td>Claude failed (sent for manual review)</td><td class="n">5</td></tr></tbody></table></div>
+      <p>Returning products is a low bar, so I scored the 46 fixes against Search Relevance Lab's human relevance labels. I compared them with a simple fix that uses no AI: keep the shopper's words, but let any word match.</p>
+      <div class="table-wrap"><table><thead><tr><th>Fix</th><th>Mean nDCG@10</th><th>Top 10 labelled</th></tr></thead><tbody><tr><td>Claude rewrite</td><td class="n">0.566</td><td class="n">68%</td></tr><tr class="best"><td>Any-word search (no AI)</td><td class="n">0.642</td><td class="n">83%</td></tr></tbody></table></div>
+      <div class="finding"><span class="tag confirmed">Confirmed</span><h3>The simple fix beat the AI fix on this catalogue</h3><p>Claude's rewrite scored higher on 9 searches, lower on 18 and the same on 19. Four fixes that read well scored 0, for example "star wars rug" to "rug".</p></div>
+      <div class="finding"><span class="tag hypothesis">Hypothesis</span><h3>Part of the gap is measurement</h3><p>Claude's rewrites return more products nobody labelled, and those count as zero. The same bias showed up for semantic search in Search Relevance Lab.</p></div>
+      <div class="finding"><span class="tag hypothesis">Hypothesis</span><h3>Use both</h3><p>Relax the match rule for every search, and send only the searches that still fail to Claude. That is the next test.</p></div>
+      <p>What I learned: compare an AI feature with the cheapest non-AI fix before shipping it. Read one by one, every rewrite looked reasonable.</p>
+      <p class="src">Every search and score is in the repo (docs/data/live-run-2026-11-20.csv). The 19 workflow tests also passed in a local n8n with stand-ins for Claude and email. Limits: one catalogue, rules match a search exactly, and the review form cannot show which search it belongs to (the email does).</p>
     </section>
     <div class="next"><a class="plink" href="../#work"><small>← Back</small><b>All projects</b></a><a class="plink right" href="confidence-gate-lab.html"><small>Next project <span class="arrow">→</span></small><b>Confidence Gate Lab</b></a></div>
   </article>

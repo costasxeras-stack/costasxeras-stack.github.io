@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.3.0 (20 November 2026)
+
+### Changed
+- Zero Results Fixer page and card now show the first live run with Claude: 46 of 60 searches got a tested fix, and the AI fixes scored lower than a simple fix without AI (nDCG@10 0.566 against 0.642).
+
 ## 2.2.0 (20 November 2026)
 
 ### Added
