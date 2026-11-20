@@ -4,7 +4,7 @@
 
 ### Added
 - Course section for "Digital Transformation with Alteryx" on Udemy, with a link to the course.
-- Company logos next to each role in Experience, loaded from each company's website icon.
+- Company logos next to each role in Experience: Bidroom, Welltrado and Teleperformance from files Kostas supplied, the others from each company's website icon. Logos are 64px (52px on phones).
 
 ### Changed
 - The page now leads with Kostas: About comes right after the intro, and projects sit at the bottom before Contact.
