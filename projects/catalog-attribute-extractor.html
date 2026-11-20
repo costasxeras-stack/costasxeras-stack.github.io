@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Catalog Attribute Extractor · Konstantinos Xeras</title>
+<meta name="description" content="Can AI fill the shop filters a catalogue is missing? Claude in n8n against a keyword matcher, scored on 259 real products.">
+<meta property="og:title" content="Catalog Attribute Extractor, a project by Konstantinos Xeras">
+<meta property="og:description" content="Can AI fill the shop filters a catalogue is missing? Claude in n8n against a keyword matcher, scored on 259 real products.">
+<meta property="og:type" content="article">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%238f9bff'/%3E%3Ctext x='16' y='22' font-family='Arial,sans-serif' font-weight='700' font-size='15' fill='%230b0d12' text-anchor='middle'%3EKX%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="../">Kostas Xeras<span>.</span></a>
+    <button class="menu-btn" aria-label="Menu" aria-expanded="false">☰</button>
+    <nav aria-label="Main">
+      <a href="../#about">About</a>
+      <a href="../#experience">Experience</a>
+      <a href="../#work">My work</a>
+      <a href="../#contact" class="btn primary small">Get in touch</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="p-hero">
+  <div class="wrap">
+    <a class="back" href="../#work">← All projects</a>
+    <div class="meta" style="display:flex;gap:10px;flex-wrap:wrap"><span class="tag ver">v0.1.0</span><span class="tag">n8n</span><span class="tag confirmed">Run live with Claude</span></div>
+    <h1>Catalog Attribute Extractor</h1>
+    <p class="lead">Shop filters only work if products have values for them, and most products in a large catalogue are missing some. An n8n workflow asks Claude to fill style, color, shape and material from the product text, with a quote as evidence. I scored it against a simple keyword matcher on real products whose values were hidden, to find out which values could go live without a person.</p>
+    <div class="p-links"><a class="btn primary" href="https://kostasxeras.com/catalog-attribute-extractor/">See the results <span class="arrow">→</span></a><a class="btn" href="https://github.com/costasxeras-stack/catalog-attribute-extractor/blob/main/docs/case-study.md">Full case study</a><a class="btn" href="https://github.com/costasxeras-stack/catalog-attribute-extractor">Workflow and data</a></div>
+    <dl class="p-meta"><div><dt>Data</dt><dd>WANDS, 42,994 products</dd></div><div><dt>Scored</dt><dd>259 products, 379 values</dd></div><div><dt>Built in</dt><dd>n8n Cloud with Claude</dd></div><div><dt>Status</dt><dd>v0.1.0, results live</dd></div></dl>
+  </div>
+</section>
+
+<div class="wrap p-body">
+  <nav class="toc" aria-label="On this page"><a href="#question">The question</a><a href="#approach">Approach</a><a href="#numbers">Headline numbers</a><a href="#findings">Findings</a><a href="#learned">What I learned as a PM</a><a href="#next">What I would do next</a></nav>
+  <article class="prose">
+    <section id="question">
+      <h2>The question</h2>
+      <p>In the WANDS furniture catalogue, 42% of products have a usable style value, 28% a color, 23% a material and 18% a shape. A product without a value never appears when a shopper filters by it. Can AI fill these gaps, and which of its values can go live without a person checking them?</p>
+      <figure><img src="../assets/img/cae-desktop.webp" alt="Catalog Attribute Extractor results page with the scorecard and the auto-fill rule" loading="lazy" width="1280" height="1500"><figcaption>The results page: headline numbers, scorecard by attribute, and an auto-fill rule you can switch.</figcaption></figure>
+    </section>
+    <section id="approach">
+      <h2>Approach</h2>
+      <ul>
+        <li>Took 300 products that already have values, hid the values, and used them only for scoring. 20 other products were used to check the prompt.</li>
+        <li>An n8n workflow sends ten products per call to Claude, which picks one value per attribute from a fixed list, or "not stated", with a quote from the text.</li>
+        <li>A check step in code proposes a value only if it is on the list and its quote is really in the text. Nothing is written to the catalogue.</li>
+        <li>A keyword matcher with no AI ran on the same text as the baseline.</li>
+      </ul>
+    </section>
+    <section id="numbers">
+      <h2>Headline numbers</h2>
+      <div class="table-wrap"><table><thead><tr><th>Measure</th><th>Claude</th><th>Keywords</th></tr></thead><tbody><tr><td>Right when it fills a value</td><td class="n">80%</td><td class="n">71%</td></tr><tr class="best"><td>Hidden values filled</td><td class="n">44%</td><td class="n">47%</td></tr><tr><td>Shape: right when filled</td><td class="n">100%</td><td class="n">100%</td></tr><tr><td>Material: right when filled</td><td class="n">92%</td><td class="n">84%</td></tr><tr><td>Color: right when filled</td><td class="n">57%</td><td class="n">38%</td></tr></tbody></table></div>
+      <p class="src">259 WANDS products, 379 hidden values, run 20 Nov 2026 with Claude Haiku in n8n Cloud.</p>
+    </section>
+    <section id="findings">
+      <h2>Findings</h2>
+      <div class="finding"><span class="tag confirmed">Confirmed</span><h3>When two methods agree, the value can go live</h3><p>When Claude and the keyword matcher give the same value, they are right 88% of the time (115 of 131). Auto-filling only those fills 35% of the gaps with 16 wrong values. Auto-filling every Claude answer fills 44% with 34 wrong values. When they disagree, Claude is right only 39% of the time, so a person decides.</p></div>
+      <div class="finding"><span class="tag confirmed">Confirmed</span><h3>Decide per attribute</h3><p>Shape and material were reliable. Color was right only 12 of 21 times, often because the text describes several parts or a different variant.</p></div>
+      <div class="finding"><span class="tag hypothesis">Hypothesis</span><h3>Some errors are catalogue errors</h3><p>In 16 of Claude's 21 wrong style values, the quoted text names Claude's style directly, for example "a traditional chandelier design" on a product labelled farmhouse. The label or the text is wrong, and the dataset cannot say which.</p></div>
+      <div class="finding"><span class="tag confirmed">Confirmed</span><h3>The format, not the model, broke first</h3><p>n8n's structured-output step rejected 7 of 10 batches, losing ten products each time. Switching to one plain line per product, checked line by line in code, fixed it. 41 products still came back empty or cut off, which looks like an AI credit limit. They are listed, and both methods are scored on the same 259 products.</p></div>
+    </section>
+    <section id="learned">
+      <h2>What I learned as a PM</h2>
+      <ul>
+        <li>Compare an AI feature with the cheapest non-AI method first. Here the keyword matcher was 9 points behind on accuracy and slightly ahead on coverage.</li>
+        <li>Two cheap signals that agree can be the release rule. It is easy to explain to a catalogue team.</li>
+        <li>Labels are not ground truth. Disagreements also point at bad catalogue data.</li>
+      </ul>
+    </section>
+    <section id="next">
+      <h2>What I would do next</h2>
+      <ol>
+        <li>Rerun the 41 missing products with a paid key, and confirm the credit limit.</li>
+        <li>Add a review screen in n8n for the values a person must check, and time the reviews.</li>
+        <li>Run the agreement rule on products with no values, and have a person check a sample.</li>
+      </ol>
+      <p class="src">Limits: one catalogue, English text, four attributes, one model. Shape and color had few filled values, so those rates are rough.</p>
+    </section>
+    <div class="next"><a class="plink" href="../#work"><small>← Back</small><b>All projects</b></a><a class="plink right" href="experiment-readout.html"><small>Next project <span class="arrow">→</span></small><b>Experiment Readout</b></a></div>
+  </article>
+</div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span>© <span data-year>2026</span> Konstantinos Xeras</span>
+    <span class="fl"><a href="../#about">About</a><a href="../#work">My work</a><a href="../#contact">Contact</a><a href="https://github.com/costasxeras-stack">GitHub</a></span>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>
