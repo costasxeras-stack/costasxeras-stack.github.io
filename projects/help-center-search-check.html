@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Help Center Search Check · Konstantinos Xeras</title>
+<meta name="description" content="When people ask a help center a question, does the right article come up? Keyword, AI and hybrid search scored on 1,201 rated questions.">
+<meta property="og:title" content="Help Center Search Check, a project by Konstantinos Xeras">
+<meta property="og:description" content="When people ask a help center a question, does the right article come up? Keyword, AI and hybrid search scored on 1,201 rated questions.">
+<meta property="og:type" content="article">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%238f9bff'/%3E%3Ctext x='16' y='22' font-family='Arial,sans-serif' font-weight='700' font-size='15' fill='%230b0d12' text-anchor='middle'%3EKX%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css?v=2.9.0">
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="../">Kostas Xeras<span>.</span></a>
+    <button class="menu-btn" aria-label="Menu" aria-expanded="false">☰</button>
+    <nav aria-label="Main">
+      <a href="../#about">About</a>
+      <a href="../#experience">Experience</a>
+      <a href="../#work">My work</a>
+      <a href="../#contact" class="btn primary small">Get in touch</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="p-hero">
+  <div class="wrap">
+    <a class="back" href="../#work">← All projects</a>
+    <div class="meta" style="display:flex;gap:10px;flex-wrap:wrap"><span class="tag ver">v0.1.0</span><span class="tag confirmed">Live results</span></div>
+    <h1>Help Center Search Check</h1>
+    <p class="lead">Teams ask whether to add AI search to their help center. I scored keyword search, a local AI model and a hybrid on 7,117 help articles and 1,201 questions that people rated, and looked at where search fails, not just the average.</p>
+    <div class="p-links"><a class="btn primary" href="https://kostasxeras.com/help-center-search-check/">See the results <span class="arrow">→</span></a><a class="btn" href="https://github.com/costasxeras-stack/help-center-search-check/blob/main/docs/case-study.md">Full case study</a><a class="btn" href="https://github.com/costasxeras-stack/help-center-search-check">Code and results</a></div>
+    <dl class="p-meta"><div><dt>Data</dt><dd>COUGH, 56 public sources</dd></div><div><dt>Test</dt><dd>1,201 rated questions</dd></div><div><dt>AI</dt><dd>Local model, no paid calls</dd></div><div><dt>Status</dt><dd>v0.1.0, results live</dd></div></dl>
+  </div>
+</section>
+
+<div class="wrap p-body">
+  <nav class="toc" aria-label="On this page"><a href="#question">The question</a><a href="#numbers">Headline numbers</a><a href="#findings">Findings</a><a href="#next">What I would do next</a></nav>
+  <article class="prose">
+    <section id="question">
+      <h2>The question</h2>
+      <p>Does a good article come up first, or at least in the top 3? Where does search fail, does AI fix those cases, and can a score tell when to say "no good answer"?</p>
+      <figure><img src="../assets/img/hcs-desktop.webp" alt="Help Center Search Check results page with the method table" loading="lazy" width="1280" height="1440"><figcaption>Five searches scored in two views, because not every result was rated.</figcaption></figure>
+    </section>
+    <section id="numbers">
+      <h2>Headline numbers</h2>
+      <div class="table-wrap two"><table><thead><tr><th>Method</th><th>Good in top 3</th></tr></thead><tbody><tr><td>Keyword, question only</td><td class="n">58% to 66%</td></tr><tr><td>Keyword, question and answer</td><td class="n">54% to 64%</td></tr><tr><td>AI, question only</td><td class="n">57% to 71%</td></tr><tr class="best"><td>Hybrid</td><td class="n">64% to 73%</td></tr></tbody></table></div>
+      <p class="src">Lower number: unrated results count as wrong. Higher number: unrated results skipped.</p>
+    </section>
+    <section id="findings">
+      <h2>Findings</h2>
+      <div class="finding"><span class="tag confirmed">Confirmed</span><h3>Different wording is where search fails</h3><p>401 questions share under a third of their words with any good article. Keyword search gets a good top 3 for 27% of them, the hybrid for 40%. When the words match, all methods do well.</p></div>
+      <div class="finding"><span class="tag confirmed">Confirmed</span><h3>Search the article question, not the whole article</h3><p>Adding the answer text made keyword and AI search worse in both views. Titles deserve the most care.</p></div>
+      <div class="finding"><span class="tag confirmed">Confirmed</span><h3>The score can't tell when to say "no good answer"</h3><p>Showing only the AI's most confident 20% of answers still leaves 36% not rated good. Questions with no good article score slightly higher than the rest.</p></div>
+      <div class="finding"><span class="tag hypothesis">Open</span><h3>The test set may favour older methods</h3><p>Only 58% of the AI's top 3 results were rated, against 76% for keyword search. Whether AI beats keyword search alone depends on how unrated results are counted.</p></div>
+    </section>
+    <section id="next">
+      <h2>What I would do next</h2>
+      <ol>
+        <li>Rate 100 unrated results to narrow the range.</li>
+        <li>Pick the hybrid's inputs on half the questions and test on the other half.</li>
+        <li>Add a second model that checks whether the top article answers the question.</li>
+      </ol>
+      <p class="src">Data: COUGH (EMNLP 2021), CC BY-NC-SA 4.0. Questions are people's rewordings of FAQ items, not search logs. Not health advice.</p>
+    </section>
+    <div class="next"><a class="plink" href="../#work"><small>← Back</small><b>All projects</b></a><a class="plink right" href="recommendation-lab.html"><small>Next project <span class="arrow">→</span></small><b>Recommendation Lab</b></a></div>
+  </article>
+</div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span>© <span data-year>2026</span> Konstantinos Xeras</span>
+    <span class="fl"><a href="../#about">About</a><a href="../#work">My work</a><a href="../#contact">Contact</a><a href="https://github.com/costasxeras-stack">GitHub</a></span>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>
