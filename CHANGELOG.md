@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.5.0 (20 November 2026)
+
+### Added
+- New project: Catalog Attribute Extractor, with its own page, card and screenshot.
+
+### Changed
+- Stats strip: 8 working products and 6 live demos.
+
 ## 2.4.0 (20 November 2026)
 
 ### Added
