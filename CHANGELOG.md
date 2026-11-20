@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.4.0 (20 November 2026)
+
+### Added
+- New project: Experiment Readout, with its own page, card and screenshot.
+
+### Changed
+- Stats strip: 7 working products and 5 live demos.
+
 ## 2.3.0 (20 November 2026)
 
 ### Changed
