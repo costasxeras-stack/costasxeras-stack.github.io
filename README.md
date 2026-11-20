@@ -1,5 +1,20 @@
 # costasxeras-stack.github.io
 
-My portfolio site, served free by GitHub Pages at https://kostasxeras.com (custom domain set by the `CNAME` file; https://costasxeras-stack.github.io redirects there).
+**My portfolio site, served free by GitHub Pages at https://kostasxeras.com.**
 
-One self-contained `index.html`, no build step. To add a project, copy one `<article class="card">` block and edit it.
+**Current version:** 2.0.0
+
+Plain HTML and CSS, no build step. The custom domain is set by the `CNAME` file, and https://costasxeras-stack.github.io redirects there.
+
+## Files
+
+- `index.html` is the homepage: hero, what I help with, capabilities, experience, work, about and contact.
+- `projects/` has one page per project, written from each repo's case study.
+- `assets/site.css` holds all styles. `assets/site.js` adds the mobile menu, the photo tilt and the scroll fade-in. The site works without it.
+- `assets/img/` holds the portrait and project screenshots, as WebP.
+
+## How to add a project
+
+1. Copy one `<a class="work">` block in `index.html` and edit it.
+2. Copy a page in `projects/`, rename it, and edit the text.
+3. Update the "Previous" and "Next" links at the bottom of the neighbouring project pages.

@@ -1,331 +1,259 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Konstantinos Xeras product portfolio</title>
-<meta name="description" content="Product manager for data, search and AI products. Working apps on real APIs, each with the problem, decisions, findings and versions documented.">
+<meta name="description" content="Konstantinos Xeras, product manager for data, search and AI products in Kraków. Working apps on real APIs, each with the problem, decisions, findings and versions documented.">
 <meta property="og:title" content="Konstantinos Xeras, product portfolio">
 <meta property="og:description" content="Working products on real APIs, with the problem, decisions and findings documented.">
 <meta property="og:type" content="website">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%232b3fd6'/%3E%3Ctext x='16' y='22' font-family='Arial,sans-serif' font-weight='700' font-size='15' fill='%23ffffff' text-anchor='middle'%3EKX%3C/text%3E%3C/svg%3E">
+<meta property="og:url" content="https://kostasxeras.com/">
+<meta property="og:image" content="https://kostasxeras.com/assets/img/kostas.webp">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%238f9bff'/%3E%3Ctext x='16' y='22' font-family='Arial,sans-serif' font-weight='700' font-size='15' fill='%230b0d12' text-anchor='middle'%3EKX%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-  /* Layout idea: left-aligned evidence sheet. The hero shows one real finding as two records side by side;
-     projects are ruled rows (status | what it is | what it showed), not cards. Green and amber mean
-     confirmed and hypothesis everywhere; cobalt is only for links and actions. */
-  :root{
-    --bg:#eef0f3; --surface:#ffffff; --ink:#14171f; --muted:#596072; --line:#d3d8e0;
-    --accent:#2b3fd6; --on-accent:#ffffff;
-    --confirmed:#0c7048; --confirmed-bg:#dff3e9;
-    --hypothesis:#8f5600; --hypothesis-bg:#f8ecd3;
-    --display:"Bricolage Grotesque","Arial Narrow",Arial,sans-serif;
-    --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  }
-  @media (prefers-color-scheme: dark){
-    :root:not([data-theme="light"]){
-      color-scheme:dark;
-      --bg:#0f1117; --surface:#181b24; --ink:#eaecf1; --muted:#9ba2b3; --line:#2b303c;
-      --accent:#93a0ff; --on-accent:#0f1117;
-      --confirmed:#5fd3a0; --confirmed-bg:#143326;
-      --hypothesis:#e8b75f; --hypothesis-bg:#3a2e14;
-    }
-  }
-  :root[data-theme="dark"]{
-    color-scheme:dark;
-    --bg:#0f1117; --surface:#181b24; --ink:#eaecf1; --muted:#9ba2b3; --line:#2b303c;
-    --accent:#93a0ff; --on-accent:#0f1117;
-    --confirmed:#5fd3a0; --confirmed-bg:#143326;
-    --hypothesis:#e8b75f; --hypothesis-bg:#3a2e14;
-  }
-
-  *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
-  body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.6 var(--body);-webkit-font-smoothing:antialiased}
-  a{color:var(--accent);text-underline-offset:3px;text-decoration-thickness:1px}
-  a:focus-visible,.btn:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
-  h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0}
-  p{margin:0}
-  .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
-
-  /* top bar */
-  .top{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 0;border-bottom:1px solid var(--line)}
-  .name{font-family:var(--display);font-weight:700;font-size:18px;color:var(--ink);text-decoration:none;white-space:nowrap}
-  .top nav{display:flex;gap:20px;font-size:15px}
-  .top nav a{color:var(--muted);text-decoration:none}
-  .top nav a:hover{color:var(--ink)}
-
-  /* hero */
-  .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:start;padding:56px 0 64px}
-  .role{color:var(--muted);font-size:16px}
-  h1{font-weight:700;font-size:clamp(38px,6.2vw,68px);line-height:1.02;letter-spacing:-.025em;margin:14px 0 20px}
-  .lead{font-size:19px;color:var(--muted);max-width:52ch}
-  .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
-  .btn{display:inline-block;padding:12px 20px;border-radius:8px;font-weight:600;font-size:16px;text-decoration:none;border:1px solid var(--line);color:var(--ink);background:var(--surface)}
-  .btn.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
-
-  /* evidence sheet */
-  .evidence{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:24px;display:flex;flex-direction:column;gap:16px}
-  .evidence h2{font-size:23px;font-weight:700;line-height:1.2;letter-spacing:-.01em}
-  .evidence .from{font-size:14.5px;color:var(--muted)}
-  .records{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  .rec{border:1px solid var(--line);border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:10px}
-  .rec.priced{border-color:var(--hypothesis);background:var(--hypothesis-bg)}
-  .rec .rname{font-weight:600;font-size:15px;line-height:1.3}
-  .rec .rid{font-size:13.5px;color:var(--muted)}
-  .rec dl{margin:0;display:grid;gap:8px}
-  .rec dt{font-size:13.5px;color:var(--muted)}
-  .rec dd{margin:0;font-family:var(--display);font-weight:700;font-size:30px;line-height:1;font-variant-numeric:tabular-nums}
-  .rec dd.text{font-family:var(--body);font-weight:500;font-size:15px;line-height:1.35}
-  .evidence .note{font-size:14.5px;color:var(--muted)}
-
-  /* tags */
-  .tag{display:inline-block;font-size:13.5px;font-weight:600;padding:2px 9px;border-radius:999px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
-  .tag.confirmed{background:var(--confirmed-bg);color:var(--confirmed);border-color:transparent}
-  .tag.hypothesis{background:var(--hypothesis-bg);color:var(--hypothesis);border-color:transparent}
-
-  /* sections */
-  .section{padding:8px 0 56px}
-  .section > h2{font-size:clamp(28px,4vw,40px);font-weight:700;letter-spacing:-.02em}
-  .section > .sub{color:var(--muted);margin-top:6px;max-width:62ch}
-
-  /* work rows */
-  .work{margin-top:28px;border-top:2px solid var(--ink)}
-  .row{display:grid;grid-template-columns:170px 1.2fr 1fr;gap:32px;padding:32px 0;border-bottom:1px solid var(--line)}
-  .state{display:flex;flex-direction:column;gap:8px;align-items:flex-start;font-size:15px;color:var(--muted)}
-  .state .ver{font-family:var(--display);font-weight:700;font-size:22px;color:var(--ink);font-variant-numeric:tabular-nums}
-  .what{display:flex;flex-direction:column;gap:12px}
-  .what h3{font-size:30px;font-weight:700;letter-spacing:-.015em;line-height:1.1}
-  .what .on{font-size:15px;color:var(--muted)}
-  .links{display:flex;gap:18px;flex-wrap:wrap;font-weight:600;font-size:16px;margin-top:4px}
-  .showed{display:flex;flex-direction:column;gap:14px;font-size:16px}
-  .showed .item{display:flex;flex-direction:column;gap:6px;align-items:flex-start}
-  .showed .src{font-size:14.5px;color:var(--muted)}
-
-  /* method */
-  .method{list-style:none;margin:24px 0 0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);border-top:2px solid var(--ink)}
-  .method li{padding:16px 16px 0 0;display:flex;flex-direction:column;gap:4px}
-  .method b{font-family:var(--display);font-size:20px;font-weight:700}
-  .method span{font-size:15px;color:var(--muted)}
-
-  /* about */
-  .about{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;margin-top:24px}
-  .about .bio{display:flex;flex-direction:column;gap:14px;max-width:60ch}
-  .facts{margin:0;display:grid;gap:0;border-top:1px solid var(--line)}
-  .facts div{display:grid;grid-template-columns:110px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);font-size:16px}
-  .facts dt{color:var(--muted)}
-  .facts dd{margin:0}
-
-  footer{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:22px 0 40px;border-top:1px solid var(--line);color:var(--muted);font-size:15px}
-  footer .fl{display:flex;gap:18px}
-
-  @media (max-width:900px){
-    .hero{grid-template-columns:1fr;gap:36px;padding:40px 0 48px}
-    .row{grid-template-columns:1fr;gap:18px;padding:28px 0}
-    .state{flex-direction:row;align-items:center;flex-wrap:wrap;gap:10px}
-    .method{grid-template-columns:1fr 1fr;row-gap:8px}
-    .about{grid-template-columns:1fr;gap:28px}
-  }
-  @media (max-width:420px){
-    .top nav{gap:14px}
-    .top nav .opt{display:none}
-    .evidence{padding:18px}
-    .rec{padding:12px}
-    .rec dd{font-size:26px}
-  }
-</style>
+<link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
-<div class="wrap">
 
-<header class="top">
-  <a class="name" href="#top">Konstantinos Xeras</a>
-  <nav aria-label="Main">
-    <a href="#work">Work</a>
-    <a href="#about" class="opt">About</a>
-    <a href="https://github.com/costasxeras-stack" class="opt">GitHub</a>
-    <a href="https://linkedin.com/in/konstantinosxeras">LinkedIn</a>
-  </nav>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top">Kostas Xeras<span>.</span></a>
+    <button class="menu-btn" aria-label="Menu" aria-expanded="false">☰</button>
+    <nav aria-label="Main">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#work">My work</a>
+      <a href="#contact" class="btn primary small">Get in touch</a>
+    </nav>
+  </div>
 </header>
 
 <main id="top">
+
 <section class="hero">
-  <div>
-    <p class="role">Product manager for data, search and AI products, based in Kraków</p>
-    <h1>I build working products to understand product problems.</h1>
-    <p class="lead">Each project runs on a real API or platform. Each one documents the problem, the trade-offs, what I found, and how it changed version by version. I publish the reasoning along with the code.</p>
-    <div class="actions">
-      <a class="btn primary" href="#work">See the work</a>
-      <a class="btn" href="https://linkedin.com/in/konstantinosxeras">Contact me on LinkedIn</a>
+  <div class="wrap hero-grid">
+    <div>
+      <p class="hello">Hi, I'm Konstantinos (Kostas) Xeras</p>
+      <h1>I build working products to understand <em>product problems.</em></h1>
+      <p class="lead">Product manager for data, search and AI products, based in Kraków. Each project here runs on a real API or dataset, and documents the problem, the trade-offs, what I found and how it changed version by version.</p>
+      <div class="actions">
+        <a class="btn primary" href="#work">See my work <span class="arrow">→</span></a>
+        <a class="btn" href="#contact">Let's talk</a>
+      </div>
+    </div>
+    <div class="portrait-stage">
+      <div class="portrait">
+        <div class="ring" aria-hidden="true"></div>
+        <div class="disc" aria-hidden="true"></div>
+        <div class="cutout"><img src="assets/img/kostas.webp" alt="Portrait of Konstantinos Xeras" width="863" height="838" fetchpriority="high"></div>
+        <span class="chip c1"><i></i>Search relevance</span>
+        <span class="chip c2"><i></i>AI products</span>
+        <span class="chip c3"><i></i>Product data quality</span>
+      </div>
     </div>
   </div>
 
-  <aside class="evidence" aria-label="A finding from KostasTravel">
-    <p class="from">A finding from KostasTravel</p>
-    <h2>One hotel stored the same room twice. Every price was attached to the empty copy.</h2>
-    <div class="records">
-      <div class="rec priced">
-        <div>
-          <div class="rname">Classic Plus Queen</div>
-          <div class="rid">Record 1, the one guests see</div>
-        </div>
-        <dl>
-          <div><dt>Live rates</dt><dd>4</dd></div>
-          <div><dt>Amenities</dt><dd>0</dd></div>
-          <div><dt>Description</dt><dd class="text">One line</dd></div>
-        </dl>
-      </div>
-      <div class="rec">
-        <div>
-          <div class="rname">Classic Plus Queen</div>
-          <div class="rid">Record 2, never shown</div>
-        </div>
-        <dl>
-          <div><dt>Live rates</dt><dd>0</dd></div>
-          <div><dt>Amenities</dt><dd>41</dd></div>
-          <div><dt>Description</dt><dd class="text">Full paragraph</dd></div>
-        </dl>
-      </div>
+  <div class="wrap">
+    <div class="stats">
+      <div class="stat"><b>12+</b><span>years in product management</span></div>
+      <div class="stat"><b>4</b><span>Fortune 200/500 companies</span></div>
+      <div class="stat"><b>4</b><span>working products on GitHub</span></div>
+      <div class="stat"><b>3</b><span>live demos you can open</span></div>
     </div>
-    <p class="note">Same bed, same size, same six photos. The data was already in the catalogue, but the two records were never merged. Sandbox data from the Nuitee LiteAPI, 13 Nov 2026, hotel anonymised. <a href="https://github.com/costasxeras-stack/stays/blob/main/docs/case-study.md">Read the case study</a></p>
-  </aside>
+  </div>
 </section>
 
-<section class="section" id="work">
-  <h2>Work</h2>
-  <p class="sub">Newest first. Findings are marked confirmed or hypothesis, and sandbox, sample and synthetic data are named as such.</p>
+<section class="section" id="help">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">What I help with</span>
+      <h2>Products where the data decides whether users trust them.</h2>
+      <p>I work where search, product data and AI meet. The questions I like most are the ones a dashboard hides: the result that looks fine on average and fails the person who needed it.</p>
+    </div>
+    <div class="help">
+      <div class="card reveal"><span class="num">01</span><h3>Search and discovery</h3><p>Measuring relevance with labelled data before anyone funds the next model, so the team knows what each step up is worth.</p></div>
+      <div class="card reveal"><span class="num">02</span><h3>Product data quality</h3><p>Catalogues, room and part mapping, and master data. Finding where coverage looks perfect but customers still see the wrong thing.</p></div>
+      <div class="card reveal"><span class="num">03</span><h3>AI products with a human in the loop</h3><p>Features where AI does the reading and sorting, rules or people keep control of the decisions, and every output can be checked.</p></div>
+    </div>
+  </div>
 
-  <div class="work">
-
-    <article class="row">
-      <div class="state"><span class="ver">v0.1.0</span><span class="tag confirmed">Live demo</span></div>
-      <div class="what">
-        <h3>Search Relevance Lab</h3>
-        <p class="on">BM25, sentence embeddings, open WANDS dataset</p>
-        <p>Search teams argue about relevance from a handful of example queries. This app runs one query through keyword, semantic and re-ranked search on a catalogue of 42,994 products, and scores each method against labels that people made by hand.</p>
-        <div class="links">
-          <a href="https://search-relevance-lab.onrender.com">Open the live demo</a>
-          <a href="https://github.com/costasxeras-stack/search-relevance-lab/blob/main/docs/case-study.md">Case study</a>
-          <a href="https://github.com/costasxeras-stack/search-relevance-lab/tree/main/docs/decisions">Decisions</a>
-          <a href="https://github.com/costasxeras-stack/search-relevance-lab">Repo</a>
-        </div>
-      </div>
-      <div class="showed">
-        <div class="item"><span class="tag confirmed">Confirmed on test queries</span><p>Letting any query word match lifted nDCG@10 from 0.406 to 0.704. The learned blend added 0.034 on top.</p></div>
-        <div class="item"><span class="tag hypothesis">Hypothesis</span><p>Semantic search is under-scored, because only 65% of its top results have a label.</p></div>
-        <p class="src">Open WANDS dataset, 192 held-out test queries, scored 16 Nov 2026. Furniture and home goods only. Free hosting can take a minute to wake up.</p>
-      </div>
-    </article>
-
-    <article class="row">
-      <div class="state"><span class="ver">v0.1.1</span><span class="tag confirmed">Live demo</span></div>
-      <div class="what">
-        <h3>Review Radar</h3>
-        <p class="on">Claude API, App Store and Google Play reviews</p>
-        <p>Product teams sit on thousands of app reviews spread across stores, countries and languages, and nobody reads them all. Review Radar collects them, has Claude group them into themes with a severity score, and ranks what to fix first, with the verbatim reviews behind every rank.</p>
-        <div class="links">
-          <a href="https://reviews.kostasxeras.com">Open the live demo</a>
-          <a href="https://github.com/costasxeras-stack/Review-radar/tree/main/docs/decisions">Decisions</a>
-          <a href="https://github.com/costasxeras-stack/Review-radar">Repo</a>
-        </div>
-      </div>
-      <div class="showed">
-        <div class="item"><span class="tag">Product call</span><p>The AI proposes a theme list once, then tags every review against it, so counts compare across markets.</p></div>
-        <div class="item"><span class="tag">Product call</span><p>The ranking is a simple weighted score with adjustable weights. The AI does not choose the order.</p></div>
-        <p class="src">Tested end to end with synthetic data only. First live-data case study in progress. Free hosting can take a minute to wake up.</p>
-      </div>
-    </article>
-
-    <article class="row">
-      <div class="state"><span class="ver">v0.1.1</span><span class="tag">Tested, no pilot yet</span></div>
-      <div class="what">
-        <h3>Garage Quote Agent</h3>
-        <p class="on">n8n, Claude, WhatsApp</p>
-        <p>Small car-repair garages lose customers because nobody answers "how much?" while the mechanics are under a car. This n8n automation answers price requests from WhatsApp, a web form or a webhook. AI reads the message, the garage's own price book sets the price, and the owner approves anything unclear from their own WhatsApp.</p>
-        <div class="links">
-          <a href="https://github.com/costasxeras-stack/Garage-quote-agent/blob/main/docs/case-study.md">Case study</a>
-          <a href="https://github.com/costasxeras-stack/Garage-quote-agent/tree/main/docs/decisions">Decisions</a>
-          <a href="https://github.com/costasxeras-stack/Garage-quote-agent">Repo and workflows</a>
-        </div>
-      </div>
-      <div class="showed">
-        <div class="item"><span class="tag confirmed">Confirmed in testing</span><p>Vague, unsafe and owner-only requests went to the owner with the reasons listed. Routine jobs with a known car were answered automatically.</p></div>
-        <div class="item"><span class="tag hypothesis">Hypothesis</span><p>Most requests are routine enough to answer automatically. To be measured in a pilot.</p></div>
-        <p class="src">23 of 23 test scenarios passed in n8n with sample data and stand-in services.</p>
-      </div>
-    </article>
-
-    <article class="row">
-      <div class="state"><span class="ver">v1.4.1</span><span class="tag confirmed">Live demo</span></div>
-      <div class="what">
-        <h3>KostasTravel</h3>
-        <p class="on">Nuitee LiteAPI, room mapping and content quality</p>
-        <p>A hotel booking site and a room-mapping explorer on the same travel API. The site shows what mapping and content quality look like to the guest who pays. The explorer shows the machinery: which supplier room names land on which master room, which rooms never get a price, and which records look alike.</p>
-        <div class="links">
-          <a href="https://kostastravel.onrender.com">Open the live demo</a>
-          <a href="https://github.com/costasxeras-stack/stays/blob/main/docs/case-study.md">Case study</a>
-          <a href="https://github.com/costasxeras-stack/stays">Repo</a>
-        </div>
-      </div>
-      <div class="showed">
-        <div class="item"><span class="tag confirmed">Confirmed in sandbox data</span><p>533 of 533 supplier rates resolved to a master room, so coverage was fine.</p></div>
-        <div class="item"><span class="tag confirmed">Confirmed in sandbox data</span><p>The problems were precision and content. Three hotels held two master rooms under an identical name.</p></div>
-        <p class="src">LiteAPI sandbox, Kraków, 40 hotels analysed in depth, 13 Nov 2026. Illustrative, not production figures. Free hosting can take a minute to wake up.</p>
-      </div>
-    </article>
-
-    <article class="row">
-      <div class="state"><span class="tag hypothesis">In progress</span></div>
-      <div class="what">
-        <h3>Rental Health Check</h3>
-        <p class="on">Property, Kraków</p>
-        <p>For people who rent out flats in Kraków: rental yield and profit, the flat's current value, and what selling would leave you with, side by side.</p>
-      </div>
-      <div class="showed">
-        <div class="item"><span class="tag">Question</span><p>Is this flat still a good investment, compared with selling it today?</p></div>
-        <p class="src">Repo and demo coming soon.</p>
-      </div>
-    </article>
-
+  <div class="marquee" aria-label="Tools and methods I use">
+    <div class="track">
+      <span>Claude API</span><span>n8n</span><span>SQL</span><span>BigQuery</span><span>Node.js</span><span>Express</span><span>BM25</span><span>Sentence embeddings</span><span>nDCG@10</span><span>Learning to rank</span><span>Master data management</span><span>Nuitee LiteAPI</span><span>WhatsApp</span><span>App Store and Google Play reviews</span><span>GitHub</span><span>Render</span><span>Vercel</span>
+      <span aria-hidden="true">Claude API</span><span aria-hidden="true">n8n</span><span aria-hidden="true">SQL</span><span aria-hidden="true">BigQuery</span><span aria-hidden="true">Node.js</span><span aria-hidden="true">Express</span><span aria-hidden="true">BM25</span><span aria-hidden="true">Sentence embeddings</span><span aria-hidden="true">nDCG@10</span><span aria-hidden="true">Learning to rank</span><span aria-hidden="true">Master data management</span><span aria-hidden="true">Nuitee LiteAPI</span><span aria-hidden="true">WhatsApp</span><span aria-hidden="true">App Store and Google Play reviews</span><span aria-hidden="true">GitHub</span><span aria-hidden="true">Render</span><span aria-hidden="true">Vercel</span>
+    </div>
   </div>
 </section>
 
 <section class="section">
-  <h2>What every project documents</h2>
-  <ul class="method">
-    <li><b>Problem</b><span>Who it hurts and the question I want answered</span></li>
-    <li><b>Decisions</b><span>One record per real trade-off</span></li>
-    <li><b>Build</b><span>A working app on a real API</span></li>
-    <li><b>Findings</b><span>Evidence, marked confirmed or hypothesis</span></li>
-    <li><b>Versions</b><span>Changelog and releases</span></li>
-  </ul>
+  <div class="wrap caps">
+    <div class="section-head reveal">
+      <span class="eyebrow">Capabilities</span>
+      <h2>What I bring to a product team.</h2>
+    </div>
+    <ul class="cap-list reveal">
+      <li>Problem framing and product discovery</li>
+      <li>Search relevance and offline evaluation</li>
+      <li>Catalogue and product data quality</li>
+      <li>Master data management</li>
+      <li>AI features with human review</li>
+      <li>Prioritisation and roadmaps</li>
+      <li>Decision records and product specs</li>
+      <li>SQL and BigQuery analysis</li>
+      <li>Working prototypes on real APIs</li>
+      <li>Bridging business and data science teams</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section" id="experience">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Experience</span>
+      <h2>12+ years across Fortune 200/500 companies.</h2>
+    </div>
+    <div class="exp reveal">
+      <details class="job" open>
+        <summary>
+          <div><div class="co">Genuine Parts Company (NAPA)</div><div class="title">Senior Associate Product Manager, Discovery Science</div></div>
+          <span class="toggle" aria-hidden="true">+</span>
+        </summary>
+        <div class="body"><ul>
+          <li>Data science and search products for automotive parts catalogue and search.</li>
+          <li>Part-type classification and search relevance for the parts catalogue.</li>
+        </ul></div>
+      </details>
+      <details class="job">
+        <summary>
+          <div><div class="co">Stibo Systems</div><div class="title">Product management, master data management</div></div>
+          <span class="toggle" aria-hidden="true">+</span>
+        </summary>
+        <div class="body"><ul>
+          <li>Product data and master data management for enterprise clients including Apple, Adidas and Fujitsu.</li>
+        </ul></div>
+      </details>
+      <div class="job plain"><summary><div><div class="co">Kimberly-Clark</div><div class="title">Product management</div></div></summary></div>
+      <div class="job plain"><summary><div><div class="co">Cisco</div><div class="title">Product management</div></div></summary></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="work">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">My work</span>
+      <h2>Working products, with the reasoning published.</h2>
+      <p>Newest first. Findings are marked confirmed or hypothesis, and sandbox, sample and synthetic data are named as such.</p>
+    </div>
+    <div class="works">
+      <a class="work reveal" href="projects/search-relevance-lab.html">
+        <div>
+          <div class="meta"><span class="tag ver">v0.1.0</span><span class="tag confirmed">Live demo</span></div>
+          <h3>Search Relevance Lab</h3>
+          <p class="on">BM25, sentence embeddings, open WANDS dataset</p>
+          <p class="desc">How much does each step up in product search buy? One query, run through keyword, semantic and re-ranked search on 42,994 products, scored against labels made by people.</p>
+        </div>
+        <span class="go" aria-hidden="true">→</span>
+      </a>
+      <a class="work reveal" href="projects/review-radar.html">
+        <div>
+          <div class="meta"><span class="tag ver">v0.1.1</span><span class="tag confirmed">Live demo</span></div>
+          <h3>Review Radar</h3>
+          <p class="on">Claude API, App Store and Google Play reviews</p>
+          <p class="desc">Turns thousands of app reviews across stores, countries and languages into ranked themes, with the original reviews behind every rank.</p>
+        </div>
+        <span class="go" aria-hidden="true">→</span>
+      </a>
+      <a class="work reveal" href="projects/garage-quote-agent.html">
+        <div>
+          <div class="meta"><span class="tag ver">v0.1.1</span><span class="tag">Tested, no pilot yet</span></div>
+          <h3>Garage Quote Agent</h3>
+          <p class="on">n8n, Claude, WhatsApp</p>
+          <p class="desc">Answers car-repair price requests from WhatsApp in seconds. AI reads the message, the garage's own price book sets the price, and the owner approves anything unclear.</p>
+        </div>
+        <span class="go" aria-hidden="true">→</span>
+      </a>
+      <a class="work reveal" href="projects/kostastravel.html">
+        <div>
+          <div class="meta"><span class="tag ver">v1.4.2</span><span class="tag confirmed">Live demo</span></div>
+          <h3>KostasTravel</h3>
+          <p class="on">Nuitee LiteAPI, room mapping and content quality</p>
+          <p class="desc">A hotel booking site and a room-mapping explorer on the same travel API. 533 of 533 rates were mapped, yet guests could still see the wrong room or an empty one.</p>
+        </div>
+        <span class="go" aria-hidden="true">→</span>
+      </a>
+      <div class="work soon reveal">
+        <div>
+          <div class="meta"><span class="tag hypothesis">In progress</span></div>
+          <h3>Rental Health Check</h3>
+          <p class="on">Property, Kraków</p>
+          <p class="desc">For people who rent out flats in Kraków: rental yield and profit, the flat's current value, and what selling would leave you with, side by side. Repo and demo coming soon.</p>
+        </div>
+      </div>
+    </div>
+
+    <ul class="method reveal" aria-label="What every project documents">
+      <li><b>Problem</b><span>Who it hurts and the question I want answered</span></li>
+      <li><b>Decisions</b><span>One record per real trade-off</span></li>
+      <li><b>Build</b><span>A working app on a real API</span></li>
+      <li><b>Findings</b><span>Evidence, marked confirmed or hypothesis</span></li>
+      <li><b>Versions</b><span>Changelog and releases</span></li>
+    </ul>
+  </div>
 </section>
 
 <section class="section" id="about">
-  <h2>About</h2>
-  <div class="about">
-    <div class="bio">
-      <p>I'm a product manager with 12+ years across Fortune 200/500 companies. I work on data, search and AI products, most recently on automotive parts catalogue and search.</p>
-      <p>I build these projects myself, with Claude (Anthropic) as my engineering partner. The problem framing, scope, decisions and findings are mine, and every repo says how it was built.</p>
+  <div class="wrap about">
+    <div class="section-head reveal">
+      <span class="eyebrow">About me</span>
+      <h2>Product manager. Builder on the side.</h2>
     </div>
-    <dl class="facts">
-      <div><dt>Focus</dt><dd>Search relevance, product data quality, AI products</dd></div>
-      <div><dt>Experience</dt><dd>Genuine Parts Company, Kimberly-Clark, Cisco, Stibo Systems</dd></div>
-      <div><dt>Education</dt><dd>MBA, MSc Information Systems, CPM</dd></div>
-      <div><dt>Based in</dt><dd>Kraków, Poland</dd></div>
-    </dl>
+    <div class="reveal" style="display:flex;flex-direction:column;gap:28px">
+      <div class="bio">
+        <p>I'm a product manager with 12+ years across Fortune 200/500 companies. I work on data, search and AI products, most recently on automotive parts catalogue and search.</p>
+        <p>I build these projects myself, with Claude (Anthropic) as my engineering partner. The problem framing, scope, decisions and findings are mine, and every repo says how it was built.</p>
+      </div>
+      <dl class="facts">
+        <div><dt>Focus</dt><dd>Search relevance, product data quality, AI products</dd></div>
+        <div><dt>Experience</dt><dd>Genuine Parts Company, Kimberly-Clark, Cisco, Stibo Systems</dd></div>
+        <div><dt>Education</dt><dd>MBA, MSc Information Systems, CPM</dd></div>
+        <div><dt>Based in</dt><dd>Kraków, Poland</dd></div>
+      </dl>
+    </div>
   </div>
 </section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="cta reveal">
+      <div>
+        <span class="eyebrow">Contact</span>
+        <h2 style="margin-top:12px">Let's build something people can trust.</h2>
+        <p>Hiring for a data, search or AI product role, or want to talk about one of these projects? Send me a message.</p>
+        <div class="actions"><a class="btn primary" href="https://linkedin.com/in/konstantinosxeras">Message me on LinkedIn <span class="arrow">→</span></a></div>
+      </div>
+      <ul class="contact-list">
+        <li><a href="https://linkedin.com/in/konstantinosxeras">LinkedIn <small>/in/konstantinosxeras</small></a></li>
+        <li><a href="https://github.com/costasxeras-stack">GitHub <small>costasxeras-stack</small></a></li>
+        <li><div>Location <small>Kraków, Poland</small></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
 </main>
 
-<footer>
-  <span>© 2026 Konstantinos Xeras</span>
-  <span class="fl"><a href="https://linkedin.com/in/konstantinosxeras">LinkedIn</a><a href="https://github.com/costasxeras-stack">GitHub</a></span>
+<footer class="site">
+  <div class="wrap">
+    <span>© <span data-year>2026</span> Konstantinos Xeras</span>
+    <span class="fl"><a href="#about">About</a><a href="#work">My work</a><a href="#contact">Contact</a><a href="https://github.com/costasxeras-stack">GitHub</a></span>
+  </div>
 </footer>
 
-</div>
+<script src="assets/site.js"></script>
 </body>
 </html>
