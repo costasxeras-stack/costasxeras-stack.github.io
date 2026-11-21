@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Smog Planner · Konstantinos Xeras</title>
+<meta name="description" content="Hourly PM2.5 and PM10 from Kraków&#x27;s official stations, a 3-day forecast checked against the measurements, and the best hours for a run, a walk with a child or airing the flat.">
+<meta property="og:title" content="Smog Planner, a project by Konstantinos Xeras">
+<meta property="og:description" content="Hourly PM2.5 and PM10 from Kraków&#x27;s official stations, a 3-day forecast checked against the measurements, and the best hours for a run, a walk with a child or airing the flat.">
+<meta property="og:type" content="article">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%238f9bff'/%3E%3Ctext x='16' y='22' font-family='Arial,sans-serif' font-weight='700' font-size='15' fill='%230b0d12' text-anchor='middle'%3EKX%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css?v=2.13.0">
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="../">Kostas Xeras<span>.</span></a>
+    <button class="menu-btn" aria-label="Menu" aria-expanded="false">☰</button>
+    <nav aria-label="Main">
+      <a href="../#about">About</a>
+      <a href="../#experience">Experience</a>
+      <a href="../#work">My work</a>
+      <a href="../#contact" class="btn primary small">Get in touch</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="p-hero">
+  <div class="wrap">
+    <a class="back" href="../#work">← All projects</a>
+    <div class="meta" style="display:flex;gap:10px;flex-wrap:wrap"><span class="tag ver">v0.1.1</span><span class="tag confirmed">Live app</span></div>
+    <h1>Smog Planner</h1>
+    <p class="lead">In Kraków's heating season the question is when, not whether. Smog Planner answers it with official measurements, a forecast it checks against them, and time windows for everyday activities.</p>
+    <div class="p-links"><a class="btn primary" href="https://kostasxeras.com/smog-planner/">Open the app <span class="arrow">→</span></a><a class="btn" href="https://github.com/costasxeras-stack/smog-planner/blob/main/docs/case-study.md">Case study</a><a class="btn" href="https://github.com/costasxeras-stack/smog-planner">Code and decisions</a></div>
+    <dl class="p-meta"><div><dt>Data</dt><dd>GIOŚ stations, CAMS forecast</dd></div><div><dt>Updates</dt><dd>Hourly GitHub Action</dd></div><div><dt>Interface</dt><dd>Polish</dd></div><div><dt>Status</dt><dd>v0.1.1, live</dd></div></dl>
+  </div>
+</section>
+
+<div class="wrap p-body">
+  <nav class="toc" aria-label="On this page"><a href="#question">The problem</a><a href="#features">What it does</a><a href="#findings">Findings and decisions</a><a href="#next">What I would do next</a></nav>
+  <article class="prose">
+    <section id="question">
+      <h2>The problem</h2>
+      <p>Air quality apps show a coloured dot for right now. People planning a run or a walk need the best and worst hours ahead, and to know how far to trust the forecast.</p>
+      <figure><img src="../assets/img/smog-planner-desktop.webp" alt="Smog Planner on desktop" loading="lazy" width="1280" height="1440"><figcaption>Smog Planner on desktop.</figcaption></figure>
+    </section>
+    <section id="features">
+      <h2>What it does</h2>
+      <ul><li><strong>Now</strong>: measured PM2.5 and PM10 with the official index.</li><li><strong>Planner</strong>: best three windows and the one to avoid in the next 36 hours.</li><li><strong>Model check</strong>: forecast against station, with an optional correction.</li><li><strong>Hourly job</strong> that copies official data the browser cannot read directly.</li></ul>
+    </section>
+    <section id="findings">
+      <h2>Findings and decisions</h2>
+      <div class="finding"><span class="tag confirmed">Confirmed</span><h3>The official API cannot be read from a web page</h3><p>Browser requests to the GIOŚ API fail, so an hourly GitHub Action copies the data into the repo.</p></div>
+      <div class="finding"><span class="tag confirmed">Confirmed on the first run</span><h3>Not every station publishes hourly PM data</h3><p>Four of nine Kraków stations returned hourly PM data, and only one returned both PM2.5 and PM10. The app labels the others "forecast only".</p></div>
+      <div class="finding"><span class="tag hypothesis">Early observation</span><h3>The model can be far from the station</h3><p>Over about two days at Aleja Krasińskiego the model averaged 12.6 µg/m³ against 5.4 measured. One station and one clean-air period, so not a pattern yet.</p></div>
+    </section>
+    <section id="next">
+      <h2>What I would do next</h2>
+      <ol><li>Publish the model gap per station after four weeks.</li><li>Add other Polish cities.</li><li>Morning summary as an installable app.</li></ol>
+    </section>
+    <div class="next"><a class="plink" href="room-mapping-lab.html"><small>← Previous</small><b>Room Mapping Lab</b></a><a class="plink right" href="bez-belki.html"><small>Next project <span class="arrow">→</span></small><b>Bez Belki</b></a></div>
+  </article>
+</div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span>© <span data-year>2026</span> Konstantinos Xeras</span>
+    <span class="fl"><a href="../#about">About</a><a href="../#work">My work</a><a href="../#contact">Contact</a><a href="https://github.com/costasxeras-stack">GitHub</a></span>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>

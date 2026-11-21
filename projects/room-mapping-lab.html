@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Room Mapping Lab · Konstantinos Xeras</title>
+<meta name="description" content="Supplier room names against master rooms for 173 hotels from the LiteAPI sandbox: three matching methods scored against LiteAPI&#x27;s own mapping, a data integrity check, and the confidence threshold turned into a business decision.">
+<meta property="og:title" content="Room Mapping Lab, a project by Konstantinos Xeras">
+<meta property="og:description" content="Supplier room names against master rooms for 173 hotels from the LiteAPI sandbox: three matching methods scored against LiteAPI&#x27;s own mapping, a data integrity check, and the confidence threshold turned into a business decision.">
+<meta property="og:type" content="article">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%238f9bff'/%3E%3Ctext x='16' y='22' font-family='Arial,sans-serif' font-weight='700' font-size='15' fill='%230b0d12' text-anchor='middle'%3EKX%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css?v=2.13.0">
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="../">Kostas Xeras<span>.</span></a>
+    <button class="menu-btn" aria-label="Menu" aria-expanded="false">☰</button>
+    <nav aria-label="Main">
+      <a href="../#about">About</a>
+      <a href="../#experience">Experience</a>
+      <a href="../#work">My work</a>
+      <a href="../#contact" class="btn primary small">Get in touch</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="p-hero">
+  <div class="wrap">
+    <a class="back" href="../#work">← All projects</a>
+    <div class="meta" style="display:flex;gap:10px;flex-wrap:wrap"><span class="tag ver">v0.1.0</span><span class="tag confirmed">Live app</span></div>
+    <h1>Room Mapping Lab</h1>
+    <p class="lead">Every supplier names the same room differently. The hard part of room mapping is not matching, it is deciding how much to automate. This lab makes that trade-off concrete on real LiteAPI sandbox data.</p>
+    <div class="p-links"><a class="btn primary" href="https://kostasxeras.com/room-mapping-lab/">Open the app <span class="arrow">→</span></a><a class="btn" href="https://github.com/costasxeras-stack/room-mapping-lab/blob/main/docs/case-study.md">Case study</a><a class="btn" href="https://github.com/costasxeras-stack/room-mapping-lab">Code and decisions</a></div>
+    <dl class="p-meta"><div><dt>Data</dt><dd>LiteAPI sandbox, 173 hotels, 8 cities</dd></div><div><dt>Names</dt><dd>1,638 supplier rate names</dd></div><div><dt>Methods</dt><dd>Rules, similarity, hybrid</dd></div><div><dt>Status</dt><dd>v0.1.0, live</dd></div></dl>
+  </div>
+</section>
+
+<div class="wrap p-body">
+  <nav class="toc" aria-label="On this page"><a href="#question">The problem</a><a href="#features">What it does</a><a href="#findings">Findings and decisions</a><a href="#next">What I would do next</a></nav>
+  <article class="prose">
+    <section id="question">
+      <h2>The problem</h2>
+      <p>Room mapping makes rates comparable, so travellers see one room with the best price. Each confidence threshold trades automation against wrong rooms booked and review work, and that trade-off is a business decision.</p>
+      <figure><img src="../assets/img/room-mapping-lab-desktop.webp" alt="Room Mapping Lab on desktop" loading="lazy" width="1280" height="1440"><figcaption>Room Mapping Lab on desktop.</figcaption></figure>
+    </section>
+    <section id="features">
+      <h2>What it does</h2>
+      <ul><li><strong>The problem</strong>: coverage by city and one hotel up close, with supplier names grouped by master room.</li><li><strong>Three methods</strong> scored against LiteAPI's mapping, with disagreements as an audit list.</li><li><strong>The decision</strong>: threshold, business inputs, net value and sensitivity.</li><li><strong>An operating plan</strong>: metrics, first 90 days, trade-offs for engineering.</li></ul>
+    </section>
+    <section id="findings">
+      <h2>Findings and decisions</h2>
+      <div class="finding"><span class="tag confirmed">Confirmed on sandbox data</span><h3>Simple methods agree on most names, not all</h3><p>The hybrid picks the same master room as LiteAPI for 84% of 1,638 names. At confidence 0.8 it would auto-map 59% with 94% agreement, at 0.95 it would auto-map 40% with 98%.</p></div>
+      <div class="finding"><span class="tag confirmed">Confirmed, cause is a hypothesis</span><h3>Whole hotels point to room IDs missing from their room list</h3><p>In 3 of 173 hotels, all in Barcelona, every rate is mapped to a room ID that is not in the hotel's content room list. It looks like a per-hotel ID mismatch, not a matching error.</p></div>
+      <div class="finding"><span class="tag">Design finding</span><h3>The best threshold is a business number</h3><p>With example inputs, doubling the cost of a wrong room moves the best threshold from 0.35 to 0.90.</p></div>
+    </section>
+    <section id="next">
+      <h2>What I would do next</h2>
+      <ol><li>A per-hotel integrity check for missing room IDs.</li><li>An LLM judge for the uncertain slice, with cost and latency measured.</li><li>A hand-labelled audit sample to measure accuracy, not agreement.</li></ol>
+    </section>
+    <div class="next"><a class="plink" href="../#work"><small>← Back</small><b>All projects</b></a><a class="plink right" href="smog-planner.html"><small>Next project <span class="arrow">→</span></small><b>Smog Planner</b></a></div>
+  </article>
+</div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span>© <span data-year>2026</span> Konstantinos Xeras</span>
+    <span class="fl"><a href="../#about">About</a><a href="../#work">My work</a><a href="../#contact">Contact</a><a href="https://github.com/costasxeras-stack">GitHub</a></span>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>

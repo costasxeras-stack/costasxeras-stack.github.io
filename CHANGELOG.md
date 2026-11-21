@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.15.0 (21 November 2026)
+
+### Added
+- Room Mapping Lab: hotel room mapping on LiteAPI sandbox data, matching methods, a data integrity check and the automation threshold as a business decision.
+- Two apps for the Polish market: Smog Planner (hourly Kraków air quality, forecast check and best times to go out) and Bez Belki (calculator for the new personal investment account from 2027).
+
+### Changed
+- Stats strip: 32 working products on GitHub.
+
 ## 2.14.0 (21 November 2026)
 
 ### Added

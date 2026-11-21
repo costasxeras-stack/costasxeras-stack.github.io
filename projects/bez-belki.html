@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bez Belki · Konstantinos Xeras</title>
+<meta name="description" content="A calculator for Poland&#x27;s new personal investment account from 2027: the yearly tax on value above the 25,000 and 100,000 zł limits, against the 19% Belka tax on a regular account, year by year.">
+<meta property="og:title" content="Bez Belki, a project by Konstantinos Xeras">
+<meta property="og:description" content="A calculator for Poland&#x27;s new personal investment account from 2027: the yearly tax on value above the 25,000 and 100,000 zł limits, against the 19% Belka tax on a regular account, year by year.">
+<meta property="og:type" content="article">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%238f9bff'/%3E%3Ctext x='16' y='22' font-family='Arial,sans-serif' font-weight='700' font-size='15' fill='%230b0d12' text-anchor='middle'%3EKX%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css?v=2.13.0">
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="../">Kostas Xeras<span>.</span></a>
+    <button class="menu-btn" aria-label="Menu" aria-expanded="false">☰</button>
+    <nav aria-label="Main">
+      <a href="../#about">About</a>
+      <a href="../#experience">Experience</a>
+      <a href="../#work">My work</a>
+      <a href="../#contact" class="btn primary small">Get in touch</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="p-hero">
+  <div class="wrap">
+    <a class="back" href="../#work">← All projects</a>
+    <div class="meta" style="display:flex;gap:10px;flex-wrap:wrap"><span class="tag ver">v0.1.0</span><span class="tag confirmed">Live app</span></div>
+    <h1>Bez Belki</h1>
+    <p class="lead">From 2027, gains on Poland's new personal investment account are free of the Belka tax, but value above the limits pays a yearly asset tax, even in a loss year. Bez Belki applies the act to your own plan.</p>
+    <div class="p-links"><a class="btn primary" href="https://kostasxeras.com/bez-belki/">Open the app <span class="arrow">→</span></a><a class="btn" href="https://github.com/costasxeras-stack/bez-belki/blob/main/docs/case-study.md">Case study</a><a class="btn" href="https://github.com/costasxeras-stack/bez-belki">Code and decisions</a></div>
+    <dl class="p-meta"><div><dt>Market</dt><dd>Poland, from 1 Jan 2027</dd></div><div><dt>Rules</dt><dd>From the act, Dz.U. 2026 poz. 1098</dd></div><div><dt>Interface</dt><dd>Polish</dd></div><div><dt>Status</dt><dd>v0.1.0, live</dd></div></dl>
+  </div>
+</section>
+
+<div class="wrap p-body">
+  <nav class="toc" aria-label="On this page"><a href="#question">The problem</a><a href="#features">What it does</a><a href="#findings">Findings and decisions</a><a href="#next">What I would do next</a></nav>
+  <article class="prose">
+    <section id="question">
+      <h2>The problem</h2>
+      <p>Articles about the new account show one or two examples. People need to see what the rules mean for their own amounts, assets and horizon, including the year they lose money.</p>
+      <figure><img src="../assets/img/bez-belki-desktop.webp" alt="Bez Belki on desktop" loading="lazy" width="1280" height="1440"><figcaption>Bez Belki on desktop.</figcaption></figure>
+    </section>
+    <section id="features">
+      <h2>What it does</h2>
+      <ul><li><strong>Your plan</strong>: start, monthly amount, horizon, three asset groups with expected returns.</li><li><strong>The act applied</strong>: 25,000 zł limit first, 100,000 zł total, 0.85% in 2027, then 19% of the NBP rate.</li><li><strong>Year-by-year table</strong> and a chart against a regular account.</li><li><strong>Loss-year verdict</strong> and sources with article numbers.</li></ul>
+    </section>
+    <section id="findings">
+      <h2>Findings and decisions</h2>
+      <div class="finding"><span class="tag">Derived from the act</span><h3>Above the limit, the break-even return is the NBP reference rate</h3><p>From 2028 the rate is 19% of the reference rate, and Belka is 19% of the return, so on money above the limit they match when the return equals the reference rate: about 3.74% at 3.75%.</p></div>
+      <div class="finding"><span class="tag confirmed">Checked by hand</span><h3>The calculator matches the act on a simple case</h3><p>300,000 zł of qualifying PLN investments with no growth in 2027 gives 1,707 zł of tax, as the act implies.</p></div>
+    </section>
+    <section id="next">
+      <h2>What I would do next</h2>
+      <ol><li>Add IKE and IKZE to the comparison.</li><li>Exact timing when tax is paid from the account.</li><li>Update the rate each November.</li></ol>
+    </section>
+    <div class="next"><a class="plink" href="smog-planner.html"><small>← Previous</small><b>Smog Planner</b></a><a class="plink right" href="zero-to-launch.html"><small>Next project <span class="arrow">→</span></small><b>Zero to Launch</b></a></div>
+  </article>
+</div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span>© <span data-year>2026</span> Konstantinos Xeras</span>
+    <span class="fl"><a href="../#about">About</a><a href="../#work">My work</a><a href="../#contact">Contact</a><a href="https://github.com/costasxeras-stack">GitHub</a></span>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>
