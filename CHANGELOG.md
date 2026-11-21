@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.13.0 (21 November 2026)
+
+### Added
+- Two new projects with their own pages, cards and screenshots: Pipeline Pulse and Spend Lens.
+
+### Changed
+- Stats strip: 19 working products on GitHub.
+
 ## 2.12.0 (21 November 2026)
 
 ### Added

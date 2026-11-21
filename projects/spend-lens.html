@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spend Lens · Konstantinos Xeras</title>
+<meta name="description" content="Import a bank CSV and see where the money goes: categories you can teach, budgets that warn early, and subscriptions found for you.">
+<meta property="og:title" content="Spend Lens, a project by Konstantinos Xeras">
+<meta property="og:description" content="Import a bank CSV and see where the money goes: categories you can teach, budgets that warn early, and subscriptions found for you.">
+<meta property="og:type" content="article">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%238f9bff'/%3E%3Ctext x='16' y='22' font-family='Arial,sans-serif' font-weight='700' font-size='15' fill='%230b0d12' text-anchor='middle'%3EKX%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css?v=2.13.0">
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="../">Kostas Xeras<span>.</span></a>
+    <button class="menu-btn" aria-label="Menu" aria-expanded="false">☰</button>
+    <nav aria-label="Main">
+      <a href="../#about">About</a>
+      <a href="../#experience">Experience</a>
+      <a href="../#work">My work</a>
+      <a href="../#contact" class="btn primary small">Get in touch</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="p-hero">
+  <div class="wrap">
+    <a class="back" href="../#work">← All projects</a>
+    <div class="meta" style="display:flex;gap:10px;flex-wrap:wrap"><span class="tag ver">v0.1.0</span><span class="tag confirmed">Live app</span></div>
+    <h1>Spend Lens</h1>
+    <p class="lead">Banking apps list transactions. Budgeting apps want your bank login. Spend Lens reads the CSV every bank offers, in the browser, and turns it into categories, budgets with early warnings, and a list of regular payments.</p>
+    <div class="p-links"><a class="btn primary" href="https://kostasxeras.com/spend-lens/">Open the app <span class="arrow">→</span></a><a class="btn" href="https://github.com/costasxeras-stack/spend-lens/blob/main/docs/case-study.md">Case study</a><a class="btn" href="https://github.com/costasxeras-stack/spend-lens">Code and decisions</a></div>
+    <dl class="p-meta"><div><dt>Data</dt><dd>Your bank's CSV export</dd></div><div><dt>Banks</dt><dd>Polish and English formats</dd></div><div><dt>Storage</dt><dd>In your browser</dd></div><div><dt>Status</dt><dd>v0.1.0, live</dd></div></dl>
+  </div>
+</section>
+
+<div class="wrap p-body">
+  <nav class="toc" aria-label="On this page"><a href="#question">The problem</a><a href="#features">What it does</a><a href="#decisions">Decisions</a><a href="#next">What I would do next</a></nav>
+  <article class="prose">
+    <section id="question">
+      <h2>The problem</h2>
+      <p>People want to know where their money goes, and get a warning while there is still time to act, without handing their bank login to a third party.</p>
+      <figure><img src="../assets/img/spend-lens-desktop.webp" alt="Spend Lens on desktop" loading="lazy" width="1280" height="1440"><figcaption>The month view with made-up sample data, marked as sample in the app.</figcaption></figure>
+    </section>
+    <section id="features">
+      <h2>What it does</h2>
+      <ul><li><strong>Import.</strong> Polish and English column names, UTF-8 and Windows-1250, lines above the header, "1 234,56" amounts, separate money in and out. Re-importing adds nothing twice.</li><li><strong>Categories.</strong> Built-in rules for common Polish shops, plus your own. One correction can become a rule for that place.</li><li><strong>Month.</strong> Spending by category against budgets and the 3-month average, a 6-month chart and the biggest places.</li><li><strong>Warnings.</strong> Over budget, on pace to go over by month end, and unusually large payments.</li><li><strong>Subscriptions.</strong> Regular payments found by pattern, with monthly and yearly cost.</li></ul>
+    </section>
+    <section id="decisions">
+      <h2>Decisions</h2>
+      <div class="finding"><span class="tag">Decision</span><h3>CSV, never a bank login</h3><p>Works with any bank, with nothing to trust. Freshness is the tradeoff, and monthly is enough for a budget.</p></div>
+      <div class="finding"><span class="tag">Decision</span><h3>Rules you can see, not a model</h3><p>Every category can be explained, and the user's rules always win.</p></div>
+      <div class="finding"><span class="tag">Decision</span><h3>Warn on pace, not only when over</h3><p>A warning on the 18th can still change the month. The wording says "on pace for", not "will".</p></div>
+    </section>
+    <section id="next">
+      <h2>What I would do next</h2>
+      <ol><li>Split one payment across categories.</li><li>Shared budgets from two people's exports.</li><li>Better place names for Polish card descriptions.</li></ol>
+      <p class="src">No usage data yet, so no findings. Not financial advice.</p>
+    </section>
+    <div class="next"><a class="plink" href="pipeline-pulse.html"><small>← Previous</small><b>Pipeline Pulse</b></a><a class="plink right" href="impact-journal.html"><small>Next project <span class="arrow">→</span></small><b>Impact Journal</b></a></div>
+  </article>
+</div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span>© <span data-year>2026</span> Konstantinos Xeras</span>
+    <span class="fl"><a href="../#about">About</a><a href="../#work">My work</a><a href="../#contact">Contact</a><a href="https://github.com/costasxeras-stack">GitHub</a></span>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>
