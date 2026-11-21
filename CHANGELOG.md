@@ -1,5 +1,16 @@
 # Changelog
 
+## 2.12.0 (21 November 2026)
+
+### Added
+- Four new projects, each with its own repo, release, page and card: Impact Journal, Daily Huddle, Focus Ledger and Layer Forecast. They grew out of the small tools added in 2.11.0, with new names and many more features.
+
+### Changed
+- Stats strip: 17 working products on GitHub.
+
+### Removed
+- The Small tools section and its footer link. The old /tools/ addresses now forward to the new apps.
+
 ## 2.11.0 (20 November 2026)
 
 ### Added

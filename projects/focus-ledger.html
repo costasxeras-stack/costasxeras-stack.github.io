@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Focus Ledger · Konstantinos Xeras</title>
+<meta name="description" content="One tap time tracking with a daily focus goal, and a week split into focus, meetings and admin.">
+<meta property="og:title" content="Focus Ledger, a project by Konstantinos Xeras">
+<meta property="og:description" content="One tap time tracking with a daily focus goal, and a week split into focus, meetings and admin.">
+<meta property="og:type" content="article">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%238f9bff'/%3E%3Ctext x='16' y='22' font-family='Arial,sans-serif' font-weight='700' font-size='15' fill='%230b0d12' text-anchor='middle'%3EKX%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css?v=2.12.0">
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="../">Kostas Xeras<span>.</span></a>
+    <button class="menu-btn" aria-label="Menu" aria-expanded="false">☰</button>
+    <nav aria-label="Main">
+      <a href="../#about">About</a>
+      <a href="../#experience">Experience</a>
+      <a href="../#work">My work</a>
+      <a href="../#contact" class="btn primary small">Get in touch</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="p-hero">
+  <div class="wrap">
+    <a class="back" href="../#work">← All projects</a>
+    <div class="meta" style="display:flex;gap:10px;flex-wrap:wrap"><span class="tag ver">v0.1.0</span><span class="tag confirmed">Live app</span></div>
+    <h1>Focus Ledger</h1>
+    <p class="lead">Most people feel their week disappeared into meetings but cannot say how much. Time trackers are built for billing and get abandoned. Focus Ledger asks for one tap per switch and shows the split that matters for deep work.</p>
+    <div class="p-links"><a class="btn primary" href="https://kostasxeras.com/focus-ledger/">Open the app <span class="arrow">→</span></a><a class="btn" href="https://github.com/costasxeras-stack/focus-ledger/blob/main/docs/case-study.md">Case study</a><a class="btn" href="https://github.com/costasxeras-stack/focus-ledger">Code and decisions</a></div>
+    <dl class="p-meta"><div><dt>Tracking</dt><dd>One tap, one timer</dd></div><div><dt>Goal</dt><dd>Daily focus hours</dd></div><div><dt>Storage</dt><dd>In your browser</dd></div><div><dt>Status</dt><dd>v0.1.0, live</dd></div></dl>
+  </div>
+</section>
+
+<div class="wrap p-body">
+  <nav class="toc" aria-label="On this page"><a href="#question">The problem</a><a href="#features">What it does</a><a href="#decisions">Decisions</a><a href="#next">What I would do next</a></nav>
+  <article class="prose">
+    <section id="question">
+      <h2>The problem</h2>
+      <p>Knowledge workers want more focus time but have no numbers to plan with or to push back on meetings. The app has to cost almost nothing to use, or nobody keeps it up.</p>
+      <figure><img src="../assets/img/focus-ledger-desktop.webp" alt="Focus Ledger on desktop" loading="lazy" width="1280" height="1440"><figcaption>The week view with an example week, marked as example data in the app.</figcaption></figure>
+    </section>
+    <section id="features">
+      <h2>What it does</h2>
+      <ul><li><strong>Today.</strong> Tap a task to start, tap another to switch. A ring shows focus against the daily goal. Timeline with blocks you can delete or add by hand.</li><li><strong>Focus timer.</strong> 25, 50 or 90 minutes, with a sound and a notification.</li><li><strong>Week.</strong> Stacked bars per day by category, focus share and comparison with the week before.</li><li><strong>Insights.</strong> Longest focus block, task switches per day, days that hit the goal, meeting-heavy days.</li></ul>
+    </section>
+    <section id="decisions">
+      <h2>Decisions</h2>
+      <div class="finding"><span class="tag">Decision</span><h3>One running timer</h3><p>Tapping another task switches. One tap keeps the habit alive, and totals always match the hours tracked.</p></div>
+      <div class="finding"><span class="tag">Decision</span><h3>Categories drive the numbers</h3><p>Five categories, not task names, so weeks stay comparable when tasks change.</p></div>
+      <div class="finding"><span class="tag">Decision</span><h3>Manual blocks with a warning</h3><p>Forgotten time can be added, and overlaps are saved but flagged.</p></div>
+    </section>
+    <section id="next">
+      <h2>What I would do next</h2>
+      <ol><li>Edit blocks on past days.</li><li>Import meetings from a calendar.</li><li>A weekly summary with one suggestion.</li></ol>
+      <p class="src">No usage data yet, so no findings. The case study lists the measures I would track.</p>
+    </section>
+    <div class="next"><a class="plink" href="daily-huddle.html"><small>← Previous</small><b>Daily Huddle</b></a><a class="plink right" href="layer-forecast.html"><small>Next project <span class="arrow">→</span></small><b>Layer Forecast</b></a></div>
+  </article>
+</div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span>© <span data-year>2026</span> Konstantinos Xeras</span>
+    <span class="fl"><a href="../#about">About</a><a href="../#work">My work</a><a href="../#contact">Contact</a><a href="https://github.com/costasxeras-stack">GitHub</a></span>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>

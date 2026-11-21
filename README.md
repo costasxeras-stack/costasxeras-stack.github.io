@@ -2,17 +2,17 @@
 
 **My portfolio site, served free by GitHub Pages at https://kostasxeras.com.**
 
-**Current version:** 2.11.0
+**Current version:** 2.12.0
 
 Plain HTML and CSS, no build step. The custom domain is set by the `CNAME` file, and https://costasxeras-stack.github.io redirects there.
 
 ## Files
 
-- `index.html` is the homepage: hero, about, what I help with, capabilities, experience, course, work, small tools and contact.
+- `index.html` is the homepage: hero, about, what I help with, capabilities, experience, course, work and contact.
 - `projects/` has one page per project, written from each repo's case study.
 - `assets/site.css` holds all styles. `assets/site.js` adds the mobile menu, the photo tilt and the scroll fade-in. The site works without it.
 - `assets/img/` holds the portrait and project screenshots, as WebP.
-- `tools/` has small single-page tools. Each folder is one tool with its own `index.html`. `tools/tools.css` holds their shared styles. They keep data in the browser's local storage only.
+- `tools/` only holds forwarding pages from the old small tools to the apps they became.
 
 ## How to add a project
 

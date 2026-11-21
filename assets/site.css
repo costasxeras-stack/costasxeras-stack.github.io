@@ -302,11 +302,3 @@ figcaption{font-size:14px;color:var(--faint);margin-top:8px}
 .course-side .asof{grid-column:1/-1;color:var(--faint);font-size:12.5px}
 .job .logo.mono{display:grid;place-items:center;color:#0b0d12;font:700 20px var(--display)}
 
-/* Small tools (2.11.0) */
-.minitools{margin-top:28px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.minitool{display:block;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:22px;text-decoration:none;color:var(--ink);transition:border-color .2s,transform .2s}
-.minitool:hover{border-color:var(--accent);transform:translateY(-2px)}
-.minitool h3{font-size:19px;margin:0}
-.minitool p{color:var(--muted);font-size:14.5px;margin:8px 0 0}
-@media (max-width:900px){.minitools{grid-template-columns:1fr 1fr}}
-@media (max-width:560px){.minitools{grid-template-columns:1fr}}
