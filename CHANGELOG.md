@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.14.0 (21 November 2026)
+
+### Added
+- Ten new projects covering the core PM skills, each with its own repo, release, page, card and screenshot: Query to Decision (SQL analysis), Funnel Fix (growth experiment), North Star Map (metrics tree), Test Plan Studio (A/B testing), Spec Critic (AI product), Second Look (product teardown), Listening Tour (user research), Missing Feature (feature proposal), Now Next Later (roadmap) and Zero to Launch (end-to-end case study).
+
+### Changed
+- Stats strip: 29 working products on GitHub.
+
 ## 2.13.0 (21 November 2026)
 
 ### Added

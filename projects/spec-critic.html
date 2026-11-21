@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spec Critic · Konstantinos Xeras</title>
+<meta name="description" content="Paste a product spec and get the review an engineering lead would give: six scores, issues tied to exact lines, refinement questions and a rewrite. Uses the visitor&#x27;s own Claude API key, or a labelled demo.">
+<meta property="og:title" content="Spec Critic, a project by Konstantinos Xeras">
+<meta property="og:description" content="Paste a product spec and get the review an engineering lead would give: six scores, issues tied to exact lines, refinement questions and a rewrite. Uses the visitor&#x27;s own Claude API key, or a labelled demo.">
+<meta property="og:type" content="article">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%238f9bff'/%3E%3Ctext x='16' y='22' font-family='Arial,sans-serif' font-weight='700' font-size='15' fill='%230b0d12' text-anchor='middle'%3EKX%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css?v=2.13.0">
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="../">Kostas Xeras<span>.</span></a>
+    <button class="menu-btn" aria-label="Menu" aria-expanded="false">☰</button>
+    <nav aria-label="Main">
+      <a href="../#about">About</a>
+      <a href="../#experience">Experience</a>
+      <a href="../#work">My work</a>
+      <a href="../#contact" class="btn primary small">Get in touch</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="p-hero">
+  <div class="wrap">
+    <a class="back" href="../#work">← All projects</a>
+    <div class="meta" style="display:flex;gap:10px;flex-wrap:wrap"><span class="tag ver">v0.1.0</span><span class="tag confirmed">Live app</span></div>
+    <h1>Spec Critic</h1>
+    <p class="lead">An AI reviewer for product specs, built around one trust rule: every issue must quote the spec, and the app checks that the quote is really there.</p>
+    <div class="p-links"><a class="btn primary" href="https://kostasxeras.com/spec-critic/">Open the app <span class="arrow">→</span></a><a class="btn" href="https://github.com/costasxeras-stack/spec-critic/blob/main/docs/case-study.md">Case study</a><a class="btn" href="https://github.com/costasxeras-stack/spec-critic">Code and decisions</a></div>
+    <dl class="p-meta"><div><dt>AI</dt><dd>Claude, visitor's own key</dd></div><div><dt>Without a key</dt><dd>Labelled demo and rules check</dd></div><div><dt>Server</dt><dd>None</dd></div><div><dt>Status</dt><dd>v0.1.0, live</dd></div></dl>
+  </div>
+</section>
+
+<div class="wrap p-body">
+  <nav class="toc" aria-label="On this page"><a href="#question">The problem</a><a href="#features">What it does</a><a href="#findings">Findings and decisions</a><a href="#next">What I would do next</a></nav>
+  <article class="prose">
+    <section id="question">
+      <h2>The problem</h2>
+      <p>Specs reach refinement with the same gaps: no measurable metric, vague words, missing edge cases. I wanted an AI review a PM can trust, with nothing on screen that looks like evidence when it is not.</p>
+      <figure><img src="../assets/img/spec-critic-desktop.webp" alt="Spec Critic on desktop" loading="lazy" width="1280" height="1440"><figcaption>Spec Critic on desktop.</figcaption></figure>
+    </section>
+    <section id="features">
+      <h2>What it does</h2>
+      <ul><li><strong>Instant rules check</strong> for sections, vague words and metrics.</li><li><strong>AI review</strong> in a fixed JSON shape: scores, issues, questions, rewrite.</li><li><strong>Quote verification</strong> against the spec.</li><li><strong>Demo mode</strong>, labelled as a stored example.</li></ul>
+    </section>
+    <section id="findings">
+      <h2>Findings and decisions</h2>
+      <div class="finding"><span class="tag">Product call</span><h3>Provenance over prose</h3><p>An issue the reader cannot find in their own spec loses trust. So quotes are checked and flagged, not hidden.</p></div>
+      <div class="finding"><span class="tag">Product call</span><h3>Rules before AI</h3><p>The mechanical checks run without a model, instantly and for free. The model handles judgement only.</p></div>
+    </section>
+    <section id="next">
+      <h2>What I would do next</h2>
+      <ol><li>Test with my own key on real specs and report the quote match rate.</li><li>Let users mark wrong issues to measure precision.</li><li>Compare scores before and after edits.</li></ol>
+    </section>
+    <div class="next"><a class="plink" href="second-look.html"><small>← Previous</small><b>Second Look</b></a><a class="plink right" href="test-plan-studio.html"><small>Next project <span class="arrow">→</span></small><b>Test Plan Studio</b></a></div>
+  </article>
+</div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span>© <span data-year>2026</span> Konstantinos Xeras</span>
+    <span class="fl"><a href="../#about">About</a><a href="../#work">My work</a><a href="../#contact">Contact</a><a href="https://github.com/costasxeras-stack">GitHub</a></span>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>
