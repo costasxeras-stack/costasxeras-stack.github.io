@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Missing Feature · Konstantinos Xeras</title>
+<meta name="description" content="A feature proposal with a clickable phone prototype: My Garage reads the car from the query and labels every part with whether it fits. Spec, sizing model and launch plan.">
+<meta property="og:title" content="Missing Feature, a project by Konstantinos Xeras">
+<meta property="og:description" content="A feature proposal with a clickable phone prototype: My Garage reads the car from the query and labels every part with whether it fits. Spec, sizing model and launch plan.">
+<meta property="og:type" content="article">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%238f9bff'/%3E%3Ctext x='16' y='22' font-family='Arial,sans-serif' font-weight='700' font-size='15' fill='%230b0d12' text-anchor='middle'%3EKX%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css?v=2.13.0">
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="../">Kostas Xeras<span>.</span></a>
+    <button class="menu-btn" aria-label="Menu" aria-expanded="false">☰</button>
+    <nav aria-label="Main">
+      <a href="../#about">About</a>
+      <a href="../#experience">Experience</a>
+      <a href="../#work">My work</a>
+      <a href="../#contact" class="btn primary small">Get in touch</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="p-hero">
+  <div class="wrap">
+    <a class="back" href="../#work">← All projects</a>
+    <div class="meta" style="display:flex;gap:10px;flex-wrap:wrap"><span class="tag ver">v0.1.0</span><span class="tag confirmed">Live app</span></div>
+    <h1>Missing Feature</h1>
+    <p class="lead">The next step after the Second Look teardown: define the feature, prototype the whole flow, size it with honest placeholders and plan the launch.</p>
+    <div class="p-links"><a class="btn primary" href="https://kostasxeras.com/missing-feature/">Open the app <span class="arrow">→</span></a><a class="btn" href="https://github.com/costasxeras-stack/missing-feature/blob/main/docs/case-study.md">Case study</a><a class="btn" href="https://github.com/costasxeras-stack/missing-feature">Code and decisions</a></div>
+    <dl class="p-meta"><div><dt>Prototype</dt><dd>5 clickable screens</dd></div><div><dt>Spec</dt><dd>8 prioritised requirements</dd></div><div><dt>Sizing</dt><dd>Editable, placeholders</dd></div><div><dt>Status</dt><dd>v0.1.0, live</dd></div></dl>
+  </div>
+</section>
+
+<div class="wrap p-body">
+  <nav class="toc" aria-label="On this page"><a href="#question">The problem</a><a href="#features">What it does</a><a href="#findings">Findings and decisions</a><a href="#next">What I would do next</a></nav>
+  <article class="prose">
+    <section id="question">
+      <h2>The problem</h2>
+      <p>Drivers name their car in the query, but results do not use it. Checking fit is left to the shopper, listing by listing.</p>
+      <figure><img src="../assets/img/missing-feature-desktop.webp" alt="Missing Feature on desktop" loading="lazy" width="1280" height="1440"><figcaption>Missing Feature on desktop.</figcaption></figure>
+    </section>
+    <section id="features">
+      <h2>What it does</h2>
+      <ul><li><strong>Clickable prototype</strong>: detect, label, ask for the engine, check fit, save to garage.</li><li><strong>Spec</strong> with evidence and its limits, requirements, edge cases.</li><li><strong>Sizing model</strong> with nine inputs.</li><li><strong>Launch plan</strong> with risks and the decision to ask for.</li></ul>
+    </section>
+    <section id="findings">
+      <h2>Findings and decisions</h2>
+      <div class="finding"><span class="tag">Product call</span><h3>Rank fitting parts first, never hide the rest</h3><p>Fitment data is incomplete, so "no fitment data" is its own label and only "does not fit" moves down.</p></div>
+      <div class="finding"><span class="tag">Product call</span><h3>Ads as a separate decision</h3><p>Moving non-fitting promoted listings down affects revenue the search team does not own, so it is tested separately.</p></div>
+    </section>
+    <section id="next">
+      <h2>What I would do next</h2>
+      <ol><li>Test the prototype with five drivers.</li><li>Build the parser and measure precision.</li><li>Add the ads team view.</li></ol>
+    </section>
+    <div class="next"><a class="plink" href="now-next-later.html"><small>← Previous</small><b>Now Next Later</b></a><a class="plink right" href="listening-tour.html"><small>Next project <span class="arrow">→</span></small><b>Listening Tour</b></a></div>
+  </article>
+</div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span>© <span data-year>2026</span> Konstantinos Xeras</span>
+    <span class="fl"><a href="../#about">About</a><a href="../#work">My work</a><a href="../#contact">Contact</a><a href="https://github.com/costasxeras-stack">GitHub</a></span>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>

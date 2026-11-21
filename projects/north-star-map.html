@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>North Star Map · Konstantinos Xeras</title>
+<meta name="description" content="An interactive metrics tree for Duolingo: daily active users as the North Star, 15 input metrics with sourced public values, and a simulator of Duolingo&#x27;s published growth model.">
+<meta property="og:title" content="North Star Map, a project by Konstantinos Xeras">
+<meta property="og:description" content="An interactive metrics tree for Duolingo: daily active users as the North Star, 15 input metrics with sourced public values, and a simulator of Duolingo&#x27;s published growth model.">
+<meta property="og:type" content="article">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%238f9bff'/%3E%3Ctext x='16' y='22' font-family='Arial,sans-serif' font-weight='700' font-size='15' fill='%230b0d12' text-anchor='middle'%3EKX%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css?v=2.13.0">
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="../">Kostas Xeras<span>.</span></a>
+    <button class="menu-btn" aria-label="Menu" aria-expanded="false">☰</button>
+    <nav aria-label="Main">
+      <a href="../#about">About</a>
+      <a href="../#experience">Experience</a>
+      <a href="../#work">My work</a>
+      <a href="../#contact" class="btn primary small">Get in touch</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="p-hero">
+  <div class="wrap">
+    <a class="back" href="../#work">← All projects</a>
+    <div class="meta" style="display:flex;gap:10px;flex-wrap:wrap"><span class="tag ver">v0.1.0</span><span class="tag confirmed">Live app</span></div>
+    <h1>North Star Map</h1>
+    <p class="lead">A North Star is only useful if a team can see what moves it. This breaks Duolingo's daily active users into five branches, with every public number linked to its source and every undisclosed metric labelled.</p>
+    <div class="p-links"><a class="btn primary" href="https://kostasxeras.com/north-star-map/">Open the app <span class="arrow">→</span></a><a class="btn" href="https://github.com/costasxeras-stack/north-star-map/blob/main/docs/case-study.md">Case study</a><a class="btn" href="https://github.com/costasxeras-stack/north-star-map">Code and decisions</a></div>
+    <dl class="p-meta"><div><dt>Data</dt><dd>Shareholder letters to Q3 2026</dd></div><div><dt>Metrics</dt><dd>15 under the North Star</dd></div><div><dt>Simulator</dt><dd>Seven-state growth model</dd></div><div><dt>Status</dt><dd>v0.1.0, live</dd></div></dl>
+  </div>
+</section>
+
+<div class="wrap p-body">
+  <nav class="toc" aria-label="On this page"><a href="#question">The problem</a><a href="#features">What it does</a><a href="#findings">Findings and decisions</a><a href="#next">What I would do next</a></nav>
+  <article class="prose">
+    <section id="question">
+      <h2>The problem</h2>
+      <p>Most metric trees in portfolios use made-up numbers. I wanted one on a real company, honest about what is not disclosed, with a working model of how the inputs move the North Star.</p>
+      <figure><img src="../assets/img/north-star-map-desktop.webp" alt="North Star Map on desktop" loading="lazy" width="1280" height="1440"><figcaption>North Star Map on desktop.</figcaption></figure>
+    </section>
+    <section id="features">
+      <h2>What it does</h2>
+      <ul><li><strong>Metrics tree</strong> in five branches, each metric with definition, levers, guardrail and sources.</li><li><strong>Labels</strong> on every value: reported, derived or not disclosed.</li><li><strong>Public numbers table</strong>, Q3 2025 against Q3 2026.</li><li><strong>Growth model simulator</strong> with nine adjustable rates.</li></ul>
+    </section>
+    <section id="findings">
+      <h2>Findings and decisions</h2>
+      <div class="finding"><span class="tag confirmed">Confirmed, derived from reported figures</span><h3>Users are growing faster than payers</h3><p>DAUs rose 29% while paid subscribers rose 14%, so paid subscribers per DAU fell from 22.8% to 20.2%. Duolingo says this is a deliberate user-first choice for 2026.</p></div>
+      <div class="finding"><span class="tag hypothesis">Illustrative model</span><h3>Current user retention is the biggest lever</h3><p>With my own assumed rates, a 2% better CURR adds about 15% to DAUs after a year, around ten times the next lever. The structure is Duolingo's, the rates are mine.</p></div>
+    </section>
+    <section id="next">
+      <h2>What I would do next</h2>
+      <ol><li>Add a second company with a different model.</li><li>Quarterly history charts.</li><li>Let visitors build their own tree.</li></ol>
+    </section>
+    <div class="next"><a class="plink" href="test-plan-studio.html"><small>← Previous</small><b>Test Plan Studio</b></a><a class="plink right" href="funnel-fix.html"><small>Next project <span class="arrow">→</span></small><b>Funnel Fix</b></a></div>
+  </article>
+</div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span>© <span data-year>2026</span> Konstantinos Xeras</span>
+    <span class="fl"><a href="../#about">About</a><a href="../#work">My work</a><a href="../#contact">Contact</a><a href="https://github.com/costasxeras-stack">GitHub</a></span>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>
