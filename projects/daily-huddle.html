@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Daily Huddle · Konstantinos Xeras</title>
+<meta name="description" content="Run a short daily standup: a fair speaking order, a timer per person, blockers and side topics captured, and a history of how meetings run.">
+<meta property="og:title" content="Daily Huddle, a project by Konstantinos Xeras">
+<meta property="og:description" content="Run a short daily standup: a fair speaking order, a timer per person, blockers and side topics captured, and a history of how meetings run.">
+<meta property="og:type" content="article">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%238f9bff'/%3E%3Ctext x='16' y='22' font-family='Arial,sans-serif' font-weight='700' font-size='15' fill='%230b0d12' text-anchor='middle'%3EKX%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css?v=2.12.0">
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="../">Kostas Xeras<span>.</span></a>
+    <button class="menu-btn" aria-label="Menu" aria-expanded="false">☰</button>
+    <nav aria-label="Main">
+      <a href="../#about">About</a>
+      <a href="../#experience">Experience</a>
+      <a href="../#work">My work</a>
+      <a href="../#contact" class="btn primary small">Get in touch</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="p-hero">
+  <div class="wrap">
+    <a class="back" href="../#work">← All projects</a>
+    <div class="meta" style="display:flex;gap:10px;flex-wrap:wrap"><span class="tag ver">v0.1.0</span><span class="tag confirmed">Live app</span></div>
+    <h1>Daily Huddle</h1>
+    <p class="lead">Standups drift: the same person opens, and updates turn into discussions. Daily Huddle makes the fair version the default and keeps the evidence, so a team can see whether its standup is getting shorter.</p>
+    <div class="p-links"><a class="btn primary" href="https://kostasxeras.com/daily-huddle/">Open the app <span class="arrow">→</span></a><a class="btn" href="https://github.com/costasxeras-stack/daily-huddle/blob/main/docs/case-study.md">Case study</a><a class="btn" href="https://github.com/costasxeras-stack/daily-huddle">Code and decisions</a></div>
+    <dl class="p-meta"><div><dt>Order</dt><dd>Fair rotation by default</dd></div><div><dt>Captures</dt><dd>Blockers, parked topics</dd></div><div><dt>Storage</dt><dd>In your browser</dd></div><div><dt>Status</dt><dd>v0.1.0, live</dd></div></dl>
+  </div>
+</section>
+
+<div class="wrap p-body">
+  <nav class="toc" aria-label="On this page"><a href="#question">The problem</a><a href="#features">What it does</a><a href="#decisions">Decisions</a><a href="#next">What I would do next</a></nav>
+  <article class="prose">
+    <section id="question">
+      <h2>The problem</h2>
+      <p>Facilitators try to keep standups short and fair with good intentions, then give up after a week. The tool should make the right behaviour the default and show the trend over time.</p>
+      <figure><img src="../assets/img/daily-huddle-desktop.webp" alt="Daily Huddle on desktop" loading="lazy" width="1280" height="1440"><figcaption>A huddle in progress with an example team.</figcaption></figure>
+    </section>
+    <section id="features">
+      <h2>What it does</h2>
+      <ul><li><strong>Teams.</strong> Several saved teams with their own time per person, timebox, prompts and sound.</li><li><strong>Order.</strong> Fair rotation, random, alphabetical or team order. Tick who is here.</li><li><strong>Live huddle.</strong> Big timer, person and meeting progress, Back, Not here, Next, End now. Keeps the screen awake.</li><li><strong>After.</strong> Blockers and parked topics with owners, a summary to paste, and history with length, overruns and who went first.</li></ul>
+    </section>
+    <section id="decisions">
+      <h2>Decisions</h2>
+      <div class="finding"><span class="tag">Decision</span><h3>Fair rotation by default</h3><p>Whoever went first least often opens. Random shuffle can repeat the same person three days running.</p></div>
+      <div class="finding"><span class="tag">Decision</span><h3>Visible timer, no cut-off</h3><p>The timer turns red and suggests parking the topic. The facilitator decides, and History counts overruns.</p></div>
+      <div class="finding"><span class="tag">Decision</span><h3>History stays local</h3><p>Names and blockers never leave the device unless the user copies the summary or downloads the CSV.</p></div>
+    </section>
+    <section id="next">
+      <h2>What I would do next</h2>
+      <ol><li>Shared history for rotating facilitators.</li><li>Post the summary to a chat channel on request.</li><li>Carry open blockers into the next huddle.</li></ol>
+      <p class="src">No usage data yet, so no findings. The case study lists the measures I would track.</p>
+    </section>
+    <div class="next"><a class="plink" href="impact-journal.html"><small>← Previous</small><b>Impact Journal</b></a><a class="plink right" href="focus-ledger.html"><small>Next project <span class="arrow">→</span></small><b>Focus Ledger</b></a></div>
+  </article>
+</div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span>© <span data-year>2026</span> Konstantinos Xeras</span>
+    <span class="fl"><a href="../#about">About</a><a href="../#work">My work</a><a href="../#contact">Contact</a><a href="https://github.com/costasxeras-stack">GitHub</a></span>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>
