@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.17.3 (22 November 2026)
+
+### Fixed
+- Garage Voice Agent links point to the renamed lowercase repo and live app.
+
 ## 2.17.2 (22 November 2026)
 
 ### Changed
