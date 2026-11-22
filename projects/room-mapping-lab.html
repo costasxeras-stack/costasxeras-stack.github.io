@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Room Mapping Lab · Konstantinos Xeras</title>
-<meta name="description" content="Supplier room names against master rooms for 173 hotels from the LiteAPI sandbox: three matching methods scored against LiteAPI&#x27;s own mapping, a data integrity check, and the confidence threshold turned into a business decision.">
+<meta name="description" content="Supplier room names against master rooms for 187 hotels from the LiteAPI sandbox: three matching methods scored against LiteAPI&#x27;s own mapping, five data checks, and the confidence threshold turned into a business decision.">
 <meta property="og:title" content="Room Mapping Lab, a project by Konstantinos Xeras">
-<meta property="og:description" content="Supplier room names against master rooms for 173 hotels from the LiteAPI sandbox: three matching methods scored against LiteAPI&#x27;s own mapping, a data integrity check, and the confidence threshold turned into a business decision.">
+<meta property="og:description" content="Supplier room names against master rooms for 187 hotels from the LiteAPI sandbox: three matching methods scored against LiteAPI&#x27;s own mapping, five data checks, and the confidence threshold turned into a business decision.">
 <meta property="og:type" content="article">
 <meta name="theme-color" content="#0b0d12">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%238f9bff'/%3E%3Ctext x='16' y='22' font-family='Arial,sans-serif' font-weight='700' font-size='15' fill='%230b0d12' text-anchor='middle'%3EKX%3C/text%3E%3C/svg%3E">
@@ -34,11 +34,11 @@
 <section class="p-hero">
   <div class="wrap">
     <a class="back" href="../#work">← All projects</a>
-    <div class="meta" style="display:flex;gap:10px;flex-wrap:wrap"><span class="tag ver">v0.1.0</span><span class="tag confirmed">Live app</span></div>
+    <div class="meta" style="display:flex;gap:10px;flex-wrap:wrap"><span class="tag ver">v0.2.0</span><span class="tag confirmed">Live app</span></div>
     <h1>Room Mapping Lab</h1>
     <p class="lead">Every supplier names the same room differently. The hard part of room mapping is not matching, it is deciding how much to automate. This lab makes that trade-off concrete on real LiteAPI sandbox data.</p>
     <div class="p-links"><a class="btn primary" href="https://kostasxeras.com/room-mapping-lab/">Open the app <span class="arrow">→</span></a><a class="btn" href="https://github.com/costasxeras-stack/room-mapping-lab/blob/main/docs/case-study.md">Case study</a><a class="btn" href="https://github.com/costasxeras-stack/room-mapping-lab">Code and decisions</a></div>
-    <dl class="p-meta"><div><dt>Data</dt><dd>LiteAPI sandbox, 173 hotels, 8 cities</dd></div><div><dt>Names</dt><dd>1,638 supplier rate names</dd></div><div><dt>Methods</dt><dd>Rules, similarity, hybrid</dd></div><div><dt>Status</dt><dd>v0.1.0, live</dd></div></dl>
+    <dl class="p-meta"><div><dt>Data</dt><dd>LiteAPI sandbox, 187 hotels, 8 cities</dd></div><div><dt>Names</dt><dd>1,710 supplier rate names</dd></div><div><dt>Methods</dt><dd>Rules, similarity, hybrid</dd></div><div><dt>Status</dt><dd>v0.2.0, live</dd></div></dl>
   </div>
 </section>
 
@@ -56,9 +56,10 @@
     </section>
     <section id="findings">
       <h2>Findings and decisions</h2>
-      <div class="finding"><span class="tag confirmed">Confirmed on sandbox data</span><h3>Simple methods agree on most names, not all</h3><p>The hybrid picks the same master room as LiteAPI for 84% of 1,638 names. At confidence 0.8 it would auto-map 59% with 94% agreement, at 0.95 it would auto-map 40% with 98%.</p></div>
-      <div class="finding"><span class="tag confirmed">Confirmed, cause is a hypothesis</span><h3>Whole hotels point to room IDs missing from their room list</h3><p>In 3 of 173 hotels, all in Barcelona, every rate is mapped to a room ID that is not in the hotel's content room list. It looks like a per-hotel ID mismatch, not a matching error.</p></div>
-      <div class="finding"><span class="tag">Design finding</span><h3>The best threshold is a business number</h3><p>With example inputs, doubling the cost of a wrong room moves the best threshold from 0.35 to 0.90.</p></div>
+      <div class="finding"><span class="tag confirmed">Confirmed on sandbox data</span><h3>Simple methods agree on most names, not all</h3><p>The hybrid picks the same master room as LiteAPI for 85% of 1,710 names. At confidence 0.8 it would auto-map 62% with 94% agreement.</p></div>
+      <div class="finding"><span class="tag confirmed">Confirmed, cause is a hypothesis</span><h3>Whole hotels point to room IDs missing from their room list</h3><p>In 3 of 187 hotels, all in Barcelona, every rate is mapped to a room ID that is not in the hotel's content room list. It looks like a per-hotel ID mismatch, not a matching error.</p></div>
+      <div class="finding"><span class="tag confirmed">Confirmed on sandbox data</span><h3>Accessible rates mapped to rooms not marked accessible</h3><p>Of 73 mapped rate names that mention accessibility, 4 are mapped to a room with no accessibility marker, in hotels that have accessible rooms.</p></div>
+      <div class="finding"><span class="tag">Design finding</span><h3>The best threshold is a business number</h3><p>With example inputs, halving the cost of a wrong room moves the best threshold from 0.85 to 0.35, doubling it moves it to 0.90.</p></div>
     </section>
     <section id="next">
       <h2>What I would do next</h2>
