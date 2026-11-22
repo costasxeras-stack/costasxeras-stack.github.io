@@ -2,7 +2,7 @@
 
 **My portfolio site, served free by GitHub Pages at https://kostasxeras.com.**
 
-**Current version:** 2.16.0
+**Current version:** 2.17.0
 
 Plain HTML and CSS, no build step. The custom domain is set by the `CNAME` file, and https://costasxeras-stack.github.io redirects there.
 
@@ -12,6 +12,7 @@ Plain HTML and CSS, no build step. The custom domain is set by the `CNAME` file,
 - `projects/` has one page per project, written from each repo's case study.
 - `assets/site.css` holds all styles. `assets/site.js` adds the mobile menu, the photo tilt and the scroll fade-in. The site works without it.
 - `assets/img/` holds the portrait and project screenshots, as WebP.
+- `assets/video/` holds short demo videos (MP4, no sound).
 - `tools/` only holds forwarding pages from the old small tools to the apps they became.
 
 ## How to add a project

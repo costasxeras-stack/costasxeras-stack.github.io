@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.17.0 (22 November 2026)
+
+### Added
+- Demo videos for Zero Results Fixer and Garage Quote Agent, recorded in n8n Cloud, with captions that say which runs used real data and which used sample data.
+- New canvas image for Zero Results Fixer and an owner branch image for Garage Quote Agent.
+
+### Changed
+- Zero Results Fixer is at v0.3.0 and Garage Quote Agent at v0.2.0 (n8n nodes instead of Code nodes, Gmail for email).
+
 ## 2.16.0 (22 November 2026)
 
 ### Added

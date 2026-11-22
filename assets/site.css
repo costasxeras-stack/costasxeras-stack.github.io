@@ -213,6 +213,7 @@ tr.best td{color:var(--ink);background:rgba(143,155,255,.07)}
 .src{font-size:14.5px;color:var(--faint)}
 figure{margin:8px 0 18px}
 figure img{border-radius:14px;border:1px solid var(--line)}
+figure video{display:block;width:100%;height:auto;border-radius:14px;border:1px solid var(--line);background:#0b0d12}
 figcaption{font-size:14px;color:var(--faint);margin-top:8px}
 .shots{display:grid;grid-template-columns:2.4fr 1fr;gap:14px;align-items:start}
 .p-links{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}

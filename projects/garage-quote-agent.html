@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/site.css?v=2.13.0">
+<link rel="stylesheet" href="../assets/site.css?v=2.17.0">
 </head>
 <body>
 
@@ -34,7 +34,7 @@
 <section class="p-hero">
   <div class="wrap">
     <a class="back" href="../#work">← All projects</a>
-    <div class="meta" style="display:flex;gap:10px;flex-wrap:wrap"><span class="tag ver">v0.1.1</span><span class="tag">Tested, no pilot yet</span></div>
+    <div class="meta" style="display:flex;gap:10px;flex-wrap:wrap"><span class="tag ver">v0.2.0</span><span class="tag">Tested, no pilot yet</span></div>
     <h1>Garage Quote Agent</h1>
     <p class="lead">Small car repair garages lose customers because nobody answers "how much?" while the mechanics are under a car. This n8n automation answers price requests from WhatsApp, a web form or a webhook. AI reads the message, the garage's own price book sets the price, and the owner approves anything unclear from their own WhatsApp.</p>
     <div class="p-links"><a class="btn primary" href="https://github.com/costasxeras-stack/Garage-quote-agent/blob/main/docs/case-study.md">Read the case study <span class="arrow">→</span></a><a class="btn" href="https://github.com/costasxeras-stack/Garage-quote-agent/tree/main/docs/decisions">Decisions</a><a class="btn" href="https://github.com/costasxeras-stack/Garage-quote-agent">Repo and workflows</a></div>
@@ -43,8 +43,14 @@
 </section>
 
 <div class="wrap p-body">
-  <nav class="toc" aria-label="On this page"><a href="#question">The question</a><a href="#approach">Approach</a><a href="#findings">Findings so far</a><a href="#next">What I would do next</a></nav>
+  <nav class="toc" aria-label="On this page"><a href="#demo">Demo</a><a href="#question">The question</a><a href="#approach">Approach</a><a href="#findings">Findings so far</a><a href="#next">What I would do next</a></nav>
   <article class="prose">
+    <section id="demo">
+      <h2>Demo</h2>
+      <figure><video controls muted playsinline preload="metadata" poster="../assets/img/gqa-demo-poster.webp" width="1600" height="900"><source src="../assets/video/garage-quote-agent-demo.mp4" type="video/mp4"></video><figcaption>Recorded in my n8n Cloud account on 22 November 2026. A test run where the owner prices a timing belt job. WhatsApp, Claude and the email were stood in with sample data, because there is no pilot garage yet. 18 seconds, no sound.</figcaption></figure>
+      <div class="finding"><span class="tag">v0.2</span><h3>n8n's own nodes, except where code is clearer</h3><p>9 of 11 Code nodes are now Filter, Split Out, Edit Fields, Merge and Switch: one step per channel and one per owner answer. Two stay in Code on purpose: the pricing rules, which read best as one commented block, and the weekly numbers. Email moved to the Gmail node.</p></div>
+      <figure><img src="../assets/img/gqa-owner-branch.webp" alt="The owner decision branch in n8n: Ask owner on WhatsApp, Owner's answer switch and four reply steps" loading="lazy" width="1480" height="490"><figcaption>The owner branch in a test run. Purple pins mark steps that used sample data.</figcaption></figure>
+    </section>
     <section id="question">
       <h2>The question</h2>
       <p>How much of a garage's first reply to a price request can be automated safely, and where must the owner stay in control?</p>
