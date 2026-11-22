@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.17.2 (22 November 2026)
+
+### Changed
+- Demo videos: run screens cropped to the workflow canvas.
+
 ## 2.17.1 (22 November 2026)
 
 ### Changed
