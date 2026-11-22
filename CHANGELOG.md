@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.17.1 (22 November 2026)
+
+### Changed
+- About section wording and tools row tidied.
+
 ## 2.17.0 (22 November 2026)
 
 ### Added
