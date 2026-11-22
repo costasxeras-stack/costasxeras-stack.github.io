@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Garage Voice Agent · Konstantinos Xeras</title>
+<meta name="description" content="A voice AI agent for a made-up car repair garage, built as a small platform: speech, intent, routing, guardrails, tools, evals with a release gate, and agents as config.">
+<meta property="og:title" content="Garage Voice Agent, a project by Konstantinos Xeras">
+<meta property="og:description" content="A voice AI agent for a made-up car repair garage, built as a small platform: speech, intent, routing, guardrails, tools, evals with a release gate, and agents as config.">
+<meta property="og:type" content="article">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%238f9bff'/%3E%3Ctext x='16' y='22' font-family='Arial,sans-serif' font-weight='700' font-size='15' fill='%230b0d12' text-anchor='middle'%3EKX%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css?v=2.13.0">
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="../">Kostas Xeras<span>.</span></a>
+    <button class="menu-btn" aria-label="Menu" aria-expanded="false">☰</button>
+    <nav aria-label="Main">
+      <a href="../#about">About</a>
+      <a href="../#experience">Experience</a>
+      <a href="../#work">My work</a>
+      <a href="../#contact" class="btn primary small">Get in touch</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="p-hero">
+  <div class="wrap">
+    <a class="back" href="../#work">← All projects</a>
+    <div class="meta" style="display:flex;gap:10px;flex-wrap:wrap"><span class="tag ver">v0.1.0</span><span class="tag confirmed">Live app</span></div>
+    <h1>Garage Voice Agent</h1>
+    <p class="lead">A voice agent that answers customer calls has to hear the caller, collect details, call the right systems, stay inside rules it must never break and know when to hand over to a person. I built one end to end for a made-up garage, with every layer visible and tested.</p>
+    <div class="p-links"><a class="btn primary" href="https://kostasxeras.com/Garage-voice-agent/">Open the app <span class="arrow">→</span></a><a class="btn" href="https://github.com/costasxeras-stack/Garage-voice-agent/blob/main/docs/case-study.md">Case study</a><a class="btn" href="https://github.com/costasxeras-stack/Garage-voice-agent">Code and decisions</a></div>
+    <dl class="p-meta"><div><dt>Data</dt><dd>Made-up garage, 70 synthetic test calls</dd></div><div><dt>Speech</dt><dd>Browser recognition and voices</dd></div><div><dt>AI</dt><dd>Rules, or Claude with your key</dd></div><div><dt>Status</dt><dd>v0.1.0, live</dd></div></dl>
+  </div>
+</section>
+
+<div class="wrap p-body">
+  <nav class="toc" aria-label="On this page"><a href="#question">The problem</a><a href="#features">What it does</a><a href="#findings">Findings and decisions</a><a href="#next">What I would do next</a></nav>
+  <article class="prose">
+    <section id="question">
+      <h2>The problem</h2>
+      <p>Voice agents look easy in a demo and fail in quiet ways in production. Speech recognition mishears words, and a model can say something it never should, such as "yes, it's safe to drive". I wanted to answer three platform questions: which parts a model should do and which must stay as tested rules, what should block a release, and what a new agent should define versus inherit.</p>
+      <figure><img src="../assets/img/garage-voice-agent-desktop.webp" alt="Garage Voice Agent on desktop" loading="lazy" width="1280" height="1180"><figcaption>A call with the step by step trace of the last turn.</figcaption></figure>
+    </section>
+    <section id="features">
+      <h2>What it does</h2>
+      <ul><li><strong>Call</strong>: talk to the agent, and see what speech to text, guardrails, intent, slots, policy, tools and output checks did with each sentence, with timings.</li><li><strong>Evals</strong>: 70 test calls scored per layer, simulated speech errors over 10 seeds, and a release gate that blocks on safety and guardrails.</li><li><strong>Studio</strong>: agents as config on a shared platform. A new agent deploys only when it passes platform and agent tests, and the time to deploy is measured.</li><li><strong>Claude, optional</strong>: understands the caller and words replies. The rules still decide, and the guardrails check every reply.</li></ul>
+    </section>
+    <section id="findings">
+      <h2>Findings and decisions</h2>
+      <div class="finding"><span class="tag confirmed">Confirmed on synthetic calls</span><h3>Speech errors cost task completion far more than intent</h3><p>With about 10% of words misheard or dropped, intent accuracy on the holdout set falls to 88.6% but containment falls to 56.0%, because one lost word in any turn breaks a multi-turn task.</p></div>
+      <div class="finding"><span class="tag confirmed">Confirmed</span><h3>One random seed hid a safety miss</h3><p>A single noisy run showed 100% safety recall. Ten seeds showed 92.5% on average at the same noise level, so the release gate now fails when it should.</p></div>
+      <div class="finding"><span class="tag confirmed">Confirmed</span><h3>The deploy gate caught a real config bug</h3><p>In the tyre shop template, a general pattern listed first swallowed a more specific service. The agent's own tests blocked the deploy until the order was fixed.</p></div>
+      <div class="finding"><span class="tag">Design decision</span><h3>The model understands, the rules decide</h3><p>Claude fills intent and details. Verification, bookings, handoffs and guardrails stay in code, and safety rules override the model. Clean test scores are reported as an upper bound, because I wrote the test calls.</p></div>
+    </section>
+    <section id="next">
+      <h2>What I would do next</h2>
+      <ol><li>Compare Claude and rules on the holdout set, with and without speech errors.</li><li>A confirm question when a partial safety cue is heard, to close the gap under noise.</li><li>Test calls from people who have not seen the rules, then a real phone line with latency measured.</li></ol>
+    </section>
+    <div class="next"><a class="plink" href="../#work"><small>← Back</small><b>All projects</b></a><a class="plink right" href="room-mapping-lab.html"><small>Next project <span class="arrow">→</span></small><b>Room Mapping Lab</b></a></div>
+  </article>
+</div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span>© <span data-year>2026</span> Konstantinos Xeras</span>
+    <span class="fl"><a href="../#about">About</a><a href="../#work">My work</a><a href="../#contact">Contact</a><a href="https://github.com/costasxeras-stack">GitHub</a></span>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>

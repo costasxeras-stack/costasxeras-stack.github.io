@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.16.0 (22 November 2026)
+
+### Added
+- Garage Voice Agent: a voice agent for a made-up garage with a step by step trace, evals with simulated speech errors and a release gate, and agents deployed from config after passing their tests.
+
+### Changed
+- Stats strip: 33 working products on GitHub.
+
 ## 2.15.0 (21 November 2026)
 
 ### Added
