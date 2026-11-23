@@ -350,3 +350,20 @@ figcaption{font-size:14px;color:var(--faint);margin-top:8px}
 .work[hidden]{display:none}
 @media (max-width:980px){.featured{grid-template-columns:1fr}.work{grid-template-columns:1fr 200px}}
 @media (max-width:640px){.work{grid-template-columns:1fr}.work .thumb{order:-1}.work .thumb.none{display:none}.filters{flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;margin-right:-22px}.filters button{flex:none}}
+
+/* 2.19.3: certificate breakdown */
+.certs{grid-template-columns:repeat(5,minmax(0,1fr))}
+@media (max-width:1100px){.certs{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.certs{grid-template-columns:1fr}}
+.cert-group{padding:22px 22px 18px;display:flex;flex-direction:column}
+.cg-head{display:grid;gap:4px;border-bottom:1px solid var(--line);padding-bottom:12px}
+.cg-head b{font:700 40px/1 var(--display);color:var(--accent);font-variant-numeric:tabular-nums}
+.cg-head h3{font-size:17px;line-height:1.2}
+.cert-group ul{gap:10px}
+.cert-group .cn{font-size:14.5px}
+.cert-group details{margin-top:12px}
+.cert-group details summary{cursor:pointer;color:var(--accent);font-weight:600;font-size:14px;list-style:none}
+.cert-group details summary::-webkit-details-marker{display:none}
+.cert-group details .less,.cert-group details[open] .more{display:none}
+.cert-group details[open] .less{display:inline}
+.cert-group details ul{margin-top:12px}

@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.19.3 (23 November 2026)
+
+### Changed
+- Certificates: each section shows its count and three main certificates, and "Show all" opens the rest.
+- Stibo Systems logo stored on the site. No logo loads from Google any more.
+
 ## 2.19.2 (23 November 2026)
 
 ### Changed

@@ -2,7 +2,7 @@
 
 **My portfolio site, served free by GitHub Pages at https://kostasxeras.com.**
 
-**Current version:** 2.19.2
+**Current version:** 2.19.3
 
 Plain HTML and CSS, no build step. The custom domain is set by the `CNAME` file, and https://costasxeras-stack.github.io redirects there.
 
