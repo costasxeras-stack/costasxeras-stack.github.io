@@ -51,4 +51,26 @@
   // Year in footer
   var y = document.querySelector('[data-year]');
   if (y) y.textContent = new Date().getFullYear();
+
+  // Project filters
+  var fb = document.querySelectorAll('.filters button');
+  var cards = document.querySelectorAll('.works .work');
+  fb.forEach(function (b) {
+    b.addEventListener('click', function () {
+      var f = b.getAttribute('data-f');
+      fb.forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      cards.forEach(function (c) {
+        var show = f === 'all' || (' ' + c.getAttribute('data-cat') + ' ').indexOf(' ' + f + ' ') > -1;
+        c.hidden = !show; if (show) c.classList.add('in');
+      });
+    });
+  });
+
+  // Company logos: show initials if the logo did not load
+  var checkLogos = function () {
+    document.querySelectorAll('.logo-wrap img').forEach(function (im) {
+      if (!im.complete || im.naturalWidth < 2) im.parentNode.classList.add('failed');
+    });
+  };
+  window.addEventListener('load', function () { setTimeout(checkLogos, 3000); });
 })();

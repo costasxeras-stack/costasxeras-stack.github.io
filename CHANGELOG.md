@@ -1,5 +1,17 @@
 # Changelog
 
+## 2.19.0 (23 November 2026)
+
+### Added
+- Certificates section with all 32 certificates from LinkedIn, grouped by topic, with issuer and year. Expired ones are marked as expired. Certificates link in the menu.
+- "Start here" row with three featured projects: Search Relevance Lab, Confidence Gate Lab and Garage Voice Agent.
+- Filter buttons above the project list: All, AI, Search, Data and experiments, Research and strategy, Everyday tools.
+- A screenshot on each project card (KostasTravel and Review Radar have none yet).
+
+### Changed
+- Cisco logo stored on the site. GPC, Stibo Systems and Kimberly-Clark still load from Google's icon service, and show the company's initials if that fails.
+- About facts: certificates line lists the main ones and links to the full list.
+
 ## 2.18.1 (23 November 2026)
 
 ### Changed
