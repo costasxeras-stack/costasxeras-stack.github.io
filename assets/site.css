@@ -312,3 +312,9 @@ figcaption{font-size:14px;color:var(--faint);margin-top:8px}
 .work .ps dd{margin:0;color:var(--muted)}
 .work-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
 @media (max-width:640px){.work .ps div{grid-template-columns:1fr;gap:2px}.work-actions .btn{flex:1 1 auto;justify-content:center}}
+
+/* Udemy badge on the course card (2.18.1) */
+.course-top{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.udemy-badge{display:inline-flex;align-items:center;gap:8px;background:#fff;color:#1c1d1f;border-radius:12px;padding:8px 16px 8px 12px;font:700 24px/1 var(--display);letter-spacing:-.02em}
+.udemy-badge img{filter:none;opacity:1}
+.course-side div b{white-space:nowrap}

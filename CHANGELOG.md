@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.18.1 (23 November 2026)
+
+### Changed
+- Course card: a larger Udemy badge (logo and name) replaces the small icon, and "2h 37m" no longer breaks onto two lines on phones.
+
 ## 2.18.0 (23 November 2026)
 
 ### Changed
