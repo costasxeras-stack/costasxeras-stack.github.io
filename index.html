@@ -15,7 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=2.17.0">
+<link rel="stylesheet" href="assets/site.css?v=2.18.0">
 </head>
 <body>
 
@@ -79,11 +79,11 @@
       <div class="bio">
         <p>I'm a product manager with 12 years of professional experience. 8 of them are in product management, and 7+ in AI, ML and data products at Fortune 500 companies. Today I lead AI and ML search and discovery at Genuine Parts Company (NAPA).</p>
         <p>I care about AI evaluation and human oversight: labelled sets, review rounds before launch, and saying no when AI is not the right tool.</p>
-        <p>I also build the working products further down this page. Each repo has the problem, the decisions, the findings and the versions.</p>
+        <p>I am fascinated by the possibilities of AI. Below you will see some of my working prototypes.</p>
       </div>
       <dl class="facts">
         <div><dt>Focus</dt><dd>Search relevance, product data quality, AI products</dd></div>
-        <div><dt>Experience</dt><dd>Genuine Parts Company (NAPA), Stibo Systems, Kimberly-Clark, Cisco, Bidroom</dd></div>
+        <div><dt>Experience</dt><dd>Genuine Parts Company (NAPA), Stibo Systems, Kimberly-Clark, Cisco, Bidroom, Welltrado, Teleperformance</dd></div>
         <div><dt>Education</dt><dd>MSc Information Systems &amp; Informatics (Linnaeus University), MBA (University of Southern Denmark), BSc Business Administration</dd></div>
         <div><dt>Certificates</dt><dd>Certified Product Manager (AIPMM), SAFe Agilist, Google Cloud Big Data &amp; ML Fundamentals, Anthropic courses on Claude Code and MCP</dd></div>
         <div><dt>Languages</dt><dd>English, Greek (native), Polish (learning)</dd></div>
@@ -199,7 +199,8 @@
           <li>Hired, managed and coached a team of 4.</li>
         </ul></div>
       </details>
-      <div class="job plain"><summary><div class="who"><span class="logos"><img class="logo full" src="assets/img/logo-welltrado.webp" alt="" width="64" height="64" loading="lazy"><img class="logo" src="assets/img/logo-teleperformance.webp" alt="" width="64" height="64" loading="lazy"></span><div><div class="co">Earlier</div><div class="title">Business analyst at Welltrado (Denmark), technical support team manager at Teleperformance Hellas (Greece), and more, 2009 to 2017</div></div></div></summary></div>
+      <div class="job plain"><summary><div class="who"><img class="logo full" src="assets/img/logo-welltrado.webp" alt="" width="64" height="64" loading="lazy"><div><div class="co">Welltrado</div><div class="title">Business Analyst</div><div class="when">Denmark</div></div></div></summary></div>
+      <div class="job plain"><summary><div class="who"><img class="logo" src="assets/img/logo-teleperformance.webp" alt="" width="64" height="64" loading="lazy"><div><div class="co">Teleperformance Hellas</div><div class="title">Technical Support Team Manager</div><div class="when">Greece</div></div></div></summary></div>
     </div>
   </div>
 </section>
@@ -236,315 +237,282 @@
   <div class="wrap">
     <div class="section-head reveal">
       <span class="eyebrow">My work</span>
-      <h2>Working products, with the reasoning published.</h2>
+      <h2>Prototypes I built, and the choices behind them.</h2>
       <p>Newest first. Findings are marked confirmed or hypothesis, and sandbox, sample and synthetic data are named as such.</p>
     </div>
     <div class="works">
-      <a class="work reveal" href="projects/garage-voice-agent.html">
+      <article class="work reveal">
         <div>
           <div class="meta"><span class="tag ver">v0.1.0</span><span class="tag confirmed">Live app</span></div>
           <h3>Garage Voice Agent</h3>
           <p class="on">Voice AI, agent platform, guardrails and evals</p>
-          <p class="desc">A voice agent for a made-up garage with every layer visible: speech, intent, routing, guardrails and tools. Evals with simulated speech errors and a release gate, and new agents deployed from config only after they pass their tests.</p>
-        </div>
-        <span class="go" aria-hidden="true">→</span>
-      </a>
-      <a class="work reveal" href="projects/room-mapping-lab.html">
+          <dl class="ps"><div><dt>Problem</dt><dd>Voice agents are hard to trust when you can't see why they said what they said.</dd></div><div><dt>Solution</dt><dd>A voice agent for a made-up garage with every step visible, tested against simulated speech errors before each release.</dd></div></dl>
+          <div class="work-actions"><a class="btn primary small" href="https://kostasxeras.com/garage-voice-agent/" target="_blank" rel="noopener">Open the app <span class="arrow">↗</span></a><a class="btn small" href="projects/garage-voice-agent.html">Project details</a></div>
+        </div></article>
+      <article class="work reveal">
         <div>
           <div class="meta"><span class="tag ver">v0.2.0</span><span class="tag confirmed">Live app</span></div>
           <h3>Room Mapping Lab</h3>
           <p class="on">Hotel content, room mapping, LiteAPI sandbox</p>
-          <p class="desc">Supplier room names against master rooms for 187 hotels from the LiteAPI sandbox: three matching methods scored against LiteAPI's own mapping, five data checks, and the confidence threshold turned into a business decision.</p>
-        </div>
-        <span class="go" aria-hidden="true">→</span>
-      </a>
-      <a class="work reveal" href="projects/smog-planner.html">
+          <dl class="ps"><div><dt>Problem</dt><dd>Supplier room names don't match a hotel's own room list, so guests can end up with the wrong room.</dd></div><div><dt>Solution</dt><dd>Three matching methods scored on 187 LiteAPI sandbox hotels, with the confidence threshold set as a business decision.</dd></div></dl>
+          <div class="work-actions"><a class="btn primary small" href="https://kostasxeras.com/room-mapping-lab/" target="_blank" rel="noopener">Open the app <span class="arrow">↗</span></a><a class="btn small" href="projects/room-mapping-lab.html">Project details</a></div>
+        </div></article>
+      <article class="work reveal">
         <div>
           <div class="meta"><span class="tag ver">v0.1.1</span><span class="tag confirmed">Live app</span></div>
           <h3>Smog Planner</h3>
           <p class="on">Polish market, live public data, Kraków</p>
-          <p class="desc">Hourly PM2.5 and PM10 from Kraków's official stations, a 3-day forecast checked against the measurements, and the best hours for a run, a walk with a child or airing the flat.</p>
-        </div>
-        <span class="go" aria-hidden="true">→</span>
-      </a>
-      <a class="work reveal" href="projects/bez-belki.html">
+          <dl class="ps"><div><dt>Problem</dt><dd>Kraków's air is often bad, and it's hard to know when it's fine to go outside.</dd></div><div><dt>Solution</dt><dd>Hourly readings from official stations and a checked forecast that show the best hours for a run or a walk.</dd></div></dl>
+          <div class="work-actions"><a class="btn primary small" href="https://kostasxeras.com/smog-planner/" target="_blank" rel="noopener">Open the app <span class="arrow">↗</span></a><a class="btn small" href="projects/smog-planner.html">Project details</a></div>
+        </div></article>
+      <article class="work reveal">
         <div>
           <div class="meta"><span class="tag ver">v0.1.0</span><span class="tag confirmed">Live app</span></div>
           <h3>Bez Belki</h3>
           <p class="on">Polish market, personal finance and tax</p>
-          <p class="desc">A calculator for Poland's new personal investment account from 2027: the yearly tax on value above the 25,000 and 100,000 zł limits, against the 19% Belka tax on a regular account, year by year.</p>
-        </div>
-        <span class="go" aria-hidden="true">→</span>
-      </a>
-      <a class="work reveal" href="projects/zero-to-launch.html">
+          <dl class="ps"><div><dt>Problem</dt><dd>Poland's new investment account starts in 2027, and few people know what it will save them.</dd></div><div><dt>Solution</dt><dd>A calculator that compares its yearly tax with the 19% Belka tax, year by year.</dd></div></dl>
+          <div class="work-actions"><a class="btn primary small" href="https://kostasxeras.com/bez-belki/" target="_blank" rel="noopener">Open the app <span class="arrow">↗</span></a><a class="btn small" href="projects/bez-belki.html">Project details</a></div>
+        </div></article>
+      <article class="work reveal">
         <div>
           <div class="meta"><span class="tag ver">v0.1.0</span><span class="tag confirmed">Live app</span></div>
           <h3>Zero to Launch</h3>
           <p class="on">End-to-end case study, couples and money</p>
-          <p class="desc">One idea from research to launch plan: Our Money, a shared budget for couples that keeps personal spending private. Six stages, evidence marked at each, and a working prototype.</p>
-        </div>
-        <span class="go" aria-hidden="true">→</span>
-      </a>
-      <a class="work reveal" href="projects/now-next-later.html">
+          <dl class="ps"><div><dt>Problem</dt><dd>Couples who share some money and keep some private have no budget app that fits.</dd></div><div><dt>Solution</dt><dd>One idea taken from research to a launch plan in six stages, with a working prototype.</dd></div></dl>
+          <div class="work-actions"><a class="btn primary small" href="https://kostasxeras.com/zero-to-launch/" target="_blank" rel="noopener">Open the app <span class="arrow">↗</span></a><a class="btn small" href="projects/zero-to-launch.html">Project details</a></div>
+        </div></article>
+      <article class="work reveal">
         <div>
           <div class="meta"><span class="tag ver">v0.1.0</span><span class="tag confirmed">Live app</span></div>
           <h3>Now Next Later</h3>
           <p class="on">Product roadmap, Spend Lens</p>
-          <p class="desc">A 12-month roadmap for Spend Lens: strategy and bets, 16 initiatives scored with RICE, ICE or value and effort, capacity, dependencies and a quarter plan that moves when you change a score.</p>
-        </div>
-        <span class="go" aria-hidden="true">→</span>
-      </a>
-      <a class="work reveal" href="projects/missing-feature.html">
+          <dl class="ps"><div><dt>Problem</dt><dd>Roadmaps often hide why one initiative comes before another.</dd></div><div><dt>Solution</dt><dd>A 12-month roadmap for Spend Lens where 16 scored initiatives and team capacity set the quarter plan.</dd></div></dl>
+          <div class="work-actions"><a class="btn primary small" href="https://kostasxeras.com/now-next-later/" target="_blank" rel="noopener">Open the app <span class="arrow">↗</span></a><a class="btn small" href="projects/now-next-later.html">Project details</a></div>
+        </div></article>
+      <article class="work reveal">
         <div>
           <div class="meta"><span class="tag ver">v0.1.0</span><span class="tag confirmed">Live app</span></div>
           <h3>Missing Feature</h3>
           <p class="on">Feature proposal, marketplace car parts</p>
-          <p class="desc">A feature proposal with a clickable phone prototype: My Garage reads the car from the query and labels every part with whether it fits. Spec, sizing model and launch plan.</p>
-        </div>
-        <span class="go" aria-hidden="true">→</span>
-      </a>
-      <a class="work reveal" href="projects/listening-tour.html">
+          <dl class="ps"><div><dt>Problem</dt><dd>Shoppers on a car parts marketplace can't easily tell whether a part fits their car.</dd></div><div><dt>Solution</dt><dd>A feature proposal with a clickable phone prototype that labels every part with whether it fits.</dd></div></dl>
+          <div class="work-actions"><a class="btn primary small" href="https://kostasxeras.com/missing-feature/" target="_blank" rel="noopener">Open the app <span class="arrow">↗</span></a><a class="btn small" href="projects/missing-feature.html">Project details</a></div>
+        </div></article>
+      <article class="work reveal">
         <div>
           <div class="meta"><span class="tag ver">v0.1.0</span><span class="tag confirmed">Live app</span></div>
           <h3>Listening Tour</h3>
           <p class="on">User research, couples and money</p>
-          <p class="desc">A user research kit: interview guide with a question checker, notes marked as quote or paraphrase, a labelled public-review proxy from five money apps, and a synthesis board.</p>
-        </div>
-        <span class="go" aria-hidden="true">→</span>
-      </a>
-      <a class="work reveal" href="projects/second-look.html">
+          <dl class="ps"><div><dt>Problem</dt><dd>Interview notes pile up, and quotes get mixed with paraphrase.</dd></div><div><dt>Solution</dt><dd>A research kit with an interview guide, notes marked quote or paraphrase, and a synthesis board.</dd></div></dl>
+          <div class="work-actions"><a class="btn primary small" href="https://kostasxeras.com/listening-tour/" target="_blank" rel="noopener">Open the app <span class="arrow">↗</span></a><a class="btn small" href="projects/listening-tour.html">Project details</a></div>
+        </div></article>
+      <article class="work reveal">
         <div>
           <div class="meta"><span class="tag ver">v0.1.0</span><span class="tag confirmed">Live app</span></div>
           <h3>Second Look</h3>
           <p class="on">Product teardown, Allegro search</p>
-          <p class="desc">A teardown of Allegro search for car parts, built on eight logged queries: the car named in the query barely changes the results. Journey, test log, scorecard and a redesign.</p>
-        </div>
-        <span class="go" aria-hidden="true">→</span>
-      </a>
-      <a class="work reveal" href="projects/spec-critic.html">
+          <dl class="ps"><div><dt>Problem</dt><dd>On Allegro, the car named in a parts search barely changes the results.</dd></div><div><dt>Solution</dt><dd>A teardown built on eight logged queries, with a scorecard and a redesign.</dd></div></dl>
+          <div class="work-actions"><a class="btn primary small" href="https://kostasxeras.com/second-look/" target="_blank" rel="noopener">Open the app <span class="arrow">↗</span></a><a class="btn small" href="projects/second-look.html">Project details</a></div>
+        </div></article>
+      <article class="work reveal">
         <div>
           <div class="meta"><span class="tag ver">v0.1.0</span><span class="tag confirmed">Live app</span></div>
           <h3>Spec Critic</h3>
           <p class="on">AI product, product specs</p>
-          <p class="desc">Paste a product spec and get the review an engineering lead would give: six scores, issues tied to exact lines, refinement questions and a rewrite. Uses the visitor's own Claude API key, or a labelled demo.</p>
-        </div>
-        <span class="go" aria-hidden="true">→</span>
-      </a>
-      <a class="work reveal" href="projects/test-plan-studio.html">
+          <dl class="ps"><div><dt>Problem</dt><dd>Weak product specs reach engineering and cost time in refinement.</dd></div><div><dt>Solution</dt><dd>Paste a spec and get scores, issues tied to exact lines, open questions and a rewrite.</dd></div></dl>
+          <div class="work-actions"><a class="btn primary small" href="https://kostasxeras.com/spec-critic/" target="_blank" rel="noopener">Open the app <span class="arrow">↗</span></a><a class="btn small" href="projects/spec-critic.html">Project details</a></div>
+        </div></article>
+      <article class="work reveal">
         <div>
           <div class="meta"><span class="tag ver">v0.1.0</span><span class="tag confirmed">Live app</span></div>
           <h3>Test Plan Studio</h3>
           <p class="on">Experimentation, A/B testing</p>
-          <p class="desc">Design an A/B test before launch: hypothesis, sample size and duration, guardrails, a simulation of why peeking fools you, a result reader with a sample ratio check, and a written test plan.</p>
-        </div>
-        <span class="go" aria-hidden="true">→</span>
-      </a>
-      <a class="work reveal" href="projects/north-star-map.html">
+          <dl class="ps"><div><dt>Problem</dt><dd>Many A/B tests are planned badly or read too early.</dd></div><div><dt>Solution</dt><dd>Plan the test before launch: sample size, duration, guardrails and a written plan, plus a result reader.</dd></div></dl>
+          <div class="work-actions"><a class="btn primary small" href="https://kostasxeras.com/test-plan-studio/" target="_blank" rel="noopener">Open the app <span class="arrow">↗</span></a><a class="btn small" href="projects/test-plan-studio.html">Project details</a></div>
+        </div></article>
+      <article class="work reveal">
         <div>
           <div class="meta"><span class="tag ver">v0.1.0</span><span class="tag confirmed">Live app</span></div>
           <h3>North Star Map</h3>
           <p class="on">Product metrics, Duolingo public data</p>
-          <p class="desc">An interactive metrics tree for Duolingo: daily active users as the North Star, 15 input metrics with sourced public values, and a simulator of Duolingo's published growth model.</p>
-        </div>
-        <span class="go" aria-hidden="true">→</span>
-      </a>
-      <a class="work reveal" href="projects/funnel-fix.html">
+          <dl class="ps"><div><dt>Problem</dt><dd>Teams track many metrics without seeing how they add up.</dd></div><div><dt>Solution</dt><dd>A metrics tree for Duolingo with daily active users at the top and 15 sourced input metrics.</dd></div></dl>
+          <div class="work-actions"><a class="btn primary small" href="https://kostasxeras.com/north-star-map/" target="_blank" rel="noopener">Open the app <span class="arrow">↗</span></a><a class="btn small" href="projects/north-star-map.html">Project details</a></div>
+        </div></article>
+      <article class="work reveal">
         <div>
           <div class="meta"><span class="tag ver">v0.1.0</span><span class="tag confirmed">Live app</span></div>
           <h3>Funnel Fix</h3>
           <p class="on">Growth experiment, marketplace data</p>
-          <p class="desc">A growth experiment on real Olist data: only 2% of happy customers buy again. Funnel, segments, an experiment spec, a sample size calculator and the economics of a free-shipping offer.</p>
-        </div>
-        <span class="go" aria-hidden="true">→</span>
-      </a>
-      <a class="work reveal" href="projects/query-to-decision.html">
+          <dl class="ps"><div><dt>Problem</dt><dd>Only 2% of happy Olist customers buy a second time.</dd></div><div><dt>Solution</dt><dd>Funnel, segments and an experiment spec, with the economics of a free-shipping offer.</dd></div></dl>
+          <div class="work-actions"><a class="btn primary small" href="https://kostasxeras.com/funnel-fix/" target="_blank" rel="noopener">Open the app <span class="arrow">↗</span></a><a class="btn small" href="projects/funnel-fix.html">Project details</a></div>
+        </div></article>
+      <article class="work reveal">
         <div>
           <div class="meta"><span class="tag ver">v0.1.0</span><span class="tag confirmed">Live app</span></div>
           <h3>Query to Decision</h3>
           <p class="on">SQL product analysis, marketplace data</p>
-          <p class="desc">Ten SQL queries on 100,000 real Olist marketplace orders, run in your browser, that trace bad reviews to late deliveries and end in a decision about delivery promises.</p>
-        </div>
-        <span class="go" aria-hidden="true">→</span>
-      </a>
-      <a class="work reveal" href="projects/pipeline-pulse.html">
+          <dl class="ps"><div><dt>Problem</dt><dd>Bad marketplace reviews can have many causes.</dd></div><div><dt>Solution</dt><dd>Ten SQL queries on 100,000 real Olist orders that trace them to late deliveries and end in a decision.</dd></div></dl>
+          <div class="work-actions"><a class="btn primary small" href="https://kostasxeras.com/query-to-decision/" target="_blank" rel="noopener">Open the app <span class="arrow">↗</span></a><a class="btn small" href="projects/query-to-decision.html">Project details</a></div>
+        </div></article>
+      <article class="work reveal">
         <div>
           <div class="meta"><span class="tag ver">v0.1.0</span><span class="tag confirmed">Live app</span></div>
           <h3>Pipeline Pulse</h3>
           <p class="on">Sales operations, CRM data</p>
-          <p class="desc">Drop in a CRM export and get the weekly sales review: new pipeline, wins, a stage-weighted forecast against target, deals going quiet, and a summary to paste.</p>
-        </div>
-        <span class="go" aria-hidden="true">→</span>
-      </a>
-      <a class="work reveal" href="projects/spend-lens.html">
+          <dl class="ps"><div><dt>Problem</dt><dd>Preparing the weekly sales review from a CRM export is slow, manual work.</dd></div><div><dt>Solution</dt><dd>Drop in the export and get new pipeline, wins, a forecast against target and deals going quiet.</dd></div></dl>
+          <div class="work-actions"><a class="btn primary small" href="https://kostasxeras.com/pipeline-pulse/" target="_blank" rel="noopener">Open the app <span class="arrow">↗</span></a><a class="btn small" href="projects/pipeline-pulse.html">Project details</a></div>
+        </div></article>
+      <article class="work reveal">
         <div>
           <div class="meta"><span class="tag ver">v0.1.0</span><span class="tag confirmed">Live app</span></div>
           <h3>Spend Lens</h3>
           <p class="on">Personal finance, bank data</p>
-          <p class="desc">Import a bank CSV, Polish formats included, and see spending by category against budgets, warnings while there is time to act, and every regular payment.</p>
-        </div>
-        <span class="go" aria-hidden="true">→</span>
-      </a>
-      <a class="work reveal" href="projects/impact-journal.html">
+          <dl class="ps"><div><dt>Problem</dt><dd>A bank export lists transactions but doesn't show where the money goes.</dd></div><div><dt>Solution</dt><dd>Import a bank CSV, Polish formats included, and see spending by category, budget warnings and regular payments.</dd></div></dl>
+          <div class="work-actions"><a class="btn primary small" href="https://kostasxeras.com/spend-lens/" target="_blank" rel="noopener">Open the app <span class="arrow">↗</span></a><a class="btn small" href="projects/spend-lens.html">Project details</a></div>
+        </div></article>
+      <article class="work reveal">
         <div>
           <div class="meta"><span class="tag ver">v0.1.0</span><span class="tag confirmed">Live app</span></div>
           <h3>Impact Journal</h3>
           <p class="on">Career, review preparation</p>
-          <p class="desc">Log each win with what it changed. The dashboard shows which skills your record is missing, and the review builder turns it into a self-review or CV bullets from your own words.</p>
-        </div>
-        <span class="go" aria-hidden="true">→</span>
-      </a>
-      <a class="work reveal" href="projects/daily-huddle.html">
+          <dl class="ps"><div><dt>Problem</dt><dd>At review time, people forget most of what they achieved.</dd></div><div><dt>Solution</dt><dd>Log each win with what it changed, then turn the record into a self-review or CV bullets.</dd></div></dl>
+          <div class="work-actions"><a class="btn primary small" href="https://kostasxeras.com/impact-journal/" target="_blank" rel="noopener">Open the app <span class="arrow">↗</span></a><a class="btn small" href="projects/impact-journal.html">Project details</a></div>
+        </div></article>
+      <article class="work reveal">
         <div>
           <div class="meta"><span class="tag ver">v0.1.0</span><span class="tag confirmed">Live app</span></div>
           <h3>Daily Huddle</h3>
           <p class="on">Team rituals, standups</p>
-          <p class="desc">A fair speaking order by default, a visible timer per person, blockers and parked topics captured, and a history that shows whether the standup is getting shorter.</p>
-        </div>
-        <span class="go" aria-hidden="true">→</span>
-      </a>
-      <a class="work reveal" href="projects/focus-ledger.html">
+          <dl class="ps"><div><dt>Problem</dt><dd>Standups run long and the same people always speak first.</dd></div><div><dt>Solution</dt><dd>A fair speaking order, a timer per person, and a history that shows whether standups get shorter.</dd></div></dl>
+          <div class="work-actions"><a class="btn primary small" href="https://kostasxeras.com/daily-huddle/" target="_blank" rel="noopener">Open the app <span class="arrow">↗</span></a><a class="btn small" href="projects/daily-huddle.html">Project details</a></div>
+        </div></article>
+      <article class="work reveal">
         <div>
           <div class="meta"><span class="tag ver">v0.1.0</span><span class="tag confirmed">Live app</span></div>
           <h3>Focus Ledger</h3>
           <p class="on">Personal productivity, time tracking</p>
-          <p class="desc">One tap per task switch, a daily focus goal, and a week split into focus, meetings and admin, with insights like longest focus block and meeting-heavy days.</p>
-        </div>
-        <span class="go" aria-hidden="true">→</span>
-      </a>
-      <a class="work reveal" href="projects/layer-forecast.html">
+          <dl class="ps"><div><dt>Problem</dt><dd>It's hard to know how much of a day went to focused work.</dd></div><div><dt>Solution</dt><dd>One tap per task switch, a daily focus goal and a weekly split of focus, meetings and admin.</dd></div></dl>
+          <div class="work-actions"><a class="btn primary small" href="https://kostasxeras.com/focus-ledger/" target="_blank" rel="noopener">Open the app <span class="arrow">↗</span></a><a class="btn small" href="projects/focus-ledger.html">Project details</a></div>
+        </div></article>
+      <article class="work reveal">
         <div>
           <div class="meta"><span class="tag ver">v0.1.0</span><span class="tag confirmed">Live app</span></div>
           <h3>Layer Forecast</h3>
           <p class="on">Weather, personalisation</p>
-          <p class="desc">The forecast for the hours you are actually outside, adjusted for how you travel, and tuned to whether you run cold by one tap a day.</p>
-        </div>
-        <span class="go" aria-hidden="true">→</span>
-      </a>
-      <a class="work reveal" href="projects/churn-early-warning.html">
+          <dl class="ps"><div><dt>Problem</dt><dd>Weather apps forecast the whole day, not the hours you are outside.</dd></div><div><dt>Solution</dt><dd>A forecast for your hours outdoors, adjusted for how you travel and whether you run cold.</dd></div></dl>
+          <div class="work-actions"><a class="btn primary small" href="https://kostasxeras.com/layer-forecast/" target="_blank" rel="noopener">Open the app <span class="arrow">↗</span></a><a class="btn small" href="projects/layer-forecast.html">Project details</a></div>
+        </div></article>
+      <article class="work reveal">
         <div>
           <div class="meta"><span class="tag ver">v0.1.0</span><span class="tag confirmed">Live results</span></div>
           <h3>Churn Early Warning</h3>
           <p class="on">Retention, 7,043 sample customers</p>
-          <p class="desc">Who should be on a retention list of a fixed size? A 5 flag checklist gets within 2 points of the model. List size matters more than the method, and the model's numbers can be used to plan.</p>
-        </div>
-        <span class="go" aria-hidden="true">→</span>
-      </a>
-      <a class="work reveal" href="projects/help-center-search-check.html">
+          <dl class="ps"><div><dt>Problem</dt><dd>A retention team can only contact so many customers.</dd></div><div><dt>Solution</dt><dd>A 5 flag checklist against a model on 7,043 sample customers. The checklist gets within 2 points.</dd></div></dl>
+          <div class="work-actions"><a class="btn primary small" href="https://kostasxeras.com/churn-early-warning/" target="_blank" rel="noopener">See the results <span class="arrow">↗</span></a><a class="btn small" href="projects/churn-early-warning.html">Project details</a></div>
+        </div></article>
+      <article class="work reveal">
         <div>
           <div class="meta"><span class="tag ver">v0.1.0</span><span class="tag confirmed">Live results</span></div>
           <h3>Help Center Search Check</h3>
           <p class="on">Search quality, 1,201 rated questions</p>
-          <p class="desc">Keyword, AI and hybrid search on 7,117 help articles. The hybrid gets a good answer in the top 3 for 64% to 73% of questions. Questions worded differently from the article are where search fails.</p>
-        </div>
-        <span class="go" aria-hidden="true">→</span>
-      </a>
-      <a class="work reveal" href="projects/recommendation-lab.html">
+          <dl class="ps"><div><dt>Problem</dt><dd>A help center chatbot is only as good as the search under it.</dd></div><div><dt>Solution</dt><dd>Keyword, AI and hybrid search on 7,117 articles. The hybrid finds a good answer in the top 3 for 64% to 73% of questions.</dd></div></dl>
+          <div class="work-actions"><a class="btn primary small" href="https://kostasxeras.com/help-center-search-check/" target="_blank" rel="noopener">See the results <span class="arrow">↗</span></a><a class="btn small" href="projects/help-center-search-check.html">Project details</a></div>
+        </div></article>
+      <article class="work reveal">
         <div>
           <div class="meta"><span class="tag ver">v0.1.0</span><span class="tag confirmed">Live results</span></div>
           <h3>Recommendation Lab</h3>
           <p class="on">Discovery, 6 million book ratings</p>
-          <p class="desc">Bestsellers, "readers also liked" and a taste profile model on 10,000 readers. Starting from the last 3 books a reader liked found their next book 4 times as often as using their whole history.</p>
-        </div>
-        <span class="go" aria-hidden="true">→</span>
-      </a>
-      <a class="work reveal" href="projects/duplicate-product-finder.html">
+          <dl class="ps"><div><dt>Problem</dt><dd>"Readers also liked" lists often miss what a reader wants next.</dd></div><div><dt>Solution</dt><dd>Three methods on 10,000 readers. Starting from the last 3 books liked found the next book 4 times as often.</dd></div></dl>
+          <div class="work-actions"><a class="btn primary small" href="https://kostasxeras.com/recommendation-lab/" target="_blank" rel="noopener">See the results <span class="arrow">↗</span></a><a class="btn small" href="projects/recommendation-lab.html">Project details</a></div>
+        </div></article>
+      <article class="work reveal">
         <div>
           <div class="meta"><span class="tag ver">v0.1.0</span><span class="tag confirmed">Live results</span></div>
           <h3>Duplicate Product Finder</h3>
           <p class="on">Catalogue and master data quality</p>
-          <p class="desc">Which duplicate products can be merged without a person? 77% of candidate pairs close automatically, mostly by keeping them apart. A general AI model knows "similar", not "same".</p>
-        </div>
-        <span class="go" aria-hidden="true">→</span>
-      </a>
-      <a class="work reveal" href="projects/voice-of-the-customer-analyzer.html">
+          <dl class="ps"><div><dt>Problem</dt><dd>Duplicate listings clutter a catalogue, but merging the wrong pair is costly.</dd></div><div><dt>Solution</dt><dd>Decides which pairs can be handled without a person. 77% of candidate pairs close automatically.</dd></div></dl>
+          <div class="work-actions"><a class="btn primary small" href="https://kostasxeras.com/duplicate-product-finder/" target="_blank" rel="noopener">See the results <span class="arrow">↗</span></a><a class="btn small" href="projects/duplicate-product-finder.html">Project details</a></div>
+        </div></article>
+      <article class="work reveal">
         <div>
           <div class="meta"><span class="tag ver">v0.1.0</span><span class="tag confirmed">Live results</span></div>
           <h3>Voice of the Customer Analyzer</h3>
           <p class="on">Customer reviews, local AI model</p>
-          <p class="desc">Finds what makes shoppers say they would not recommend a product. Fit is the biggest cause (31.5% of unhappy reviews against 9.2% of happy ones), and keyword counting hides it.</p>
-        </div>
-        <span class="go" aria-hidden="true">→</span>
-      </a>
-      <a class="work reveal" href="projects/catalog-attribute-extractor.html">
+          <dl class="ps"><div><dt>Problem</dt><dd>Keyword counts hide why shoppers would not recommend a product.</dd></div><div><dt>Solution</dt><dd>Groups reviews by theme. Fit is the biggest cause: 31.5% of unhappy reviews against 9.2% of happy ones.</dd></div></dl>
+          <div class="work-actions"><a class="btn primary small" href="https://kostasxeras.com/Voice-of-the-customer-analyzer/" target="_blank" rel="noopener">See the results <span class="arrow">↗</span></a><a class="btn small" href="projects/voice-of-the-customer-analyzer.html">Project details</a></div>
+        </div></article>
+      <article class="work reveal">
         <div>
           <div class="meta"><span class="tag ver">v0.1.0</span><span class="tag">n8n</span><span class="tag confirmed">Run live with Claude</span></div>
           <h3>Catalog Attribute Extractor</h3>
           <p class="on">n8n, Claude, WANDS catalogue</p>
-          <p class="desc">Fills missing shop filters from product text with Claude and checks every value. On 259 real products, values both Claude and a keyword matcher agree on are right 88% of the time.</p>
-        </div>
-        <span class="go" aria-hidden="true">→</span>
-      </a>
-      <a class="work reveal" href="projects/experiment-readout.html">
+          <dl class="ps"><div><dt>Problem</dt><dd>Products with missing attributes disappear when shoppers use filters.</dd></div><div><dt>Solution</dt><dd>Claude fills the values from product text in n8n. Values it and a keyword matcher agree on are right 88% of the time.</dd></div></dl>
+          <div class="work-actions"><a class="btn primary small" href="https://kostasxeras.com/catalog-attribute-extractor/" target="_blank" rel="noopener">See the results <span class="arrow">↗</span></a><a class="btn small" href="projects/catalog-attribute-extractor.html">Project details</a></div>
+        </div></article>
+      <article class="work reveal">
         <div>
           <div class="meta"><span class="tag ver">v0.1.0</span><span class="tag confirmed">Live demo</span></div>
           <h3>Experiment Readout</h3>
           <p class="on">A/B testing, two public test datasets</p>
-          <p class="desc">Checks an A/B test before reading it, then gives a ship, don't ship, run longer or fix the data first call. It blocks a public game test on a failed split check (p = 0.0086).</p>
-        </div>
-        <span class="go" aria-hidden="true">→</span>
-      </a>
-      <a class="work reveal" href="projects/zero-results-fixer.html">
+          <dl class="ps"><div><dt>Problem</dt><dd>A/B test results often get read before anyone checks the data.</dd></div><div><dt>Solution</dt><dd>Checks the test first, then gives a ship, don't ship, run longer or fix the data call.</dd></div></dl>
+          <div class="work-actions"><a class="btn primary small" href="https://kostasxeras.com/experiment-readout/" target="_blank" rel="noopener">Open the app <span class="arrow">↗</span></a><a class="btn small" href="projects/experiment-readout.html">Project details</a></div>
+        </div></article>
+      <article class="work reveal">
         <div>
           <div class="meta"><span class="tag ver">v0.3.0</span><span class="tag">n8n</span><span class="tag confirmed">Run live with Claude</span></div>
           <h3>Zero Results Fixer</h3>
           <p class="on">n8n, Claude, Search Relevance Lab</p>
-          <p class="desc">Finds shop searches that return nothing, has Claude propose and test a fix, and lets a person approve it. Run live on 60 real searches, the AI fixes lost to a simple fix without AI (nDCG 0.566 against 0.642).</p>
-        </div>
-        <span class="go" aria-hidden="true">→</span>
-      </a>
-      <a class="work reveal" href="projects/confidence-gate-lab.html">
+          <dl class="ps"><div><dt>Problem</dt><dd>Shop searches that return nothing lose the shopper.</dd></div><div><dt>Solution</dt><dd>Claude proposes and tests fixes in n8n and a person approves them. On 60 real searches, a simple fix without AI scored higher.</dd></div></dl>
+          <div class="work-actions"><a class="btn primary small" href="https://github.com/costasxeras-stack/zero-results-fixer" target="_blank" rel="noopener">See the workflows <span class="arrow">↗</span></a><a class="btn small" href="projects/zero-results-fixer.html">Project details</a></div>
+        </div></article>
+      <article class="work reveal">
         <div>
           <div class="meta"><span class="tag ver">v0.1.0</span><span class="tag confirmed">Live demo</span></div>
           <h3>Confidence Gate Lab</h3>
           <p class="on">AI evaluation, Banking77 dataset</p>
-          <p class="desc">When should an AI answer on its own, and when should a person check? At 2% wrong answers, the better model automates 67.0% of 3,080 real questions against 55.1%.</p>
-        </div>
-        <span class="go" aria-hidden="true">→</span>
-      </a>
-      <a class="work reveal" href="projects/search-relevance-lab.html">
+          <dl class="ps"><div><dt>Problem</dt><dd>An AI that answers every question will get some of them wrong.</dd></div><div><dt>Solution</dt><dd>Sets when AI answers alone and when a person checks. At 2% wrong answers, the better model automates 67.0% of 3,080 questions.</dd></div></dl>
+          <div class="work-actions"><a class="btn primary small" href="https://kostasxeras.com/confidence-gate-lab/" target="_blank" rel="noopener">Open the app <span class="arrow">↗</span></a><a class="btn small" href="projects/confidence-gate-lab.html">Project details</a></div>
+        </div></article>
+      <article class="work reveal">
         <div>
           <div class="meta"><span class="tag ver">v0.1.0</span><span class="tag confirmed">Live demo</span></div>
           <h3>Search Relevance Lab</h3>
           <p class="on">BM25, sentence embeddings, open WANDS dataset</p>
-          <p class="desc">How much does each step up in product search buy? One query, run through keyword, semantic and reranked search on 42,994 products, scored against labels made by people.</p>
-        </div>
-        <span class="go" aria-hidden="true">→</span>
-      </a>
-      <a class="work reveal" href="projects/review-radar.html">
+          <dl class="ps"><div><dt>Problem</dt><dd>Teams pay for better search models without knowing what each step adds.</dd></div><div><dt>Solution</dt><dd>Keyword, semantic and reranked search on 42,994 products, scored against labels made by people.</dd></div></dl>
+          <div class="work-actions"><a class="btn primary small" href="https://search-relevance-lab.onrender.com" target="_blank" rel="noopener">Open the app <span class="arrow">↗</span></a><a class="btn small" href="projects/search-relevance-lab.html">Project details</a></div>
+        </div></article>
+      <article class="work reveal">
         <div>
           <div class="meta"><span class="tag ver">v0.1.1</span><span class="tag confirmed">Live demo</span></div>
           <h3>Review Radar</h3>
           <p class="on">Claude API, App Store and Google Play reviews</p>
-          <p class="desc">Turns thousands of app reviews across stores, countries and languages into ranked themes, with the original reviews behind every rank.</p>
-        </div>
-        <span class="go" aria-hidden="true">→</span>
-      </a>
-      <a class="work reveal" href="projects/garage-quote-agent.html">
+          <dl class="ps"><div><dt>Problem</dt><dd>Thousands of app reviews across stores and languages are too many to read.</dd></div><div><dt>Solution</dt><dd>Claude groups them into ranked themes, with the original reviews behind every rank.</dd></div></dl>
+          <div class="work-actions"><a class="btn primary small" href="https://reviews.kostasxeras.com" target="_blank" rel="noopener">Open the app <span class="arrow">↗</span></a><a class="btn small" href="projects/review-radar.html">Project details</a></div>
+        </div></article>
+      <article class="work reveal">
         <div>
           <div class="meta"><span class="tag ver">v0.2.0</span><span class="tag">Tested, no pilot yet</span></div>
           <h3>Garage Quote Agent</h3>
           <p class="on">n8n, Claude, WhatsApp</p>
-          <p class="desc">Answers car repair price requests from WhatsApp in seconds. AI reads the message, the garage's own price book sets the price, and the owner approves anything unclear.</p>
-        </div>
-        <span class="go" aria-hidden="true">→</span>
-      </a>
-      <a class="work reveal" href="projects/kostastravel.html">
+          <dl class="ps"><div><dt>Problem</dt><dd>Garages lose customers when price quotes on WhatsApp take too long.</dd></div><div><dt>Solution</dt><dd>AI reads the request, the garage's own price book sets the price, and the owner approves anything unclear.</dd></div></dl>
+          <div class="work-actions"><a class="btn primary small" href="https://github.com/costasxeras-stack/Garage-quote-agent" target="_blank" rel="noopener">See the workflows <span class="arrow">↗</span></a><a class="btn small" href="projects/garage-quote-agent.html">Project details</a></div>
+        </div></article>
+      <article class="work reveal">
         <div>
           <div class="meta"><span class="tag ver">v1.4.2</span><span class="tag confirmed">Live demo</span></div>
           <h3>KostasTravel</h3>
           <p class="on">Nuitee LiteAPI, room mapping and content quality</p>
-          <p class="desc">A hotel booking site and a room mapping explorer on the same travel API. 533 of 533 rates were mapped, yet guests could still see the wrong room or an empty one.</p>
-        </div>
-        <span class="go" aria-hidden="true">→</span>
-      </a>
-      <div class="work soon reveal">
+          <dl class="ps"><div><dt>Problem</dt><dd>A hotel can have every rate mapped and still show guests the wrong room.</dd></div><div><dt>Solution</dt><dd>A booking site and room mapping explorer on LiteAPI. 533 of 533 rates were mapped, yet wrong or empty rooms still showed.</dd></div></dl>
+          <div class="work-actions"><a class="btn primary small" href="https://kostastravel.onrender.com" target="_blank" rel="noopener">Open the app <span class="arrow">↗</span></a><a class="btn small" href="projects/kostastravel.html">Project details</a></div>
+        </div></article>
+      <article class="work soon reveal">
         <div>
           <div class="meta"><span class="tag hypothesis">In progress</span></div>
           <h3>Rental Health Check</h3>
           <p class="on">Property, Kraków</p>
-          <p class="desc">For people who rent out flats in Kraków: rental yield and profit, the flat's current value, and what selling would leave you with, side by side. Repo and demo coming soon.</p>
+          <dl class="ps"><div><dt>Problem</dt><dd>People who rent out flats in Kraków can't see yield, current value and what selling would leave them in one place.</dd></div><div><dt>Solution</dt><dd>All three side by side. Repo and demo coming soon.</dd></div></dl>
         </div>
-      </div>
+      </article>
     </div>
 
     <ul class="method reveal" aria-label="What every project documents">

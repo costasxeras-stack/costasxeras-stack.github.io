@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.18.0 (23 November 2026)
+
+### Changed
+- Project cards: a short problem and solution on each card, an "Open the app" button that goes straight to the live app (or the results page or workflows), and a "Project details" button for the project page.
+- My work heading reworded to "Prototypes I built, and the choices behind them."
+- About: the last line now says I am fascinated by the possibilities of AI and points to the prototypes below.
+- Experience: Welltrado and Teleperformance Hellas have their own rows, and both are in the About facts.
+
 ## 2.17.3 (22 November 2026)
 
 ### Fixed

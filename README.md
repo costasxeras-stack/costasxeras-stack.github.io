@@ -2,7 +2,7 @@
 
 **My portfolio site, served free by GitHub Pages at https://kostasxeras.com.**
 
-**Current version:** 2.17.3
+**Current version:** 2.18.0
 
 Plain HTML and CSS, no build step. The custom domain is set by the `CNAME` file, and https://costasxeras-stack.github.io redirects there.
 
@@ -17,6 +17,6 @@ Plain HTML and CSS, no build step. The custom domain is set by the `CNAME` file,
 
 ## How to add a project
 
-1. Copy one `<a class="work">` block in `index.html` and edit it.
+1. Copy one `<article class="work">` block in `index.html` and edit the problem, solution and both button links.
 2. Copy a page in `projects/`, rename it, and edit the text.
 3. Update the "Previous" and "Next" links at the bottom of the neighbouring project pages.

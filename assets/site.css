@@ -303,3 +303,12 @@ figcaption{font-size:14px;color:var(--faint);margin-top:8px}
 .course-side .asof{grid-column:1/-1;color:var(--faint);font-size:12.5px}
 .job .logo.mono{display:grid;place-items:center;color:#0b0d12;font:700 20px var(--display)}
 
+
+/* project cards: problem and solution, two buttons (2.18.0) */
+.work{grid-template-columns:1fr}
+.work .ps{margin:16px 0 0;display:grid;gap:10px;max-width:72ch}
+.work .ps div{display:grid;grid-template-columns:84px 1fr;gap:12px;font-size:16px}
+.work .ps dt{color:var(--faint);font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;padding-top:3px}
+.work .ps dd{margin:0;color:var(--muted)}
+.work-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+@media (max-width:640px){.work .ps div{grid-template-columns:1fr;gap:2px}.work-actions .btn{flex:1 1 auto;justify-content:center}}
