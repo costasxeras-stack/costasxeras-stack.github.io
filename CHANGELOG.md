@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.20.0 (23 November 2026)
+
+### Changed
+- Six more apps redesigned, each with its own look: Help Center Search Check, Recommendation Lab, Catalog Attribute Extractor, Spec Critic and Duplicate Product Finder at v0.2.0, Room Mapping Lab at v0.3.0. New screenshots on their cards and project pages.
+- Screenshots of Confidence Gate Lab, Garage Voice Agent and Search Relevance Lab retaken with each app's own fonts.
+
 ## 2.19.4 (23 November 2026)
 
 ### Changed
