@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.19.2 (23 November 2026)
+
+### Changed
+- Confidence Gate Lab, Garage Voice Agent and Search Relevance Lab at v0.2.0, each with its own new design. New screenshots on the cards, in the "Start here" row and on their project pages.
+
 ## 2.19.1 (23 November 2026)
 
 ### Changed
