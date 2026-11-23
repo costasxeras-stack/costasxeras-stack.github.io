@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.19.1 (23 November 2026)
+
+### Changed
+- Genuine Parts Company and Kimberly-Clark logos stored on the site instead of loading from Google's icon service. Only Stibo Systems still loads from Google, with its initials as a fallback.
+
 ## 2.19.0 (23 November 2026)
 
 ### Added
