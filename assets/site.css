@@ -367,3 +367,14 @@ figcaption{font-size:14px;color:var(--faint);margin-top:8px}
 .cert-group details .less,.cert-group details[open] .more{display:none}
 .cert-group details[open] .less{display:inline}
 .cert-group details ul{margin-top:12px}
+
+/* 2.19.4: certificate sections as dropdowns */
+details.cert-group{padding:20px 22px}
+details.cert-group summary{list-style:none;cursor:pointer;display:grid;gap:10px}
+details.cert-group summary::-webkit-details-marker{display:none}
+details.cert-group .cg-head{border-bottom:0;padding-bottom:0;display:grid;gap:2px}
+details.cert-group .cg-name{font:700 17px/1.2 var(--display)}
+.cg-open{color:var(--accent);font-weight:600;font-size:14px}
+.cg-open .less,details[open] .cg-open .more{display:none}
+details[open] .cg-open .less{display:inline}
+details.cert-group > ul{margin-top:14px;border-top:1px solid var(--line);padding-top:14px}

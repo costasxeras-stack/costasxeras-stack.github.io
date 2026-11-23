@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.19.4 (23 November 2026)
+
+### Changed
+- Certificates: each section shows only its name and count. "Show titles" opens the full list for that section.
+
 ## 2.19.3 (23 November 2026)
 
 ### Changed
